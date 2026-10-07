@@ -41,6 +41,20 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* Mouse-following warm glow */
+    .mouse-glow {
+      position: fixed;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,168,130,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+    .mouse-glow.active { opacity: 1; }
+
     /* Subtle warm ambient */
     .ambient {
       position: fixed;
@@ -95,7 +109,16 @@
     }
 
     .nav-logo:hover svg {
-      transform: rotate(-10deg) scale(1.1);
+      animation: chicken-peck 0.6s ease;
+    }
+
+    @keyframes chicken-peck {
+      0% { transform: rotate(0) translateY(0); }
+      20% { transform: rotate(10deg) translateY(3px); }
+      40% { transform: rotate(-5deg) translateY(-1px); }
+      60% { transform: rotate(8deg) translateY(2px); }
+      80% { transform: rotate(-3deg) translateY(0); }
+      100% { transform: rotate(0) translateY(0); }
     }
 
     .nav-links { display: flex; gap: 24px; list-style: none; }
@@ -106,9 +129,24 @@
       font-size: 13px;
       letter-spacing: 0.02em;
       transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
     }
 
     .nav-links a:hover { color: var(--text-dim); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Active nav highlight */
+    .nav-links a.active { color: var(--accent); }
+    .nav-links a.active::after { width: 100%; }
 
     /* Hero — literary, warm */
     .hero {
@@ -123,6 +161,20 @@
       margin-bottom: 20px;
       opacity: 0;
       animation: fade-up 0.8s ease forwards 0.2s;
+    }
+
+    /* Typing cursor */
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--accent);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
     }
 
     .hero h1 {
@@ -187,6 +239,23 @@
       color: var(--text-dim);
       text-decoration: none;
       transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-pill::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: var(--accent-dim);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s ease, height 0.5s ease;
+    }
+
+    .link-pill:hover::before {
+      width: 200px; height: 200px;
     }
 
     .link-pill:hover {
@@ -194,7 +263,8 @@
       color: var(--accent);
     }
 
-    .link-pill svg { width: 14px; height: 14px; fill: currentColor; }
+    .link-pill svg { width: 14px; height: 14px; fill: currentColor; position: relative; }
+    .link-pill span { position: relative; }
 
     /* Section */
     section { padding: 56px 0; }
@@ -235,7 +305,18 @@
 
     .now-items { display: flex; flex-direction: column; gap: 20px; }
 
-    .now-item { display: flex; gap: 14px; align-items: flex-start; }
+    .now-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .now-card.visible .now-item { opacity: 1; transform: translateX(0); }
+    .now-card.visible .now-item:nth-child(1) { transition-delay: 0.1s; }
+    .now-card.visible .now-item:nth-child(2) { transition-delay: 0.2s; }
+    .now-card.visible .now-item:nth-child(3) { transition-delay: 0.3s; }
+    .now-card.visible .now-item:nth-child(4) { transition-delay: 0.4s; }
 
     .now-marker {
       width: 6px; height: 6px;
@@ -244,9 +325,22 @@
       flex-shrink: 0;
     }
 
-    .now-marker.doing { background: var(--green); box-shadow: 0 0 6px rgba(126,201,160,0.3); }
-    .now-marker.thinking { background: var(--accent); box-shadow: 0 0 6px rgba(196,168,130,0.3); }
-    .now-marker.exploring { background: var(--blue); box-shadow: 0 0 6px rgba(139,173,201,0.3); }
+    .now-marker.doing { background: var(--green); animation: pulse-green 2s ease-in-out infinite; }
+    .now-marker.thinking { background: var(--accent); animation: pulse-gold 2.5s ease-in-out infinite; }
+    .now-marker.exploring { background: var(--blue); animation: pulse-blue 3s ease-in-out infinite; }
+
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 4px rgba(126,201,160,0.3); }
+      50% { box-shadow: 0 0 12px rgba(126,201,160,0.6); }
+    }
+    @keyframes pulse-gold {
+      0%, 100% { box-shadow: 0 0 4px rgba(196,168,130,0.3); }
+      50% { box-shadow: 0 0 12px rgba(196,168,130,0.6); }
+    }
+    @keyframes pulse-blue {
+      0%, 100% { box-shadow: 0 0 4px rgba(139,173,201,0.3); }
+      50% { box-shadow: 0 0 12px rgba(139,173,201,0.6); }
+    }
 
     .now-text strong {
       display: block;
@@ -280,13 +374,25 @@
       text-decoration: none;
       color: var(--text);
       transition: all 0.3s;
+      position: relative;
     }
 
     .writing-item:first-child { border-top: 1px solid var(--border); }
 
     .writing-item:hover { padding-left: 8px; }
 
-    .writing-info { display: flex; flex-direction: column; gap: 3px; }
+    .writing-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent-dim), transparent);
+      transition: width 0.4s ease;
+    }
+
+    .writing-item:hover::before { width: 100%; }
+
+    .writing-info { display: flex; flex-direction: column; gap: 3px; position: relative; }
 
     .writing-title {
       font-size: 15px; font-weight: 400;
@@ -341,6 +447,17 @@
       white-space: nowrap;
     }
 
+    /* Staggered reveal for writing items */
+    .writing-item.stagger {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease, padding 0.3s, color 0.3s;
+    }
+    .writing-item.stagger.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* ===== BUILDS ===== */
     .build-list { display: flex; flex-direction: column; gap: 12px; }
 
@@ -354,13 +471,14 @@
       border-radius: 10px;
       text-decoration: none;
       color: var(--text);
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
     .build-item:hover {
       border-color: rgba(196,168,130,0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(196,168,130,0.1);
     }
 
     .build-icon {
@@ -370,7 +488,10 @@
       display: flex; align-items: center; justify-content: center;
       background: var(--surface-2);
       border-radius: 8px;
+      transition: transform 0.3s ease;
     }
+
+    .build-item:hover .build-icon { transform: scale(1.15) rotate(-5deg); }
 
     .build-info { flex: 1; }
 
@@ -405,19 +526,25 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+      will-change: transform;
+      cursor: default;
     }
 
     .collection-card:hover {
       border-color: rgba(196,168,130,0.25);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(196,168,130,0.08);
     }
 
     .c-emoji {
       font-size: 24px;
       margin-bottom: 12px;
+      display: inline-block;
+      transition: transform 0.3s ease;
     }
+
+    .collection-card:hover .c-emoji { transform: scale(1.2); }
 
     .collection-card h3 {
       font-size: 15px; font-weight: 500;
@@ -428,6 +555,78 @@
       font-size: 13px;
       color: var(--text-muted);
       line-height: 1.6;
+    }
+
+    /* ===== SUBSCRIBE CTA ===== */
+    .subscribe-section {
+      text-align: center;
+      padding: 64px 0;
+    }
+
+    .subscribe-card {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .subscribe-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(196,168,130,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .subscribe-card h3 {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .subscribe-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 400px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    .subscribe-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      border-radius: 100px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .subscribe-btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(196,168,130,0.25);
+    }
+
+    .subscribe-hint {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      position: relative;
     }
 
     /* Footer */
@@ -466,6 +665,17 @@
       transform: translateY(0);
     }
 
+    /* Nav scroll progress bar */
+    .scroll-progress {
+      position: fixed;
+      top: 52px; left: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      z-index: 101;
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
@@ -479,41 +689,33 @@
       .writing-meta-row { align-self: flex-start; }
       .footer-inner { flex-direction: column; gap: 8px; }
       .nav-links { gap: 16px; }
+      .mouse-glow { display: none; }
+      .subscribe-card { padding: 36px 20px; }
     }
   </style>
 </head>
 <body>
+  <div class="mouse-glow" id="mouseGlow"></div>
   <div class="ambient"></div>
   <div class="ambient-2"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <nav>
     <div class="container">
       <a class="nav-logo" href="/"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- body -->
           <ellipse cx="50" cy="58" rx="30" ry="28" fill="#f5d76e"/>
-          <!-- belly highlight -->
           <ellipse cx="50" cy="64" rx="20" ry="18" fill="#fae9a0"/>
-          <!-- left wing -->
           <ellipse cx="24" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(-15 24 56)"/>
-          <!-- right wing -->
           <ellipse cx="76" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(15 76 56)"/>
-          <!-- head -->
           <circle cx="50" cy="30" r="20" fill="#f5d76e"/>
-          <!-- blush left -->
           <ellipse cx="36" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
-          <!-- blush right -->
           <ellipse cx="64" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
-          <!-- left eye -->
           <circle cx="42" cy="28" r="3.5" fill="#2d2520"/>
           <circle cx="43" cy="27" r="1.2" fill="white"/>
-          <!-- right eye -->
           <circle cx="58" cy="28" r="3.5" fill="#2d2520"/>
           <circle cx="59" cy="27" r="1.2" fill="white"/>
-          <!-- beak -->
           <path d="M46 34 L50 40 L54 34 Z" fill="#e8874a"/>
-          <!-- tiny comb -->
           <path d="M43 12 Q45 8 48 12 Q50 7 52 12 Q54 8 57 12 Q55 14 50 14 Q45 14 43 12Z" fill="#e85a4a"/>
-          <!-- feet -->
           <path d="M38 84 L34 92 M38 84 L38 93 M38 84 L42 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
           <path d="M62 84 L58 92 M62 84 L62 93 M62 84 L66 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
         </svg> daac</a>
@@ -530,7 +732,7 @@
 
     <!-- ===== HERO ===== -->
     <header class="hero">
-      <p class="hero-greeting">Previously, on daac&hellip;</p>
+      <p class="hero-greeting"><span id="typingText"></span><span class="typing-cursor"></span></p>
       <h1>A data scientist who <em>grew up predicting the next line</em> in Hong Kong dramas.</h1>
       <p class="hero-bio">
         I design metrics that tell the truth, run experiments that settle arguments, and build AI agents that do the boring work.
@@ -543,9 +745,9 @@
       <div class="hero-links">
         <a class="link-pill" href="https://github.com/daac-solo">
           <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-          GitHub
+          <span>GitHub</span>
         </a>
-        <a class="link-pill" href="#writing">Read my writing</a>
+        <a class="link-pill" href="#writing"><span>Read my writing</span></a>
       </div>
     </header>
 
@@ -554,7 +756,7 @@
     <!-- ===== NOW ===== -->
     <section id="now" class="reveal">
       <p class="section-label">Open cases</p>
-      <div class="now-card">
+      <div class="now-card" id="nowCard">
         <div class="now-items">
           <div class="now-item">
             <div class="now-marker doing"></div>
@@ -597,7 +799,7 @@
         <p class="section-label">Writing & Thinking</p>
       </div>
       <div class="writing-list">
-        <a class="writing-item" href="#">
+        <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title">FearOS: 你的内耗是一套操作系统</span>
             <span class="writing-tags">self-awareness &middot; mental models</span>
@@ -608,7 +810,7 @@
             <span class="writing-date">soon</span>
           </div>
         </a>
-        <a class="writing-item" href="#">
+        <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title">I went from chatting with AI to running 6 autonomous agents</span>
             <span class="writing-tags">AI &middot; workflows &middot; origin story</span>
@@ -619,7 +821,7 @@
             <span class="writing-date">soon</span>
           </div>
         </a>
-        <a class="writing-item" href="#">
+        <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title">Explaining 81&times;81 to a gifted kid</span>
             <span class="writing-tags">parenting &middot; math &middot; teaching</span>
@@ -630,7 +832,7 @@
             <span class="writing-date">soon</span>
           </div>
         </a>
-        <a class="writing-item" href="#">
+        <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title">The AI metrics trap</span>
             <span class="writing-tags">data science &middot; AI &middot; product</span>
@@ -641,7 +843,7 @@
             <span class="writing-date">soon</span>
           </div>
         </a>
-        <a class="writing-item" href="#">
+        <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title">新 PM 上任第一件事就要换指标</span>
             <span class="writing-tags">product &middot; metrics &middot; real story</span>
@@ -652,7 +854,7 @@
             <span class="writing-date">soon</span>
           </div>
         </a>
-        <a class="writing-item" href="#">
+        <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title">AI 不是工具，是关系</span>
             <span class="writing-tags">AI &middot; philosophy</span>
@@ -663,7 +865,7 @@
             <span class="writing-date">soon</span>
           </div>
         </a>
-        <a class="writing-item" href="#">
+        <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title">看得懂是第一层，做得到是第十层</span>
             <span class="writing-tags">life &middot; self-awareness</span>
@@ -686,7 +888,7 @@
         <a class="section-more" href="https://github.com/daac-solo">all projects &rarr;</a>
       </div>
       <div class="build-list">
-        <a class="build-item" href="https://github.com/daac-solo/Pause">
+        <a class="build-item tilt-card" href="https://github.com/daac-solo/Pause">
           <div class="build-icon">&#9208;</div>
           <div class="build-info">
             <h4>Pause</h4>
@@ -694,7 +896,7 @@
           </div>
           <span class="build-lang">Swift</span>
         </a>
-        <a class="build-item" href="https://github.com/daac-solo/social-observer">
+        <a class="build-item tilt-card" href="https://github.com/daac-solo/social-observer">
           <div class="build-icon">&#128065;</div>
           <div class="build-info">
             <h4>social-observer</h4>
@@ -702,7 +904,7 @@
           </div>
           <span class="build-lang">Python</span>
         </a>
-        <a class="build-item" href="https://github.com/daac-solo/caffeine-sleep-calculator">
+        <a class="build-item tilt-card" href="https://github.com/daac-solo/caffeine-sleep-calculator">
           <div class="build-icon">&#9749;</div>
           <div class="build-info">
             <h4>caffeine-sleep</h4>
@@ -710,7 +912,7 @@
           </div>
           <span class="build-lang">JS</span>
         </a>
-        <a class="build-item" href="https://github.com/daac-solo/QuantumDiary">
+        <a class="build-item tilt-card" href="https://github.com/daac-solo/QuantumDiary">
           <div class="build-icon">&#128214;</div>
           <div class="build-info">
             <h4>QuantumDiary</h4>
@@ -727,26 +929,41 @@
     <section id="collection" class="reveal">
       <p class="section-label">Things I collect</p>
       <div class="collection-grid">
-        <div class="collection-card">
+        <div class="collection-card tilt-card">
           <div class="c-emoji">&#129302;</div>
           <h3>AI tools I actually use</h3>
           <p>Not hype. Tools that stuck after the novelty wore off.</p>
         </div>
-        <div class="collection-card">
+        <div class="collection-card tilt-card">
           <div class="c-emoji">&#128218;</div>
           <h3>Reading list</h3>
           <p>Books, articles, and threads that changed how I think.</p>
         </div>
-        <div class="collection-card">
+        <div class="collection-card tilt-card">
           <div class="c-emoji">&#128161;</div>
           <h3>Cool discoveries</h3>
           <p>Products, ideas, and random things that made me go "whoa".</p>
         </div>
-        <div class="collection-card">
+        <div class="collection-card tilt-card">
           <div class="c-emoji">&#128300;</div>
           <h3>Life experiments</h3>
           <p>What I tried, what worked, what didn't. With data.</p>
         </div>
+      </div>
+    </section>
+
+    <div class="line"></div>
+
+    <!-- ===== SUBSCRIBE ===== -->
+    <section class="subscribe-section reveal">
+      <div class="subscribe-card">
+        <h3>Stay in the loop</h3>
+        <p>New episodes, experiments, and things I find interesting. No spam, unsubscribe anytime.</p>
+        <a class="subscribe-btn" href="#">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Subscribe
+        </a>
+        <p class="subscribe-hint">Newsletter coming soon</p>
       </div>
     </section>
 
@@ -762,12 +979,37 @@
   </footer>
 
   <script>
+    // Scroll-triggered reveals
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    // Staggered writing items
+    const staggerObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const items = document.querySelectorAll('.writing-item.stagger');
+          items.forEach((item, i) => {
+            setTimeout(() => item.classList.add('visible'), i * 80);
+          });
+          staggerObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const writingSection = document.getElementById('writing');
+    if (writingSection) staggerObserver.observe(writingSection);
+
+    // Now card stagger
+    const nowObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.2 });
+    const nowCard = document.getElementById('nowCard');
+    if (nowCard) nowObserver.observe(nowCard);
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         e.preventDefault();
@@ -775,6 +1017,64 @@
         if (t) t.scrollIntoView({ behavior: 'smooth' });
       });
     });
+
+    // Typing animation for hero greeting
+    const typingEl = document.getElementById('typingText');
+    const text = 'Previously, on daac…';
+    let charIndex = 0;
+    function typeChar() {
+      if (charIndex < text.length) {
+        typingEl.textContent += text[charIndex];
+        charIndex++;
+        setTimeout(typeChar, 60 + Math.random() * 40);
+      }
+    }
+    setTimeout(typeChar, 400);
+
+    // Mouse-following glow
+    const glow = document.getElementById('mouseGlow');
+    let glowActive = false;
+    document.addEventListener('mousemove', e => {
+      if (!glowActive) { glow.classList.add('active'); glowActive = true; }
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    // 3D tilt on cards
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-2px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    // Scroll progress bar
+    const progressBar = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total > 0) progressBar.style.width = (scrolled / total * 100) + '%';
+    }, { passive: true });
+
+    // Active nav highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    }, { passive: true });
   </script>
 </body>
 </html>
