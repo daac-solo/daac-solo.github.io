@@ -1084,46 +1084,151 @@
       transition: width 0.1s linear;
     }
 
-    /* Easter egg */
-    .easter-egg-overlay {
+    /* ===== EASTER EGG — ORIGIN STORY ===== */
+    .egg-scene {
       position: fixed;
       inset: 0;
       z-index: 9998;
       pointer-events: none;
+      opacity: 0;
+    }
+    .egg-scene.active { opacity: 1; pointer-events: all; }
+
+    /* Screen shake */
+    @keyframes screen-shake {
+      0%,100% { transform: translate(0,0) rotate(0); }
+      10% { transform: translate(-4px,2px) rotate(-0.3deg); }
+      20% { transform: translate(4px,-2px) rotate(0.3deg); }
+      30% { transform: translate(-3px,3px) rotate(-0.2deg); }
+      40% { transform: translate(3px,-1px) rotate(0.2deg); }
+      50% { transform: translate(-2px,2px) rotate(-0.1deg); }
+      60% { transform: translate(2px,-2px) rotate(0.1deg); }
+      70% { transform: translate(-1px,1px); }
+      80% { transform: translate(1px,-1px); }
+    }
+    body.shaking { animation: screen-shake 0.5s ease; }
+
+    /* Cracks */
+    .egg-cracks {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .crack-line {
+      position: absolute;
+      background: var(--accent);
+      transform-origin: center center;
+      opacity: 0;
+      box-shadow: 0 0 8px rgba(196,168,130,0.6), 0 0 20px rgba(196,168,130,0.3);
+    }
+
+    .crack-line.show {
+      opacity: 1;
+      animation: crack-grow 0.3s ease-out forwards;
+    }
+
+    @keyframes crack-grow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    /* Golden light through cracks */
+    .egg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%),
+        rgba(245,215,110,0.0) 0%, transparent 50%);
+      pointer-events: none;
+      transition: background 0.8s ease;
+    }
+    .egg-glow.lit {
+      background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%),
+        rgba(245,215,110,0.15) 0%, rgba(196,168,130,0.05) 30%, transparent 60%);
+    }
+
+    /* Shell fragments falling */
+    .shell-shard {
+      position: fixed;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    @keyframes shard-fall {
+      0% { opacity: 1; transform: translate(0,0) rotate(0deg); }
+      100% { opacity: 0; transform: translate(var(--sx), 110vh) rotate(var(--sr)); }
+    }
+
+    /* Story overlay */
+    .egg-story {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      background: #060608;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-    .easter-egg-overlay.show { opacity: 1; }
-
-    .easter-egg-text {
-      font-family: var(--serif);
-      font-size: clamp(20px, 5vw, 36px);
-      color: var(--accent);
-      text-align: center;
-      text-shadow: 0 0 40px rgba(196,168,130,0.3);
-      animation: egg-float 2s ease-in-out infinite;
-    }
-
-    @keyframes egg-float {
-      0%,100% { transform: translateY(0) rotate(-1deg); }
-      50% { transform: translateY(-10px) rotate(1deg); }
-    }
-
-    .confetti {
-      position: fixed;
-      width: 8px; height: 8px;
+      padding: 40px;
       pointer-events: none;
-      z-index: 9997;
-      animation: confetti-fall linear forwards;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .egg-story.active { opacity: 1; pointer-events: all; }
+
+    .story-line {
+      font-family: var(--serif);
+      font-size: clamp(16px, 3.5vw, 24px);
+      color: rgba(196,168,130,0);
+      text-align: center;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 8px;
+      transition: color 1s ease;
+      white-space: pre-line;
+    }
+    .story-line.visible { color: var(--accent); }
+    .story-line.dim { color: var(--text-muted); }
+
+    .story-line em {
+      font-style: italic;
+      color: var(--text);
     }
 
-    @keyframes confetti-fall {
-      0% { opacity: 1; transform: translateY(0) rotate(0deg); }
-      100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+    .story-chicken {
+      width: 80px; height: 80px;
+      margin-top: 24px;
+      opacity: 0;
+      transition: opacity 1s ease, transform 1s ease;
+      transform: scale(0.5);
     }
+    .story-chicken.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .story-skip {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 100px;
+      cursor: pointer;
+      z-index: 10002;
+      display: none;
+      font-family: var(--sans);
+      transition: all 0.3s;
+    }
+    .story-skip.active { display: block; }
+    .story-skip:hover { border-color: var(--accent); color: var(--accent); }
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
@@ -1147,7 +1252,36 @@
   <div class="grain"></div>
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
-  <div class="easter-egg-overlay" id="easterEgg"><div class="easter-egg-text"></div></div>
+  <div class="egg-scene" id="eggScene">
+    <div class="egg-cracks" id="eggCracks"></div>
+    <div class="egg-glow" id="eggGlow"></div>
+  </div>
+  <div class="egg-story" id="eggStory">
+    <div class="story-line">Once upon a time, there was a chicken.</div>
+    <div class="story-line">Everyone said it was dumb.</div>
+    <div class="story-line">但这只鸡不在乎。</div>
+    <div class="story-line">It just kept pecking —</div>
+    <div class="story-line">at code, at ideas, at things that didn't make sense yet.</div>
+    <div class="story-line">&nbsp;</div>
+    <div class="story-line">有一天，它造了一个东西。</div>
+    <div class="story-line">&nbsp;</div>
+    <div class="story-line"><em>You're looking at it.</em></div>
+    <svg class="story-chicken" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="58" rx="30" ry="28" fill="#f5d76e"/><ellipse cx="50" cy="64" rx="20" ry="18" fill="#fae9a0"/>
+      <ellipse cx="24" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(-15 24 56)"/>
+      <ellipse cx="76" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(15 76 56)"/>
+      <circle cx="50" cy="30" r="20" fill="#f5d76e"/>
+      <ellipse cx="36" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
+      <ellipse cx="64" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
+      <circle cx="42" cy="28" r="3.5" fill="#2d2520"/><circle cx="43" cy="27" r="1.2" fill="white"/>
+      <circle cx="58" cy="28" r="3.5" fill="#2d2520"/><circle cx="59" cy="27" r="1.2" fill="white"/>
+      <path d="M46 34 L50 40 L54 34 Z" fill="#e8874a"/>
+      <path d="M43 12 Q45 8 48 12 Q50 7 52 12 Q54 8 57 12 Q55 14 50 14 Q45 14 43 12Z" fill="#e85a4a"/>
+      <path d="M38 84 L34 92 M38 84 L38 93 M38 84 L42 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M62 84 L58 92 M62 84 L62 93 M62 84 L66 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <button class="story-skip" id="storySkip">skip</button>
   <div class="mouse-glow" id="mouseGlow"></div>
   <div class="ambient"></div>
   <div class="ambient-2"></div>
@@ -1852,46 +1986,147 @@
       });
     });
 
-    // Easter egg — click chicken 5 times
+    // Easter egg — click chicken 5 times → origin story
     let chickenClicks = 0;
     let chickenTimer;
-    const eggOverlay = document.getElementById('easterEgg');
-    const eggText = eggOverlay.querySelector('.easter-egg-text');
-    const eggMessages = [
-      'You found me! 🐣',
-      'dumb as a chicken,\nbrave as a lion.',
-      '文科底子，理科脑子\nchicken heart, human soul',
-    ];
+    let storyRunning = false;
+    const eggScene = document.getElementById('eggScene');
+    const eggCracks = document.getElementById('eggCracks');
+    const eggGlow = document.getElementById('eggGlow');
+    const eggStory = document.getElementById('eggStory');
+    const storySkip = document.getElementById('storySkip');
+    const storyLines = eggStory.querySelectorAll('.story-line');
+    const storyChicken = eggStory.querySelector('.story-chicken');
+    let storyTimeouts = [];
+
+    function clearStoryTimeouts() {
+      storyTimeouts.forEach(t => clearTimeout(t));
+      storyTimeouts = [];
+    }
+
+    function endStory() {
+      storyRunning = false;
+      clearStoryTimeouts();
+      eggScene.classList.remove('active');
+      eggGlow.classList.remove('lit');
+      eggStory.classList.remove('active');
+      storySkip.classList.remove('active');
+      document.body.classList.remove('shaking');
+      eggCracks.innerHTML = '';
+      document.querySelectorAll('.shell-shard').forEach(s => s.remove());
+      storyLines.forEach(l => { l.classList.remove('visible'); l.classList.remove('dim'); });
+      storyChicken.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+
+    function runStory() {
+      if (storyRunning) return;
+      storyRunning = true;
+      document.body.style.overflow = 'hidden';
+
+      const chickenRect = heroChicken.getBoundingClientRect();
+      const cx = chickenRect.left + chickenRect.width / 2;
+      const cy = chickenRect.top + chickenRect.height / 2;
+
+      // Phase 1: Screen shake
+      document.body.classList.add('shaking');
+
+      // Phase 2: Cracks radiate from chicken (after 200ms)
+      storyTimeouts.push(setTimeout(() => {
+        eggScene.classList.add('active');
+        eggGlow.style.setProperty('--gx', (cx / window.innerWidth * 100) + '%');
+        eggGlow.style.setProperty('--gy', (cy / window.innerHeight * 100) + '%');
+
+        for (let i = 0; i < 8; i++) {
+          const crack = document.createElement('div');
+          crack.className = 'crack-line';
+          const angle = (i / 8) * 360 + (Math.random() * 20 - 10);
+          const len = 100 + Math.random() * 200;
+          crack.style.left = cx + 'px';
+          crack.style.top = cy + 'px';
+          crack.style.width = len + 'px';
+          crack.style.height = (1 + Math.random()) + 'px';
+          crack.style.transform = `rotate(${angle}deg) scaleX(0)`;
+          crack.style.transformOrigin = '0 50%';
+          eggCracks.appendChild(crack);
+          setTimeout(() => {
+            crack.style.transition = 'transform 0.4s ease-out';
+            crack.style.transform = `rotate(${angle}deg) scaleX(1)`;
+            crack.style.opacity = '1';
+          }, i * 60);
+        }
+      }, 200));
+
+      // Phase 3: Golden glow intensifies (after 800ms)
+      storyTimeouts.push(setTimeout(() => {
+        eggGlow.classList.add('lit');
+      }, 800));
+
+      // Phase 4: Shell shards fall (after 1200ms)
+      storyTimeouts.push(setTimeout(() => {
+        document.body.classList.remove('shaking');
+        for (let i = 0; i < 12; i++) {
+          const shard = document.createElement('div');
+          shard.className = 'shell-shard';
+          const w = 30 + Math.random() * 80;
+          const h = 20 + Math.random() * 60;
+          shard.style.width = w + 'px';
+          shard.style.height = h + 'px';
+          shard.style.left = (Math.random() * 100) + 'vw';
+          shard.style.top = (Math.random() * 60) + 'vh';
+          shard.style.borderRadius = Math.random() * 8 + 'px';
+          shard.style.setProperty('--sx', (Math.random() * 100 - 50) + 'px');
+          shard.style.setProperty('--sr', (Math.random() * 360) + 'deg');
+          shard.style.animation = `shard-fall ${0.8 + Math.random() * 0.6}s ease-in forwards`;
+          shard.style.animationDelay = (i * 0.05) + 's';
+          document.body.appendChild(shard);
+          setTimeout(() => shard.remove(), 2000);
+        }
+      }, 1200));
+
+      // Phase 5: Story begins (after 2000ms)
+      storyTimeouts.push(setTimeout(() => {
+        eggScene.classList.remove('active');
+        eggGlow.classList.remove('lit');
+        eggCracks.innerHTML = '';
+        eggStory.classList.add('active');
+        storySkip.classList.add('active');
+
+        // Reveal lines one by one
+        storyLines.forEach((line, i) => {
+          storyTimeouts.push(setTimeout(() => {
+            // Dim previous lines slightly
+            storyLines.forEach((prev, j) => {
+              if (j < i && prev.textContent.trim()) prev.classList.add('dim');
+            });
+            line.classList.remove('dim');
+            line.classList.add('visible');
+          }, i * 1200));
+        });
+
+        // Show chicken after all lines
+        const chickenDelay = storyLines.length * 1200 + 400;
+        storyTimeouts.push(setTimeout(() => {
+          storyChicken.classList.add('visible');
+        }, chickenDelay));
+
+        // Auto close after story
+        storyTimeouts.push(setTimeout(() => {
+          endStory();
+        }, chickenDelay + 3000));
+      }, 2000));
+    }
+
+    storySkip.addEventListener('click', endStory);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && storyRunning) endStory(); });
 
     heroChicken.addEventListener('click', () => {
       chickenClicks++;
       clearTimeout(chickenTimer);
       chickenTimer = setTimeout(() => { chickenClicks = 0; }, 2000);
-
       if (chickenClicks >= 5) {
         chickenClicks = 0;
-        const msg = eggMessages[Math.floor(Math.random() * eggMessages.length)];
-        eggText.textContent = msg;
-        eggOverlay.classList.add('show');
-
-        // Confetti burst
-        const colors = ['#f5d76e', '#e85a4a', '#7ec9a0', '#8badc9', '#c98b9e', '#c4a882'];
-        for (let i = 0; i < 30; i++) {
-          const c = document.createElement('div');
-          c.className = 'confetti';
-          c.style.left = (Math.random() * 100) + 'vw';
-          c.style.top = '-10px';
-          c.style.background = colors[i % colors.length];
-          c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-          c.style.width = (5 + Math.random() * 6) + 'px';
-          c.style.height = c.style.width;
-          c.style.animationDuration = (1.5 + Math.random() * 2) + 's';
-          c.style.animationDelay = (Math.random() * 0.5) + 's';
-          document.body.appendChild(c);
-          setTimeout(() => c.remove(), 4000);
-        }
-
-        setTimeout(() => eggOverlay.classList.remove('show'), 3000);
+        runStory();
       }
     });
   </script>
