@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    body.lang-en .i18n-zh { display: none !important; }
+    body.lang-zh .i18n-en { display: none !important; }
 
     :root {
       --bg: #0c0c0e;
@@ -259,6 +261,15 @@
     /* Active nav highlight */
     .nav-links a.active { color: var(--accent); }
     .nav-links a.active::after { width: 100%; }
+
+    .lang-toggle {
+      background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--text-dim); font: 500 13px/1 var(--sans);
+      padding: 5px 12px; border-radius: 6px; cursor: pointer;
+      transition: color .2s, border-color .2s;
+      margin-left: 8px; white-space: nowrap;
+    }
+    .lang-toggle:hover { color: var(--accent); border-color: var(--accent); }
 
     /* Hero — literary, warm */
     .hero {
@@ -1699,15 +1710,15 @@
     <div class="egg-glow" id="eggGlow"></div>
   </div>
   <div class="egg-story" id="eggStory">
-    <div class="story-line">Once upon a time, there was a chicken.</div>
-    <div class="story-line">Everyone said it was dumb.</div>
-    <div class="story-line">但这只鸡不在乎。</div>
-    <div class="story-line">It just kept pecking —</div>
-    <div class="story-line">at code, at ideas, at things that didn't make sense yet.</div>
+    <div class="story-line"><span class="i18n-en">Once upon a time, there was a chicken.</span><span class="i18n-zh">从前，有一只鸡。</span></div>
+    <div class="story-line"><span class="i18n-en">Everyone said it was dumb.</span><span class="i18n-zh">所有人都说它很笨。</span></div>
+    <div class="story-line"><span class="i18n-en">But the chicken didn't care.</span><span class="i18n-zh">但这只鸡不在乎。</span></div>
+    <div class="story-line"><span class="i18n-en">It just kept pecking —</span><span class="i18n-zh">它就一直啄 —</span></div>
+    <div class="story-line"><span class="i18n-en">at code, at ideas, at things that didn't make sense yet.</span><span class="i18n-zh">啄代码、啄想法、啄还没想通的东西。</span></div>
     <div class="story-line">&nbsp;</div>
-    <div class="story-line">有一天，它造了一个东西。</div>
+    <div class="story-line"><span class="i18n-en">One day, it built something.</span><span class="i18n-zh">有一天，它造了一个东西。</span></div>
     <div class="story-line">&nbsp;</div>
-    <div class="story-line"><em>You're looking at it.</em></div>
+    <div class="story-line"><em><span class="i18n-en">You're looking at it.</span><span class="i18n-zh">你正在看它。</span></em></div>
     <svg class="story-chicken" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="50" cy="58" rx="30" ry="28" fill="#f5d76e"/><ellipse cx="50" cy="64" rx="20" ry="18" fill="#fae9a0"/>
       <ellipse cx="24" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(-15 24 56)"/>
@@ -1748,14 +1759,19 @@
           <path d="M38 84 L34 92 M38 84 L38 93 M38 84 L42 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
           <path d="M62 84 L58 92 M62 84 L62 93 M62 84 L66 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
         </svg> daac</a>
-      <ul class="nav-links">
-        <li><a href="#distill">Distill</a></li>
-        <li><a href="#now">Now</a></li>
-        <li><a href="#writing">Writing</a></li>
-        <li><a href="#builds">Builds</a></li>
-        <li><a href="#discoveries">Discoveries</a></li>
-        <li><a href="#collection">Collection</a></li>
-      </ul>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <ul class="nav-links">
+          <li><a href="#distill">Distill</a></li>
+          <li><a href="#now">Now</a></li>
+          <li><a href="#writing">Writing</a></li>
+          <li><a href="#builds">Builds</a></li>
+          <li><a href="#discoveries">Discoveries</a></li>
+          <li><a href="#collection">Collection</a></li>
+        </ul>
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+          <span class="i18n-en">中文</span><span class="i18n-zh">EN</span>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -1783,21 +1799,28 @@
         </svg>
       </div>
       <p class="hero-greeting"><span id="typingText"></span><span class="typing-cursor"></span></p>
-      <h1>A data scientist who <em>grew up predicting the next line</em> in Hong Kong dramas.</h1>
+      <h1>
+        <span class="i18n-en">A data scientist who <em>grew up predicting the next line</em> in Hong Kong dramas.</span>
+        <span class="i18n-zh">一个<em>看港剧猜下一句台词</em>长大的数据科学家。</span>
+      </h1>
       <p class="hero-bio">
-        I design metrics that tell the truth, run experiments that settle arguments, and build AI agents that do the boring work.
+        <span class="i18n-en">I design metrics that tell the truth, run experiments that settle arguments, and build AI agents that do the boring work.
         My logical thinking? Learned it doing Karate and BollyX dancing at the YMCA &mdash; <strong>basic techniques + permutations</strong>.
-        文科底子，理科脑子 &mdash; philosophy first, code second.
+        Humanities heart, engineering brain &mdash; philosophy first, code second.</span>
+        <span class="i18n-zh">我设计说真话的指标，做能定争议的实验，造帮我干活的 AI agent。
+        我的逻辑思维？在 YMCA 学空手道和 BollyX 舞蹈练出来的 &mdash; <strong>基本功 + 排列组合</strong>。
+        文科底子，理科脑子 &mdash; 哲学先行，代码随后。</span>
       </p>
       <p class="hero-footnote">
-        daac /dæk/ = dumb as a chicken. Sounds like duck. 我儿子给一只玩具小狗取名 duck，品牌就这么定了。
+        <span class="i18n-en">daac /dæk/ = dumb as a chicken. Sounds like duck. My kid named a toy puppy "duck" &mdash; the brand wrote itself.</span>
+        <span class="i18n-zh">daac /dæk/ = dumb as a chicken（笨得像只鸡）。听起来像 duck。我儿子给玩具小狗取名 "duck" &mdash; 品牌名就这么来了。</span>
       </p>
       <div class="hero-links">
         <a class="link-pill" href="https://github.com/daac-solo">
           <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
           <span>GitHub</span>
         </a>
-        <a class="link-pill" href="#writing"><span>Read my writing</span></a>
+        <a class="link-pill" href="#writing"><span><span class="i18n-en">Read my writing</span><span class="i18n-zh">看我的文章</span></span></a>
       </div>
     </header>
 
@@ -1810,25 +1833,25 @@
         <div class="de-compress" id="deCompress"></div>
         <div class="de-funnel" id="deFunnel">
           <div class="de-funnel-icon">&#9878;&#65039;</div>
-          <div class="de-funnel-label">Distilling...</div>
-          <div class="de-funnel-sub">100+ headlines &rarr; 3 that matter</div>
+          <div class="de-funnel-label"><span class="i18n-en">Distilling...</span><span class="i18n-zh">蒸馏中...</span></div>
+          <div class="de-funnel-sub"><span class="i18n-en">100+ headlines &rarr; 3 that matter</span><span class="i18n-zh">100+ 条新闻 &rarr; 3 条有价值的</span></div>
         </div>
         <div class="de-result" id="deResult">
           <div class="de-result-card" style="--d:0s"><div class="de-result-dot"></div><div class="de-result-text">AI cost down 60%, gains only 3%</div></div>
           <div class="de-result-card" style="--d:0.15s"><div class="de-result-dot" style="background:var(--green)"></div><div class="de-result-text">Korea exports +14% — canary sings</div></div>
           <div class="de-result-card" style="--d:0.3s"><div class="de-result-dot" style="background:var(--blue)"></div><div class="de-result-text">Platform shift: tools to ecosystems</div></div>
-          <div class="de-result-label" id="deLabel">This is distill. 信息蒸馏。</div>
+          <div class="de-result-label" id="deLabel"><span class="i18n-en">This is distill.</span><span class="i18n-zh">这就是信息蒸馏。</span></div>
         </div>
       </div>
       <div class="distill-header">
-        <p class="section-label">Today's Distill</p>
+        <p class="section-label"><span class="i18n-en">Today's Distill</span><span class="i18n-zh">今日蒸馏</span></p>
         <span class="distill-day" id="distillDay"></span>
       </div>
       <div class="distill-list" id="distillList">
-        <div class="distill-empty">Loading...</div>
+        <div class="distill-empty"><span class="i18n-en">Loading...</span><span class="i18n-zh">加载中...</span></div>
       </div>
       <div class="distill-cta">
-        <a href="https://daaclab.substack.com/" target="_blank" rel="noopener">每日完整版 + 深度分析 → Subscribe free for 30 days &rarr;</a>
+        <a href="https://daaclab.substack.com/" target="_blank" rel="noopener"><span class="i18n-en">Full daily edition + deep analysis &rarr; Subscribe free for 30 days</span><span class="i18n-zh">完整每日版 + 深度分析 &rarr; 免费订阅 30 天</span></a>
       </div>
     </section>
 
@@ -1836,39 +1859,39 @@
 
     <!-- ===== NOW ===== -->
     <section id="now" class="reveal">
-      <p class="section-label">Open cases</p>
+      <p class="section-label"><span class="i18n-en">Open cases</span><span class="i18n-zh">进行中</span></p>
       <div class="now-card" id="nowCard">
         <div class="now-items">
           <div class="now-item">
             <div class="now-marker doing"></div>
             <div class="now-text">
-              <strong>Case #001: Building this site in public</strong>
-              <span>Setting up my corner of the internet. Every commit is a clue.</span>
+              <strong><span class="i18n-en">Case #001: Building this site in public</span><span class="i18n-zh">案件 #001：公开建站</span></strong>
+              <span><span class="i18n-en">Setting up my corner of the internet. Every commit is a clue.</span><span class="i18n-zh">在互联网上搭一个自己的角落。每次提交都是一条线索。</span></span>
             </div>
           </div>
           <div class="now-item">
             <div class="now-marker doing"></div>
             <div class="now-text">
-              <strong>Case #002: Can AI agents replace half my job?</strong>
-              <span>Wiring LLMs into metric monitoring and root-cause analysis. The results are... interesting.</span>
+              <strong><span class="i18n-en">Case #002: Can AI agents replace half my job?</span><span class="i18n-zh">案件 #002：AI agent 能替代一半工作吗？</span></strong>
+              <span><span class="i18n-en">Wiring LLMs into metric monitoring and root-cause analysis. The results are... interesting.</span><span class="i18n-zh">把大模型接入指标监控和归因分析。结果嘛……有意思。</span></span>
             </div>
           </div>
           <div class="now-item">
             <div class="now-marker thinking"></div>
             <div class="now-text">
-              <strong>Case #003: 一步步来 — a philosophy of learning</strong>
-              <span>空手道 + BollyX dancing taught me: master the basics, then remix. Applies to everything.</span>
+              <strong><span class="i18n-en">Case #003: 一步步来 — a philosophy of learning</span><span class="i18n-zh">案件 #003：一步步来 — 一种学习哲学</span></strong>
+              <span><span class="i18n-en">Karate + BollyX dancing taught me: master the basics, then remix. Applies to everything.</span><span class="i18n-zh">空手道 + BollyX 舞蹈教会我的：先练好基本功，再自由组合。适用于一切。</span></span>
             </div>
           </div>
           <div class="now-item">
             <div class="now-marker exploring"></div>
             <div class="now-text">
-              <strong>Case #004: 131-day distill streak</strong>
-              <span>每天 3 条信息蒸馏。The internet is noisy. I'm building a filter.</span>
+              <strong><span class="i18n-en">Case #004: 131-day distill streak</span><span class="i18n-zh">案件 #004：连续蒸馏 131 天</span></strong>
+              <span><span class="i18n-en">3 distilled signals daily. The internet is noisy. I'm building a filter.</span><span class="i18n-zh">每天 3 条精炼信号。互联网太吵了，我在造过滤器。</span></span>
             </div>
           </div>
         </div>
-        <div class="now-date">Last updated: Oct 6, 2026</div>
+        <div class="now-date"><span class="i18n-en">Last updated: Oct 6, 2026</span><span class="i18n-zh">最后更新：2026年10月6日</span></div>
       </div>
     </section>
 
@@ -1877,14 +1900,14 @@
     <!-- ===== WRITING ===== -->
     <section id="writing" class="reveal">
       <div class="section-head">
-        <p class="section-label">Writing & Thinking</p>
+        <p class="section-label"><span class="i18n-en">Writing & Thinking</span><span class="i18n-zh">写作 & 思考</span></p>
       </div>
       <div class="writing-list">
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
-            <span class="writing-title">FearOS: 你的内耗是一套操作系统</span>
-            <span class="writing-tags">self-awareness &middot; mental models</span>
-            <span class="writing-hook">你以为是你在焦虑。其实是你脑子里的操作系统在自动运行。</span>
+            <span class="writing-title"><span class="i18n-en">FearOS: Your anxiety is an operating system</span><span class="i18n-zh">FearOS：你的焦虑是一个操作系统</span></span>
+            <span class="writing-tags"><span class="i18n-en">self-awareness &middot; mental models</span><span class="i18n-zh">自我认知 &middot; 思维模型</span></span>
+            <span class="writing-hook"><span class="i18n-en">You think you're anxious. Actually, there's an OS running in your head on autopilot.</span><span class="i18n-zh">你以为你在焦虑。其实是脑子里有个操作系统在自动运行。</span></span>
           </div>
           <div class="writing-meta-row">
             <span class="writing-ep">EP.01</span>
@@ -1893,9 +1916,9 @@
         </a>
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
-            <span class="writing-title">I went from chatting with AI to running 6 autonomous agents</span>
-            <span class="writing-tags">AI &middot; workflows &middot; origin story</span>
-            <span class="writing-hook">It started with "hey can you summarize this." Six months later, I had a team that never sleeps.</span>
+            <span class="writing-title"><span class="i18n-en">I went from chatting with AI to running 6 autonomous agents</span><span class="i18n-zh">从跟 AI 聊天到管理 6 个自主 agent</span></span>
+            <span class="writing-tags"><span class="i18n-en">AI &middot; workflows &middot; origin story</span><span class="i18n-zh">AI &middot; 工作流 &middot; 起源故事</span></span>
+            <span class="writing-hook"><span class="i18n-en">It started with "hey can you summarize this." Six months later, I had a team that never sleeps.</span><span class="i18n-zh">一开始只是"帮我总结一下"。半年后，我有了一支不睡觉的团队。</span></span>
           </div>
           <div class="writing-meta-row">
             <span class="writing-ep">EP.02</span>
@@ -1904,9 +1927,9 @@
         </a>
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
-            <span class="writing-title">一步步来：空手道和跳舞教我的方法论</span>
-            <span class="writing-tags">philosophy &middot; learning &middot; life</span>
-            <span class="writing-hook">在 YMCA 学空手道和 BollyX dancing 时想通了一件事：所有复杂的东西都是 basic technique + 排列组合。</span>
+            <span class="writing-title"><span class="i18n-en">Step by step: what Karate and dancing taught me</span><span class="i18n-zh">一步步来：空手道和舞蹈教会我的</span></span>
+            <span class="writing-tags"><span class="i18n-en">philosophy &middot; learning &middot; life</span><span class="i18n-zh">哲学 &middot; 学习 &middot; 人生</span></span>
+            <span class="writing-hook"><span class="i18n-en">At the YMCA doing Karate and BollyX, it clicked: everything complex is just basic techniques + permutations.</span><span class="i18n-zh">在 YMCA 练空手道和 BollyX 时顿悟：一切复杂的东西都是基本功 + 排列组合。</span></span>
           </div>
           <div class="writing-meta-row">
             <span class="writing-ep">EP.03</span>
@@ -1915,9 +1938,9 @@
         </a>
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
-            <span class="writing-title">The AI metrics trap</span>
-            <span class="writing-tags">data science &middot; AI &middot; product</span>
-            <span class="writing-hook">Everyone said the model was performing great. The dashboard agreed. The users didn't.</span>
+            <span class="writing-title"><span class="i18n-en">The AI metrics trap</span><span class="i18n-zh">AI 指标陷阱</span></span>
+            <span class="writing-tags"><span class="i18n-en">data science &middot; AI &middot; product</span><span class="i18n-zh">数据科学 &middot; AI &middot; 产品</span></span>
+            <span class="writing-hook"><span class="i18n-en">Everyone said the model was performing great. The dashboard agreed. The users didn't.</span><span class="i18n-zh">所有人都说模型表现很好。Dashboard 也同意。用户不同意。</span></span>
           </div>
           <div class="writing-meta-row">
             <span class="writing-ep">EP.04</span>
@@ -1926,9 +1949,9 @@
         </a>
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
-            <span class="writing-title">新 PM 上任第一件事就要换指标</span>
-            <span class="writing-tags">product &middot; metrics &middot; real story</span>
-            <span class="writing-hook">他第一周就说"这个指标不对"。所有人都觉得他在找麻烦。三个月后我们才发现他是对的。</span>
+            <span class="writing-title"><span class="i18n-en">The new PM's first move: change the metric</span><span class="i18n-zh">新 PM 上任第一件事：换指标</span></span>
+            <span class="writing-tags"><span class="i18n-en">product &middot; metrics &middot; real story</span><span class="i18n-zh">产品 &middot; 指标 &middot; 真实故事</span></span>
+            <span class="writing-hook"><span class="i18n-en">Week one, he said "this metric is wrong." Everyone thought he was picking fights. Three months later, we realized he was right.</span><span class="i18n-zh">第一周他说"这个指标是错的"。所有人觉得他在找茬。三个月后我们发现他是对的。</span></span>
           </div>
           <div class="writing-meta-row">
             <span class="writing-ep">EP.05</span>
@@ -1937,9 +1960,9 @@
         </a>
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
-            <span class="writing-title">AI 不是工具，是关系</span>
-            <span class="writing-tags">AI &middot; philosophy</span>
-            <span class="writing-hook">先是工具，然后是助手，然后是同事。最后你发现自己在跟它说谢谢。</span>
+            <span class="writing-title"><span class="i18n-en">AI is not a tool, it's a relationship</span><span class="i18n-zh">AI 不是工具，是一段关系</span></span>
+            <span class="writing-tags"><span class="i18n-en">AI &middot; philosophy</span><span class="i18n-zh">AI &middot; 哲学</span></span>
+            <span class="writing-hook"><span class="i18n-en">First a tool, then an assistant, then a colleague. Then you catch yourself saying thank you.</span><span class="i18n-zh">先是工具，再是助手，然后是同事。然后你发现自己开始说谢谢。</span></span>
           </div>
           <div class="writing-meta-row">
             <span class="writing-ep">EP.06</span>
@@ -1948,9 +1971,9 @@
         </a>
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
-            <span class="writing-title">看得懂是第一层，做得到是第十层</span>
-            <span class="writing-tags">life &middot; self-awareness</span>
-            <span class="writing-hook">你一直以为问题是不知道。其实你早就知道了。</span>
+            <span class="writing-title"><span class="i18n-en">Understanding is level 1. Doing is level 10.</span><span class="i18n-zh">看得懂是第 1 层，做得到是第 10 层</span></span>
+            <span class="writing-tags"><span class="i18n-en">life &middot; self-awareness</span><span class="i18n-zh">人生 &middot; 自我认知</span></span>
+            <span class="writing-hook"><span class="i18n-en">You always thought the problem was not knowing. You've known all along.</span><span class="i18n-zh">你一直以为问题出在不知道。其实你早就知道了。</span></span>
           </div>
           <div class="writing-meta-row">
             <span class="writing-ep">EP.07</span>
@@ -1959,9 +1982,9 @@
         </a>
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
-            <span class="writing-title">王杰教我的逻辑思维</span>
-            <span class="writing-tags">philosophy &middot; logical thinking &middot; origin story</span>
-            <span class="writing-hook">记者问他预计唱片销量多少，一个歌手的拆解比我后来学的商科还清楚。我的第一个 logical thinking 老师。</span>
+            <span class="writing-title"><span class="i18n-en">A pop star taught me logical thinking</span><span class="i18n-zh">一个歌星教会我逻辑思维</span></span>
+            <span class="writing-tags"><span class="i18n-en">philosophy &middot; logical thinking &middot; origin story</span><span class="i18n-zh">哲学 &middot; 逻辑思维 &middot; 起源故事</span></span>
+            <span class="writing-hook"><span class="i18n-en">A reporter asked Dave Wang to predict album sales. A singer broke it down cleaner than anything I later learned in business school.</span><span class="i18n-zh">记者问王杰预计唱片销量。一个歌手的拆解，比我后来在商学院学的都清晰。</span></span>
           </div>
           <div class="writing-meta-row">
             <span class="writing-ep">EP.08</span>
@@ -1976,15 +1999,15 @@
     <!-- ===== BUILDS ===== -->
     <section id="builds" class="reveal">
       <div class="section-head">
-        <p class="section-label">Things I've built</p>
-        <a class="section-more" href="https://github.com/daac-solo">all projects &rarr;</a>
+        <p class="section-label"><span class="i18n-en">Things I've built</span><span class="i18n-zh">我做的东西</span></p>
+        <a class="section-more" href="https://github.com/daac-solo"><span class="i18n-en">all projects</span><span class="i18n-zh">所有项目</span> &rarr;</a>
       </div>
       <div class="build-list">
         <a class="build-item tilt-card" href="https://github.com/daac-solo/daac-solo.github.io">
           <div class="build-icon">&#128038;</div>
           <div class="build-info">
             <h4>daac-solo.github.io</h4>
-            <p>你正在看的这个网站。Built in public with Claude Code.</p>
+            <p><span class="i18n-en">The site you're looking at. Built in public with Claude Code.</span><span class="i18n-zh">你正在看的这个网站。用 Claude Code 公开建造。</span></p>
           </div>
           <span class="build-lang">HTML</span>
         </a>
@@ -1992,7 +2015,7 @@
           <div class="build-icon">&#129302;</div>
           <div class="build-info">
             <h4>Claude-Code</h4>
-            <p>可运行的 Claude Code 源码。</p>
+            <p><span class="i18n-en">Runnable Claude Code source code.</span><span class="i18n-zh">可运行的 Claude Code 源码。</span></p>
           </div>
           <span class="build-lang">JS</span>
         </a>
@@ -2000,7 +2023,7 @@
           <div class="build-icon">&#128200;</div>
           <div class="build-info">
             <h4>Options Visualizer</h4>
-            <p>用动画直觉理解期权：buy/sell call/put + 进阶组合策略。</p>
+            <p><span class="i18n-en">Intuitive animated options guide: buy/sell call/put + advanced combinations.</span><span class="i18n-zh">用动画直觉理解期权：buy/sell call/put + 进阶组合策略。</span></p>
           </div>
           <span class="build-lang">Interactive</span>
         </a>
@@ -2008,7 +2031,7 @@
           <div class="build-icon">&#128218;</div>
           <div class="build-info">
             <h4>Deep Reading Coach</h4>
-            <p>Claude Code skill：先诊断书的类型，再选最高效的学习流程。6 种模式。</p>
+            <p><span class="i18n-en">Claude Code skill: diagnose book type first, then pick the most efficient reading flow. 6 modes.</span><span class="i18n-zh">Claude Code skill：先诊断书的类型，再选最高效的学习流程。6 种模式。</span></p>
           </div>
           <span class="build-lang">Skill</span>
         </a>
@@ -2016,7 +2039,7 @@
           <div class="build-icon">&#128065;</div>
           <div class="build-info">
             <h4>Social Observer</h4>
-            <p>用代理指标读世界：别人无意留下的副产品，造假成本高的数据。</p>
+            <p><span class="i18n-en">Read the world through proxy indicators: by-products people leave behind, data that's expensive to fake.</span><span class="i18n-zh">用代理指标读世界：别人无意留下的副产品，造假成本高的数据。</span></p>
           </div>
           <span class="build-lang">Python</span>
         </a>
@@ -2027,17 +2050,17 @@
 
     <!-- ===== DISCOVERIES — PORTAL TRIGGER ===== -->
     <section id="discoveries" class="reveal">
-      <p class="section-label">Discoveries</p>
+      <p class="section-label"><span class="i18n-en">Discoveries</span><span class="i18n-zh">发现</span></p>
       <div class="drawer-wrapper">
         <div class="drawer-face" id="drawerFace">
           <div class="drawer-label">
             <span class="drawer-label-icon">&#128270;</span>
             <h3>daac's playground</h3>
-            <p>Products I tried, tools I kept, stories worth telling.</p>
+            <p><span class="i18n-en">Products I tried, tools I kept, stories worth telling.</span><span class="i18n-zh">试过的产品，留下的工具，值得讲的故事。</span></p>
           </div>
           <div class="drawer-handle"></div>
         </div>
-        <div class="drawer-hint">click to enter</div>
+        <div class="drawer-hint"><span class="i18n-en">click to enter</span><span class="i18n-zh">点击进入</span></div>
       </div>
     </section>
 
@@ -2045,27 +2068,27 @@
 
     <!-- ===== COLLECTION ===== -->
     <section id="collection" class="reveal">
-      <p class="section-label">Things I collect</p>
+      <p class="section-label"><span class="i18n-en">Things I collect</span><span class="i18n-zh">我收集的东西</span></p>
       <div class="collection-grid">
         <div class="collection-card tilt-card">
           <div class="c-emoji">&#129302;</div>
-          <h3>AI tools I actually use</h3>
-          <p>Not hype. Tools that stuck after the novelty wore off.</p>
+          <h3><span class="i18n-en">AI tools I actually use</span><span class="i18n-zh">我真正在用的 AI 工具</span></h3>
+          <p><span class="i18n-en">Not hype. Tools that stuck after the novelty wore off.</span><span class="i18n-zh">不是跟风。新鲜感过后还在用的工具。</span></p>
         </div>
         <div class="collection-card tilt-card">
           <div class="c-emoji">&#128218;</div>
-          <h3>Reading list</h3>
-          <p>Books, articles, and threads that changed how I think.</p>
+          <h3><span class="i18n-en">Reading list</span><span class="i18n-zh">阅读清单</span></h3>
+          <p><span class="i18n-en">Books, articles, and threads that changed how I think.</span><span class="i18n-zh">改变我思维方式的书、文章和帖子。</span></p>
         </div>
         <div class="collection-card tilt-card">
           <div class="c-emoji">&#128161;</div>
-          <h3>Cool discoveries</h3>
-          <p>Products, ideas, and random things that made me go "whoa".</p>
+          <h3><span class="i18n-en">Cool discoveries</span><span class="i18n-zh">有意思的发现</span></h3>
+          <p><span class="i18n-en">Products, ideas, and random things that made me go "whoa".</span><span class="i18n-zh">让我 "哇" 出来的产品、想法和随机发现。</span></p>
         </div>
         <div class="collection-card tilt-card">
           <div class="c-emoji">&#128300;</div>
-          <h3>Life experiments</h3>
-          <p>What I tried, what worked, what didn't. With data.</p>
+          <h3><span class="i18n-en">Life experiments</span><span class="i18n-zh">人生实验</span></h3>
+          <p><span class="i18n-en">What I tried, what worked, what didn't. With data.</span><span class="i18n-zh">试了什么，成了什么，废了什么。有数据。</span></p>
         </div>
       </div>
     </section>
@@ -2075,13 +2098,13 @@
     <!-- ===== SUBSCRIBE ===== -->
     <section class="subscribe-section reveal">
       <div class="subscribe-card">
-        <h3>Don't miss the next episode</h3>
-        <p>New discoveries, experiments, and things that made me think. 中英双语, no spam, unsubscribe anytime.</p>
+        <h3><span class="i18n-en">Don't miss the next episode</span><span class="i18n-zh">别错过下一期</span></h3>
+        <p><span class="i18n-en">New discoveries, experiments, and things that made me think. No spam, unsubscribe anytime.</span><span class="i18n-zh">新发现、实验、让我思考的东西。不发垃圾邮件，随时退订。</span></p>
         <a class="subscribe-btn" href="https://daaclab.substack.com/" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Subscribe on Substack
+          <span class="i18n-en">Subscribe on Substack</span><span class="i18n-zh">订阅 Substack</span>
         </a>
-        <p class="subscribe-hint">Free. Upgrade to paid when I start dropping exclusive content.</p>
+        <p class="subscribe-hint"><span class="i18n-en">Free. Upgrade to paid when I start dropping exclusive content.</span><span class="i18n-zh">免费。等我开始发独家内容时再升级付费。</span></p>
       </div>
     </section>
 
@@ -2091,14 +2114,14 @@
     <div class="container">
       <div class="footer-inner">
         <span class="footer-left"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;vertical-align:-3px;margin-right:4px;"><ellipse cx="50" cy="58" rx="30" ry="28" fill="#f5d76e"/><ellipse cx="50" cy="64" rx="20" ry="18" fill="#fae9a0"/><circle cx="50" cy="30" r="20" fill="#f5d76e"/><circle cx="42" cy="28" r="3.5" fill="#2d2520"/><circle cx="43" cy="27" r="1.2" fill="white"/><circle cx="58" cy="28" r="3.5" fill="#2d2520"/><circle cx="59" cy="27" r="1.2" fill="white"/><path d="M46 34 L50 40 L54 34 Z" fill="#e8874a"/><path d="M43 12 Q45 8 48 12 Q50 7 52 12 Q54 8 57 12 Q55 14 50 14 Q45 14 43 12Z" fill="#e85a4a"/></svg>daac</span>
-        <span class="footer-right">dumb as a chicken, building smart things</span>
+        <span class="footer-right"><span class="i18n-en">dumb as a chicken, building smart things</span><span class="i18n-zh">笨得像只鸡，做聪明的事</span></span>
       </div>
     </div>
   </footer>
 
   <!-- ===== PORTAL OVERLAY ===== -->
   <div class="portal-overlay" id="portalOverlay"></div>
-  <button class="portal-close" id="portalClose">esc &middot; close</button>
+  <button class="portal-close" id="portalClose"><span class="i18n-en">esc &middot; close</span><span class="i18n-zh">esc &middot; 关闭</span></button>
   <div class="portal-room" id="portalRoom">
     <div class="portal-ambient portal-ambient-1"></div>
     <div class="portal-ambient portal-ambient-2"></div>
@@ -2106,84 +2129,84 @@
     <div class="portal-room-inner" id="portalInner">
       <div class="portal-header">
         <h2>daac's playground</h2>
-        <p>Products I tried, tools I kept, stories worth telling. Move your mouse around.</p>
+        <p><span class="i18n-en">Products I tried, tools I kept, stories worth telling. Move your mouse around.</span><span class="i18n-zh">试过的产品，留下的工具，值得讲的故事。鼠标四处移动试试。</span></p>
       </div>
 
-      <div class="portal-section-label" style="animation-delay:0.35s">&#9889; tools that stuck</div>
+      <div class="portal-section-label" style="animation-delay:0.35s">&#9889; <span class="i18n-en">tools that stuck</span><span class="i18n-zh">留下来的工具</span></div>
       <div class="portal-grid">
         <a class="pg-item" href="#" style="animation-delay:0.4s" data-depth="1">
           <span class="pg-badge keeper">keeper</span>
           <div class="pg-item-icon">&#9889;</div>
           <h4>Cursor</h4>
-          <p>切过来三天就回不去了。AI reads your whole codebase.</p>
+          <p><span class="i18n-en">Switched over, never went back. AI reads your whole codebase.</span><span class="i18n-zh">切过来三天就回不去了。AI 读懂你整个代码库。</span></p>
         </a>
         <a class="pg-item" href="#" style="animation-delay:0.48s" data-depth="2">
           <span class="pg-badge keeper">keeper</span>
           <div class="pg-item-icon">&#129302;</div>
           <h4>Claude Code</h4>
-          <p>这网站就是用它做的。Terminal-native AI coding.</p>
+          <p><span class="i18n-en">This site was built with it. Terminal-native AI coding.</span><span class="i18n-zh">这网站就是用它做的。终端原生 AI 编程。</span></p>
         </a>
         <a class="pg-item" href="#" style="animation-delay:0.56s" data-depth="1">
           <span class="pg-badge keeper">keeper</span>
           <div class="pg-item-icon">&#128172;</div>
           <h4>Granola</h4>
-          <p>Replaced my post-meeting ritual. 90% accurate action items.</p>
+          <p><span class="i18n-en">Replaced my post-meeting ritual. 90% accurate action items.</span><span class="i18n-zh">替代了我的会后复盘流程。Action item 准确率 90%。</span></p>
         </a>
         <a class="pg-item" href="#" style="animation-delay:0.64s" data-depth="3">
           <span class="pg-badge gem">hidden gem</span>
           <div class="pg-item-icon">&#128202;</div>
           <h4>Evidence</h4>
-          <p>DS 梦想工具。SQL + Markdown = report。比 Tableau 快 10 倍。</p>
+          <p><span class="i18n-en">DS dream tool. SQL + Markdown = report. 10x faster than Tableau.</span><span class="i18n-zh">DS 梦想工具。SQL + Markdown = 报告。比 Tableau 快 10 倍。</span></p>
         </a>
       </div>
 
-      <div class="portal-section-label" style="animation-delay:0.7s">&#127912; interesting finds</div>
+      <div class="portal-section-label" style="animation-delay:0.7s">&#127912; <span class="i18n-en">interesting finds</span><span class="i18n-zh">有意思的发现</span></div>
       <div class="portal-grid">
         <a class="pg-item" href="#" style="animation-delay:0.75s" data-depth="2">
           <span class="pg-badge interesting">trying</span>
           <div class="pg-item-icon">&#127912;</div>
           <h4>Napkin AI</h4>
-          <p>Text to diagram, 80% usable. Saved 2 hours of Figma work.</p>
+          <p><span class="i18n-en">Text to diagram, 80% usable. Saved 2 hours of Figma work.</span><span class="i18n-zh">文字变图表，80% 可用。省了 2 小时 Figma 活。</span></p>
         </a>
         <a class="pg-item" href="#" style="animation-delay:0.83s" data-depth="3">
           <span class="pg-badge gem">hidden gem</span>
           <div class="pg-item-icon">&#128640;</div>
           <h4>Replit Agent</h4>
-          <p>MVP 从一周变成一天。Describe an app, watch it build.</p>
+          <p><span class="i18n-en">MVP from a week to a day. Describe an app, watch it build.</span><span class="i18n-zh">MVP 从一周变成一天。描述一个应用，看它自己搭。</span></p>
         </a>
         <a class="pg-item" href="#" style="animation-delay:0.91s" data-depth="1">
           <span class="pg-badge interesting">trying</span>
           <div class="pg-item-icon">&#127911;</div>
           <h4>NotebookLM</h4>
-          <p>Feed it papers, get a podcast. 最好的 AI 信息消化工具。</p>
+          <p><span class="i18n-en">Feed it papers, get a podcast. Best AI content digestion tool.</span><span class="i18n-zh">把论文丢进去，出来一个播客。最好的 AI 信息消化工具。</span></p>
         </a>
         <a class="pg-item" href="#" style="animation-delay:0.99s" data-depth="2">
           <span class="pg-badge interesting">trying</span>
           <div class="pg-item-icon">&#128736;</div>
           <h4>v0 by Vercel</h4>
-          <p>Prompt to UI component. 原型速度从天到秒。</p>
+          <p><span class="i18n-en">Prompt to UI component. Prototyping speed: days to seconds.</span><span class="i18n-zh">Prompt 到 UI 组件。原型速度从天到秒。</span></p>
         </a>
       </div>
 
-      <div class="portal-section-label" style="animation-delay:1.05s">&#128214; stories from the field</div>
+      <div class="portal-section-label" style="animation-delay:1.05s">&#128214; <span class="i18n-en">stories from the field</span><span class="i18n-zh">来自现场的故事</span></div>
       <div class="portal-grid">
         <a class="pg-item" href="#" style="animation-delay:1.1s" data-depth="3">
           <span class="pg-badge story">story</span>
           <div class="pg-item-icon">&#128161;</div>
-          <h4>一步步来</h4>
-          <p>空手道和 BollyX dancing 教会我的：basic technique + 排列组合 = everything.</p>
+          <h4><span class="i18n-en">Step by step</span><span class="i18n-zh">一步步来</span></h4>
+          <p><span class="i18n-en">What Karate and BollyX dancing taught me: basic technique + permutations = everything.</span><span class="i18n-zh">空手道和 BollyX 舞蹈教会我的：基本功 + 排列组合 = 一切。</span></p>
         </a>
         <a class="pg-item" href="#" style="animation-delay:1.18s" data-depth="1">
           <span class="pg-badge story">story</span>
           <div class="pg-item-icon">&#129504;</div>
           <h4>FearOS</h4>
-          <p>你以为是你在焦虑。其实是操作系统在自动运行。</p>
+          <p><span class="i18n-en">You think you're anxious. It's actually an OS running on autopilot.</span><span class="i18n-zh">你以为你在焦虑。其实是一个操作系统在后台自动运行。</span></p>
         </a>
         <a class="pg-item" href="#" style="animation-delay:1.26s" data-depth="2">
           <span class="pg-badge story">story</span>
           <div class="pg-item-icon">&#128200;</div>
-          <h4>看得懂 ≠ 做得到</h4>
-          <p>你一直以为问题是不知道。其实你早就知道了。知行之间隔了十层。</p>
+          <h4><span class="i18n-en">Knowing ≠ Doing</span><span class="i18n-zh">看得懂 ≠ 做得到</span></h4>
+          <p><span class="i18n-en">You thought the problem was not knowing. You've known all along. Ten levels between knowing and doing.</span><span class="i18n-zh">你以为问题出在不知道。其实你早就知道了。知道和做到之间有十个等级。</span></p>
         </a>
       </div>
     </div>
@@ -2192,6 +2215,19 @@
   <script data-goatcounter="https://daac-solo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
   <script>
+    // ===== LANGUAGE TOGGLE =====
+    (function() {
+      var lang = localStorage.getItem('daac-lang') || (navigator.language && navigator.language.startsWith('zh') ? 'zh' : 'en');
+      document.body.classList.add('lang-' + lang);
+      document.getElementById('langToggle').addEventListener('click', function() {
+        var cur = document.body.classList.contains('lang-zh') ? 'zh' : 'en';
+        var next = cur === 'zh' ? 'en' : 'zh';
+        document.body.classList.remove('lang-' + cur);
+        document.body.classList.add('lang-' + next);
+        localStorage.setItem('daac-lang', next);
+      });
+    })();
+
     // ===== CINEMATIC INTRO =====
     (function() {
       const introOverlay = document.getElementById('introOverlay');
@@ -2418,14 +2454,14 @@
       fetch('/data/distill.json?' + Date.now())
         .then(r => r.json())
         .then(data => {
-          distillDay.textContent = 'Day ' + data.day + ' · ' + data.date;
+          distillDay.innerHTML = '<span class="i18n-en">Day ' + data.day + ' · ' + data.date + '</span><span class="i18n-zh">第 ' + data.day + ' 天 · ' + data.date + '</span>';
           if (!data.items || !data.items.length) {
-            distillList.innerHTML = '<div class="distill-empty">Today\'s distill is brewing...</div>';
+            distillList.innerHTML = '<div class="distill-empty"><span class="i18n-en">Today\'s distill is brewing...</span><span class="i18n-zh">今日蒸馏酿造中...</span></div>';
             return;
           }
           distillList.innerHTML = data.items.map((item, i) => `
             <div class="distill-item" style="transition-delay:${i * 0.1}s">
-              <div class="distill-tldr">${item.tldr}</div>
+              <div class="distill-tldr"><span class="i18n-en">${item.tldr}</span><span class="i18n-zh">${item.tldr_zh || item.tldr}</span></div>
               <div class="distill-meta">
                 ${item.tags.map(t => `<span class="distill-tag">${t}</span>`).join('')}
                 <span class="distill-source">${item.source}</span>
@@ -2445,7 +2481,7 @@
           distillObserver.observe(distillList);
         })
         .catch(() => {
-          distillList.innerHTML = '<div class="distill-empty">Today\'s distill is brewing...</div>';
+          distillList.innerHTML = '<div class="distill-empty"><span class="i18n-en">Today\'s distill is brewing...</span><span class="i18n-zh">今日蒸馏酿造中...</span></div>';
           distillDay.textContent = '';
         });
     })();
@@ -2491,7 +2527,7 @@
 
     // Typing animation for hero greeting
     const typingEl = document.getElementById('typingText');
-    const text = 'Previously, on daac…';
+    const text = document.body.classList.contains('lang-zh') ? '上回说到 daac…' : 'Previously, on daac…';
     let charIndex = 0;
     function typeChar() {
       if (charIndex < text.length) {
