@@ -39,6 +39,61 @@
       line-height: 1.7;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    /* Film grain overlay */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 180px;
+    }
+
+    /* Custom cursor */
+    .cursor-dot {
+      position: fixed;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(196,168,130,0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, border-color 0.3s, opacity 0.3s;
+    }
+
+    .cursor-dot.hovering {
+      width: 12px; height: 12px;
+      background: var(--green);
+    }
+
+    .cursor-ring.hovering {
+      width: 50px; height: 50px;
+      border-color: rgba(126,201,160,0.4);
+    }
+
+    /* Magnetic button class */
+    .magnetic { transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
+
+    @media (max-width: 600px) {
+      body { cursor: auto; }
+      .cursor-dot, .cursor-ring, .grain { display: none; }
     }
 
     /* Mouse-following warm glow */
@@ -457,6 +512,11 @@
     }
 
     .writing-item:hover .writing-title { color: var(--accent); }
+
+    .writing-title .scramble-char {
+      display: inline-block;
+      transition: transform 0.1s;
+    }
 
     .writing-hook {
       font-size: 13px;
@@ -1024,6 +1084,47 @@
       transition: width 0.1s linear;
     }
 
+    /* Easter egg */
+    .easter-egg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .easter-egg-overlay.show { opacity: 1; }
+
+    .easter-egg-text {
+      font-family: var(--serif);
+      font-size: clamp(20px, 5vw, 36px);
+      color: var(--accent);
+      text-align: center;
+      text-shadow: 0 0 40px rgba(196,168,130,0.3);
+      animation: egg-float 2s ease-in-out infinite;
+    }
+
+    @keyframes egg-float {
+      0%,100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 8px; height: 8px;
+      pointer-events: none;
+      z-index: 9997;
+      animation: confetti-fall linear forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+    }
+
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
@@ -1043,6 +1144,10 @@
   </style>
 </head>
 <body>
+  <div class="grain"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="easter-egg-overlay" id="easterEgg"><div class="easter-egg-text"></div></div>
   <div class="mouse-glow" id="mouseGlow"></div>
   <div class="ambient"></div>
   <div class="ambient-2"></div>
@@ -1625,13 +1730,59 @@
       portalRAF = requestAnimationFrame(animateParticles);
     }
 
-    // Mouse-following glow
+    // Custom cursor + mouse glow (combined)
     const glow = document.getElementById('mouseGlow');
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
     let glowActive = false;
+
     document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
       if (!glowActive) { glow.classList.add('active'); glowActive = true; }
-      glow.style.left = e.clientX + 'px';
-      glow.style.top = e.clientY + 'px';
+      glow.style.left = mouseX + 'px';
+      glow.style.top = mouseY + 'px';
+    });
+
+    // Smooth ring follow
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Cursor state on hover
+    document.querySelectorAll('a, button, .drawer-face, .nav-logo').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorDot.classList.add('hovering');
+        cursorRing.classList.add('hovering');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorDot.classList.remove('hovering');
+        cursorRing.classList.remove('hovering');
+      });
+    });
+
+    // Magnetic effect on pills and subscribe button
+    document.querySelectorAll('.link-pill, .subscribe-btn, .drawer-face .drawer-handle').forEach(btn => {
+      btn.classList.add('magnetic');
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const bx = rect.left + rect.width / 2;
+        const by = rect.top + rect.height / 2;
+        const dx = (e.clientX - bx) * 0.25;
+        const dy = (e.clientY - by) * 0.25;
+        btn.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
     });
 
     // 3D tilt on cards
@@ -1669,6 +1820,80 @@
         if (link.getAttribute('href') === '#' + current) link.classList.add('active');
       });
     }, { passive: true });
+
+    // Text scramble on writing titles hover
+    const scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&';
+    document.querySelectorAll('.writing-item').forEach(item => {
+      const titleEl = item.querySelector('.writing-title');
+      if (!titleEl) return;
+      const original = titleEl.textContent;
+      let scrambleTimer;
+
+      item.addEventListener('mouseenter', () => {
+        let iteration = 0;
+        clearInterval(scrambleTimer);
+        scrambleTimer = setInterval(() => {
+          titleEl.textContent = original.split('').map((char, i) => {
+            if (i < iteration) return original[i];
+            if (char === ' ' || /[一-鿿]/.test(char)) return char;
+            return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+          }).join('');
+          iteration += 1.5;
+          if (iteration >= original.length) {
+            clearInterval(scrambleTimer);
+            titleEl.textContent = original;
+          }
+        }, 30);
+      });
+
+      item.addEventListener('mouseleave', () => {
+        clearInterval(scrambleTimer);
+        titleEl.textContent = original;
+      });
+    });
+
+    // Easter egg — click chicken 5 times
+    let chickenClicks = 0;
+    let chickenTimer;
+    const eggOverlay = document.getElementById('easterEgg');
+    const eggText = eggOverlay.querySelector('.easter-egg-text');
+    const eggMessages = [
+      'You found me! 🐣',
+      'dumb as a chicken,\nbrave as a lion.',
+      '文科底子，理科脑子\nchicken heart, human soul',
+    ];
+
+    heroChicken.addEventListener('click', () => {
+      chickenClicks++;
+      clearTimeout(chickenTimer);
+      chickenTimer = setTimeout(() => { chickenClicks = 0; }, 2000);
+
+      if (chickenClicks >= 5) {
+        chickenClicks = 0;
+        const msg = eggMessages[Math.floor(Math.random() * eggMessages.length)];
+        eggText.textContent = msg;
+        eggOverlay.classList.add('show');
+
+        // Confetti burst
+        const colors = ['#f5d76e', '#e85a4a', '#7ec9a0', '#8badc9', '#c98b9e', '#c4a882'];
+        for (let i = 0; i < 30; i++) {
+          const c = document.createElement('div');
+          c.className = 'confetti';
+          c.style.left = (Math.random() * 100) + 'vw';
+          c.style.top = '-10px';
+          c.style.background = colors[i % colors.length];
+          c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+          c.style.width = (5 + Math.random() * 6) + 'px';
+          c.style.height = c.style.width;
+          c.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+          c.style.animationDelay = (Math.random() * 0.5) + 's';
+          document.body.appendChild(c);
+          setTimeout(() => c.remove(), 4000);
+        }
+
+        setTimeout(() => eggOverlay.classList.remove('show'), 3000);
+      }
+    });
   </script>
 </body>
 </html>
