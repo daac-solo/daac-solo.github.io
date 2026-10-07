@@ -114,11 +114,68 @@
 
     @keyframes chicken-peck {
       0% { transform: rotate(0) translateY(0); }
-      20% { transform: rotate(10deg) translateY(3px); }
-      40% { transform: rotate(-5deg) translateY(-1px); }
-      60% { transform: rotate(8deg) translateY(2px); }
-      80% { transform: rotate(-3deg) translateY(0); }
+      15% { transform: rotate(15deg) translateY(4px); }
+      30% { transform: rotate(-8deg) translateY(-2px); }
+      45% { transform: rotate(12deg) translateY(3px); }
+      60% { transform: rotate(-6deg) translateY(-1px); }
+      75% { transform: rotate(10deg) translateY(3px); }
+      90% { transform: rotate(-4deg) translateY(0); }
       100% { transform: rotate(0) translateY(0); }
+    }
+
+    /* Hero floating chicken mascot */
+    .hero-chicken {
+      position: absolute;
+      right: -80px;
+      top: 60px;
+      width: 120px; height: 120px;
+      cursor: pointer;
+      animation: chicken-float 3s ease-in-out infinite;
+      transition: filter 0.3s;
+      z-index: 2;
+    }
+
+    .hero-chicken:hover { filter: drop-shadow(0 0 12px rgba(245,215,110,0.4)); }
+
+    .hero-chicken.pecking svg {
+      animation: chicken-peck-big 0.8s ease;
+    }
+
+    @keyframes chicken-float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    @keyframes chicken-peck-big {
+      0% { transform: rotate(0) translateY(0); }
+      12% { transform: rotate(20deg) translateY(8px) scale(1.05); }
+      24% { transform: rotate(-10deg) translateY(-3px); }
+      36% { transform: rotate(18deg) translateY(6px) scale(1.05); }
+      48% { transform: rotate(-8deg) translateY(-2px); }
+      60% { transform: rotate(15deg) translateY(5px); }
+      75% { transform: rotate(-5deg) translateY(0); }
+      100% { transform: rotate(0) translateY(0); }
+    }
+
+    /* Pecking sparks */
+    .peck-spark {
+      position: absolute;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: spark-fly 0.6s ease-out forwards;
+    }
+
+    @keyframes spark-fly {
+      0% { opacity: 1; transform: translate(0, 0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
+    }
+
+    @media (max-width: 800px) {
+      .hero-chicken { right: -20px; top: -10px; width: 80px; height: 80px; }
+    }
+    @media (max-width: 600px) {
+      .hero-chicken { position: relative; right: auto; top: auto; width: 60px; height: 60px; margin-bottom: 12px; }
     }
 
     .nav-links { display: flex; gap: 24px; list-style: none; }
@@ -558,75 +615,79 @@
     }
 
     /* ===== DISCOVERIES ===== */
-    .discovery-list { display: flex; flex-direction: column; gap: 12px; }
+    .discovery-scroll-wrap {
+      margin: 0 -24px;
+      padding: 0 24px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+    }
+    .discovery-scroll-wrap:active { cursor: grabbing; }
+    .discovery-scroll-wrap::-webkit-scrollbar { display: none; }
 
-    .discovery-item {
+    .discovery-strip {
       display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 18px 20px;
+      gap: 14px;
+      padding-bottom: 8px;
+      width: max-content;
+    }
+
+    .discovery-card {
+      width: 220px;
+      flex-shrink: 0;
+      padding: 20px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       text-decoration: none;
       color: var(--text);
       transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       transform-style: preserve-3d;
       will-change: transform;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .discovery-item:hover {
+    .discovery-card:hover {
       border-color: rgba(196,168,130,0.3);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(196,168,130,0.1);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(196,168,130,0.1);
+    }
+
+    .discovery-card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .discovery-icon {
-      font-size: 20px;
-      flex-shrink: 0;
+      font-size: 22px;
       width: 40px; height: 40px;
       display: flex; align-items: center; justify-content: center;
       background: var(--surface-2);
       border-radius: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .discovery-item:hover .discovery-icon { transform: scale(1.1); }
-
-    .discovery-info { flex: 1; min-width: 0; }
-
-    .discovery-info h4 {
-      font-size: 14px; font-weight: 500;
-      margin-bottom: 2px;
-    }
-
-    .discovery-tagline {
-      font-size: 13px; color: var(--text-dim);
-      margin-bottom: 6px;
-    }
-
-    .discovery-take {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-style: italic;
-      line-height: 1.5;
-      padding-left: 10px;
-      border-left: 2px solid var(--accent-dim);
-    }
-
-    .discovery-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
       flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+
+    .discovery-card:hover .discovery-icon { transform: scale(1.1) rotate(-5deg); }
+
+    .discovery-card-head h4 {
+      font-size: 15px; font-weight: 500;
     }
 
     .discovery-verdict {
-      font-size: 11px;
+      font-size: 10px;
       font-family: var(--mono);
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 3px;
       letter-spacing: 0.03em;
+      position: absolute;
+      top: 12px; right: 12px;
     }
 
     .verdict-keeper { background: var(--green-dim); color: var(--green); }
@@ -634,12 +695,54 @@
     .verdict-meh { background: rgba(107,105,96,0.15); color: var(--text-muted); }
     .verdict-gem { background: var(--accent-dim); color: var(--accent); }
 
+    .discovery-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .discovery-take {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.4;
+      padding-left: 8px;
+      border-left: 2px solid rgba(196,168,130,0.2);
+    }
+
     .discovery-category {
       font-size: 10px;
       color: var(--text-muted);
       font-family: var(--mono);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+    }
+
+    .discovery-scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    .scroll-dots {
+      display: flex; gap: 4px;
+    }
+
+    .scroll-dots span {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      opacity: 0.4;
+    }
+    .scroll-dots span:first-child { opacity: 1; }
+
+    @media (max-width: 600px) {
+      .discovery-card { width: 200px; }
     }
 
     /* ===== SUBSCRIBE CTA ===== */
@@ -817,7 +920,26 @@
   <div class="container">
 
     <!-- ===== HERO ===== -->
-    <header class="hero">
+    <header class="hero" style="position:relative;">
+      <div class="hero-chicken" id="heroChicken">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+          <ellipse cx="50" cy="58" rx="30" ry="28" fill="#f5d76e"/>
+          <ellipse cx="50" cy="64" rx="20" ry="18" fill="#fae9a0"/>
+          <ellipse cx="24" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(-15 24 56)"/>
+          <ellipse cx="76" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(15 76 56)"/>
+          <circle cx="50" cy="30" r="20" fill="#f5d76e"/>
+          <ellipse cx="36" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
+          <ellipse cx="64" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
+          <circle cx="42" cy="28" r="3.5" fill="#2d2520"/>
+          <circle cx="43" cy="27" r="1.2" fill="white"/>
+          <circle cx="58" cy="28" r="3.5" fill="#2d2520"/>
+          <circle cx="59" cy="27" r="1.2" fill="white"/>
+          <path d="M46 34 L50 40 L54 34 Z" fill="#e8874a"/>
+          <path d="M43 12 Q45 8 48 12 Q50 7 52 12 Q54 8 57 12 Q55 14 50 14 Q45 14 43 12Z" fill="#e85a4a"/>
+          <path d="M38 84 L34 92 M38 84 L38 93 M38 84 L42 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M62 84 L58 92 M62 84 L62 93 M62 84 L66 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
       <p class="hero-greeting"><span id="typingText"></span><span class="typing-cursor"></span></p>
       <h1>A data scientist who <em>grew up predicting the next line</em> in Hong Kong dramas.</h1>
       <p class="hero-bio">
@@ -1017,55 +1139,73 @@
         <p class="section-label">Discoveries</p>
         <span class="section-more" style="cursor:default;">my personal Product Hunt</span>
       </div>
-      <div class="discovery-list">
-        <a class="discovery-item tilt-card" href="#">
-          <div class="discovery-icon">&#9889;</div>
-          <div class="discovery-info">
-            <h4>Cursor</h4>
-            <div class="discovery-tagline">AI-native code editor that actually understands your codebase.</div>
-            <div class="discovery-take">从 VS Code 切过来三天就回不去了。Tab 补全不是花瓶,是真的读懂了 context。</div>
-          </div>
-          <div class="discovery-meta">
+      <div class="discovery-scroll-wrap" id="discoveryScroll">
+        <div class="discovery-strip">
+          <a class="discovery-card tilt-card" href="#">
             <span class="discovery-verdict verdict-keeper">keeper</span>
+            <div class="discovery-card-head">
+              <div class="discovery-icon">&#9889;</div>
+              <h4>Cursor</h4>
+            </div>
+            <div class="discovery-desc">AI-native code editor that reads your whole codebase.</div>
+            <div class="discovery-take">切过来三天就回不去了</div>
             <span class="discovery-category">dev tool</span>
-          </div>
-        </a>
-        <a class="discovery-item tilt-card" href="#">
-          <div class="discovery-icon">&#127912;</div>
-          <div class="discovery-info">
-            <h4>Napkin AI</h4>
-            <div class="discovery-tagline">Turn text into diagrams and visuals instantly.</div>
-            <div class="discovery-take">Tried it for a deck. 80% of the output was usable without editing. The other 20% I'd have spent 2 hours on in Figma.</div>
-          </div>
-          <div class="discovery-meta">
+          </a>
+          <a class="discovery-card tilt-card" href="#">
             <span class="discovery-verdict verdict-interesting">interesting</span>
+            <div class="discovery-card-head">
+              <div class="discovery-icon">&#127912;</div>
+              <h4>Napkin AI</h4>
+            </div>
+            <div class="discovery-desc">Text to diagrams. 80% usable on first try.</div>
+            <div class="discovery-take">Saved 2 hours of Figma work</div>
             <span class="discovery-category">AI design</span>
-          </div>
-        </a>
-        <a class="discovery-item tilt-card" href="#">
-          <div class="discovery-icon">&#128202;</div>
-          <div class="discovery-info">
-            <h4>Evidence</h4>
-            <div class="discovery-tagline">Code-driven dashboards in Markdown. SQL + charts, no drag-and-drop.</div>
-            <div class="discovery-take">DS 的梦想工具。写 SQL 直接出 report, 版本控制, 可以 PR review。比 Tableau 快 10 倍。</div>
-          </div>
-          <div class="discovery-meta">
+          </a>
+          <a class="discovery-card tilt-card" href="#">
             <span class="discovery-verdict verdict-gem">hidden gem</span>
+            <div class="discovery-card-head">
+              <div class="discovery-icon">&#128202;</div>
+              <h4>Evidence</h4>
+            </div>
+            <div class="discovery-desc">Code-driven dashboards. SQL + Markdown = report.</div>
+            <div class="discovery-take">DS 的梦想工具，比 Tableau 快 10 倍</div>
             <span class="discovery-category">analytics</span>
-          </div>
-        </a>
-        <a class="discovery-item tilt-card" href="#">
-          <div class="discovery-icon">&#128172;</div>
-          <div class="discovery-info">
-            <h4>Granola</h4>
-            <div class="discovery-tagline">AI meeting notes that actually capture what matters.</div>
-            <div class="discovery-take">Replaced my entire post-meeting ritual. It gets the action items right 90% of the time.</div>
-          </div>
-          <div class="discovery-meta">
+          </a>
+          <a class="discovery-card tilt-card" href="#">
             <span class="discovery-verdict verdict-keeper">keeper</span>
+            <div class="discovery-card-head">
+              <div class="discovery-icon">&#128172;</div>
+              <h4>Granola</h4>
+            </div>
+            <div class="discovery-desc">AI meeting notes. Gets action items right 90% of the time.</div>
+            <div class="discovery-take">Replaced my post-meeting ritual</div>
             <span class="discovery-category">productivity</span>
-          </div>
-        </a>
+          </a>
+          <a class="discovery-card tilt-card" href="#">
+            <span class="discovery-verdict verdict-interesting">interesting</span>
+            <div class="discovery-card-head">
+              <div class="discovery-icon">&#129302;</div>
+              <h4>Claude Code</h4>
+            </div>
+            <div class="discovery-desc">Terminal-native AI coding. Built this entire site with it.</div>
+            <div class="discovery-take">这网站就是用它做的</div>
+            <span class="discovery-category">dev tool</span>
+          </a>
+          <a class="discovery-card tilt-card" href="#">
+            <span class="discovery-verdict verdict-gem">hidden gem</span>
+            <div class="discovery-card-head">
+              <div class="discovery-icon">&#128640;</div>
+              <h4>Replit Agent</h4>
+            </div>
+            <div class="discovery-desc">Describe an app, watch it build. Fast prototyping.</div>
+            <div class="discovery-take">MVP 从一周变成一天</div>
+            <span class="discovery-category">AI dev</span>
+          </a>
+        </div>
+      </div>
+      <div class="discovery-scroll-hint">
+        <div class="scroll-dots"><span></span><span></span><span></span></div>
+        swipe to explore
       </div>
     </section>
 
@@ -1176,6 +1316,44 @@
       }
     }
     setTimeout(typeChar, 400);
+
+    // Hero chicken — click to peck with sparks
+    const heroChicken = document.getElementById('heroChicken');
+    heroChicken.addEventListener('click', () => {
+      heroChicken.classList.remove('pecking');
+      void heroChicken.offsetWidth;
+      heroChicken.classList.add('pecking');
+      const colors = ['#f5d76e', '#e8874a', '#e85a4a', '#fae9a0', '#f5b0a0'];
+      for (let i = 0; i < 6; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'peck-spark';
+        spark.style.background = colors[i % colors.length];
+        spark.style.left = (50 + Math.random() * 40 - 20) + 'px';
+        spark.style.top = (70 + Math.random() * 20) + 'px';
+        spark.style.setProperty('--dx', (Math.random() * 60 - 30) + 'px');
+        spark.style.setProperty('--dy', (Math.random() * -40 - 10) + 'px');
+        heroChicken.appendChild(spark);
+        setTimeout(() => spark.remove(), 600);
+      }
+      setTimeout(() => heroChicken.classList.remove('pecking'), 800);
+    });
+
+    // Discovery horizontal scroll — drag to scroll
+    const dScroll = document.getElementById('discoveryScroll');
+    let isDragging = false, startX, scrollLeft;
+    dScroll.addEventListener('mousedown', e => {
+      isDragging = true;
+      startX = e.pageX - dScroll.offsetLeft;
+      scrollLeft = dScroll.scrollLeft;
+    });
+    dScroll.addEventListener('mouseleave', () => isDragging = false);
+    dScroll.addEventListener('mouseup', () => isDragging = false);
+    dScroll.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - dScroll.offsetLeft;
+      dScroll.scrollLeft = scrollLeft - (x - startX);
+    });
 
     // Mouse-following glow
     const glow = document.getElementById('mouseGlow');
