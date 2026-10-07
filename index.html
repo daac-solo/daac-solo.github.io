@@ -614,11 +614,8 @@
       line-height: 1.6;
     }
 
-    /* ===== DISCOVERIES — 3D DRAWER ===== */
-    .drawer-wrapper {
-      perspective: 1200px;
-      position: relative;
-    }
+    /* ===== DISCOVERIES — IMMERSIVE PORTAL ===== */
+    .drawer-wrapper { position: relative; }
 
     /* The closed drawer face */
     .drawer-face {
@@ -629,8 +626,7 @@
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      transform-origin: top center;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     .drawer-face::before {
@@ -642,233 +638,271 @@
       pointer-events: none;
     }
 
-    /* Wood grain texture */
     .drawer-face::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: repeating-linear-gradient(
-        90deg,
+      background: repeating-linear-gradient(90deg,
         transparent 0px, transparent 40px,
-        rgba(196,168,130,0.02) 40px, rgba(196,168,130,0.02) 41px
-      );
+        rgba(196,168,130,0.02) 40px, rgba(196,168,130,0.02) 41px);
       pointer-events: none;
       border-radius: 14px;
     }
 
     .drawer-face:hover {
-      border-color: rgba(196,168,130,0.2);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      border-color: rgba(196,168,130,0.25);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.4), 0 0 60px rgba(196,168,130,0.06);
+      transform: scale(1.01);
     }
 
-    .drawer-label {
-      text-align: center;
-      position: relative;
-    }
+    .drawer-label { text-align: center; position: relative; }
+    .drawer-label-icon { font-size: 28px; display: block; margin-bottom: 12px; }
+    .drawer-label h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--accent); margin-bottom: 6px; }
+    .drawer-label p { font-size: 13px; color: var(--text-muted); }
 
-    .drawer-label-icon {
-      font-size: 28px;
-      display: block;
-      margin-bottom: 12px;
-    }
-
-    .drawer-label h3 {
-      font-family: var(--serif);
-      font-size: 20px;
-      font-weight: 400;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-
-    .drawer-label p {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* Handle */
     .drawer-handle {
       width: 48px; height: 6px;
       background: linear-gradient(180deg, #3a3530, #2a2520);
-      border-radius: 3px;
-      margin: 20px auto 0;
+      border-radius: 3px; margin: 20px auto 0;
       box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 rgba(196,168,130,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.3s;
     }
-
     .drawer-face:hover .drawer-handle {
-      transform: scaleX(1.1);
-      box-shadow: 0 1px 6px rgba(196,168,130,0.2), inset 0 1px 0 rgba(196,168,130,0.15);
+      transform: scaleX(1.2);
+      box-shadow: 0 1px 8px rgba(196,168,130,0.3), inset 0 1px 0 rgba(196,168,130,0.2);
     }
 
     .drawer-hint {
-      text-align: center;
-      margin-top: 8px;
-      font-size: 11px;
-      color: var(--text-muted);
-      opacity: 0;
-      transition: opacity 0.3s;
+      text-align: center; margin-top: 8px;
+      font-size: 11px; color: var(--text-muted);
+      opacity: 0; transition: opacity 0.3s;
     }
     .drawer-face:hover ~ .drawer-hint { opacity: 0.6; }
 
-    /* Open state — face flips up */
-    .drawer-wrapper.open .drawer-face {
-      transform: rotateX(-92deg) scaleY(0.6);
-      opacity: 0;
+    /* Fullscreen overlay portal */
+    .portal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 4, 6, 0.0);
+      z-index: 200;
       pointer-events: none;
+      transition: background 0.6s ease;
+      backdrop-filter: blur(0px);
     }
 
-    /* The playground inside */
-    .drawer-inside {
+    .portal-overlay.active {
+      background: rgba(4, 4, 6, 0.92);
+      pointer-events: all;
+      backdrop-filter: blur(8px);
+    }
+
+    /* The portal room */
+    .portal-room {
+      position: fixed;
+      inset: 0;
+      z-index: 201;
+      pointer-events: none;
+      opacity: 0;
+      perspective: 1000px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .portal-room.active {
+      pointer-events: all;
+      opacity: 1;
+    }
+
+    .portal-room-inner {
+      min-height: 100vh;
+      padding: 80px 40px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+      transform-style: preserve-3d;
       position: relative;
-      min-height: 380px;
-      background: linear-gradient(180deg, #12110e 0%, #0e0d0b 100%);
-      border: 1px solid #2a2720;
-      border-radius: 14px;
-      padding: 28px 20px;
-      display: none;
+    }
+
+    /* Ambient warm lights in the room */
+    .portal-ambient {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(60px);
+    }
+
+    .portal-ambient-1 {
+      width: 400px; height: 400px;
+      top: -100px; left: 20%;
+      background: rgba(196,168,130,0.07);
+      animation: amb-drift-1 8s ease-in-out infinite;
+    }
+
+    .portal-ambient-2 {
+      width: 300px; height: 300px;
+      bottom: 10%; right: 10%;
+      background: rgba(126,201,160,0.05);
+      animation: amb-drift-2 10s ease-in-out infinite;
+    }
+
+    .portal-ambient-3 {
+      width: 250px; height: 250px;
+      top: 40%; left: 5%;
+      background: rgba(201,139,158,0.04);
+      animation: amb-drift-3 12s ease-in-out infinite;
+    }
+
+    @keyframes amb-drift-1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px,20px); } }
+    @keyframes amb-drift-2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-20px,-15px); } }
+    @keyframes amb-drift-3 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(15px,-25px); } }
+
+    /* Floating particles */
+    .portal-particle {
+      position: fixed;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--accent);
       opacity: 0;
-      transition: opacity 0.5s ease 0.2s;
-      overflow: hidden;
-    }
-
-    /* Warm inner glow */
-    .drawer-inside::before {
-      content: '';
-      position: absolute;
-      top: -60px; left: 50%;
-      transform: translateX(-50%);
-      width: 300px; height: 200px;
-      background: radial-gradient(ellipse, rgba(196,168,130,0.08) 0%, transparent 70%);
       pointer-events: none;
+      z-index: 0;
     }
 
-    /* Subtle floor shadow */
-    .drawer-inside::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 10%; right: 10%;
-      height: 40px;
-      background: linear-gradient(0deg, rgba(0,0,0,0.15), transparent);
-      pointer-events: none;
-      border-radius: 0 0 14px 14px;
+    /* Portal header */
+    .portal-header {
+      text-align: center;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(-20px);
     }
 
-    .drawer-wrapper.open .drawer-inside {
-      display: block;
-      animation: drawer-reveal 0.6s ease forwards;
+    .portal-room.active .portal-header {
+      animation: portal-fade-down 0.6s ease 0.3s forwards;
     }
 
-    @keyframes drawer-reveal {
-      0% { opacity: 0; transform: translateY(-10px) scaleY(0.95); }
-      100% { opacity: 1; transform: translateY(0) scaleY(1); }
+    @keyframes portal-fade-down {
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Playground items — scattered like things on a desk */
-    .playground {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
+    .portal-header h2 {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .portal-header p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Close */
+    .portal-close {
+      position: fixed;
+      top: 20px; right: 24px;
+      z-index: 202;
+      background: rgba(20,20,22,0.8);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 13px; font-family: var(--sans);
+      padding: 8px 18px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .portal-close.active { display: block; }
+
+    .portal-close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(20,20,22,0.95);
+    }
+
+    /* Section dividers inside portal */
+    .portal-section-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 32px 0 16px;
+      padding-left: 4px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+    }
+    .portal-room.active .portal-section-label {
+      animation: portal-fade-down 0.4s ease forwards;
+    }
+
+    /* Playground grid */
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
       position: relative;
       z-index: 1;
     }
 
+    /* Individual items with depth layers */
     .pg-item {
-      width: 160px;
-      padding: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      padding: 20px;
+      background: rgba(20, 20, 22, 0.8);
+      border: 1px solid rgba(36, 36, 40, 0.6);
+      border-radius: 12px;
       text-decoration: none;
       color: var(--text);
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       cursor: pointer;
       position: relative;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px) scale(0.92);
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      backdrop-filter: blur(4px);
     }
 
-    .drawer-wrapper.open .pg-item {
-      animation: item-pop 0.4s ease forwards;
+    .portal-room.active .pg-item {
+      animation: item-float-in 0.5s ease forwards;
     }
 
-    @keyframes item-pop {
-      0% { opacity: 0; transform: translateY(20px) scale(0.9); }
-      70% { transform: translateY(-3px) scale(1.02); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+    @keyframes item-float-in {
+      0% { opacity: 0; transform: translateY(30px) scale(0.92) rotateX(8deg); }
+      60% { transform: translateY(-4px) scale(1.01) rotateX(-1deg); }
+      100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0); }
     }
 
     .pg-item:hover {
-      border-color: rgba(196,168,130,0.3);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-      transform: translateY(-4px) scale(1.03);
+      border-color: rgba(196,168,130,0.35);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(196,168,130,0.06);
+      transform: translateY(-6px) scale(1.04);
       z-index: 2;
+      background: rgba(26, 26, 30, 0.95);
     }
 
-    .pg-item-icon {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    .pg-item h4 {
-      font-size: 13px; font-weight: 500;
-      margin-bottom: 4px;
-    }
-
-    .pg-item p {
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
+    .pg-item-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+    .pg-item h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .pg-item p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 
     .pg-badge {
-      position: absolute;
-      top: 8px; right: 8px;
-      font-size: 9px;
-      font-family: var(--mono);
-      padding: 1px 6px;
-      border-radius: 3px;
+      position: absolute; top: 10px; right: 10px;
+      font-size: 9px; font-family: var(--mono);
+      padding: 2px 7px; border-radius: 3px;
       letter-spacing: 0.03em;
     }
-
     .pg-badge.keeper { background: var(--green-dim); color: var(--green); }
     .pg-badge.gem { background: var(--accent-dim); color: var(--accent); }
     .pg-badge.interesting { background: var(--blue-dim); color: var(--blue); }
     .pg-badge.story { background: var(--rose-dim); color: var(--rose); }
 
-    /* Close button */
-    .drawer-close {
-      position: absolute;
-      top: 12px; right: 16px;
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 100px;
-      cursor: pointer;
-      z-index: 3;
-      transition: all 0.3s;
-    }
-    .drawer-close:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .pg-divider {
-      width: 100%;
-      text-align: center;
-      font-size: 10px;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 8px 0;
-      opacity: 0.5;
-    }
-
     @media (max-width: 600px) {
-      .pg-item { width: 140px; padding: 12px; }
-      .drawer-inside { padding: 20px 12px; min-height: 300px; }
+      .portal-room-inner { padding: 70px 16px 40px; }
+      .portal-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .pg-item { padding: 14px; }
+      .portal-header h2 { font-size: 24px; }
+      .portal-close { top: 14px; right: 14px; padding: 6px 14px; font-size: 12px; }
     }
 
     /* ===== SUBSCRIBE CTA ===== */
@@ -1259,10 +1293,10 @@
 
     <div class="line"></div>
 
-    <!-- ===== DISCOVERIES — 3D DRAWER ===== -->
+    <!-- ===== DISCOVERIES — PORTAL TRIGGER ===== -->
     <section id="discoveries" class="reveal">
       <p class="section-label">Discoveries</p>
-      <div class="drawer-wrapper" id="drawerWrapper">
+      <div class="drawer-wrapper">
         <div class="drawer-face" id="drawerFace">
           <div class="drawer-label">
             <span class="drawer-label-icon">&#128270;</span>
@@ -1271,75 +1305,7 @@
           </div>
           <div class="drawer-handle"></div>
         </div>
-        <div class="drawer-hint">click to open the drawer</div>
-        <div class="drawer-inside" id="drawerInside">
-          <button class="drawer-close" id="drawerClose">close &times;</button>
-          <div class="playground">
-            <div class="pg-divider">&#9889; tools that stuck</div>
-            <a class="pg-item" href="#" style="animation-delay:0.1s">
-              <span class="pg-badge keeper">keeper</span>
-              <div class="pg-item-icon">&#9889;</div>
-              <h4>Cursor</h4>
-              <p>切过来三天就回不去了。AI reads your whole codebase.</p>
-            </a>
-            <a class="pg-item" href="#" style="animation-delay:0.15s">
-              <span class="pg-badge keeper">keeper</span>
-              <div class="pg-item-icon">&#129302;</div>
-              <h4>Claude Code</h4>
-              <p>这网站就是用它做的。Terminal-native AI coding.</p>
-            </a>
-            <a class="pg-item" href="#" style="animation-delay:0.2s">
-              <span class="pg-badge keeper">keeper</span>
-              <div class="pg-item-icon">&#128172;</div>
-              <h4>Granola</h4>
-              <p>Replaced my post-meeting ritual. Action items 90% right.</p>
-            </a>
-            <a class="pg-item" href="#" style="animation-delay:0.25s">
-              <span class="pg-badge gem">hidden gem</span>
-              <div class="pg-item-icon">&#128202;</div>
-              <h4>Evidence</h4>
-              <p>DS 梦想工具。SQL + Markdown = report. 比 Tableau 快 10 倍。</p>
-            </a>
-            <div class="pg-divider">&#127912; interesting finds</div>
-            <a class="pg-item" href="#" style="animation-delay:0.3s">
-              <span class="pg-badge interesting">trying</span>
-              <div class="pg-item-icon">&#127912;</div>
-              <h4>Napkin AI</h4>
-              <p>Text to diagram, 80% usable. Saved 2 hours of Figma.</p>
-            </a>
-            <a class="pg-item" href="#" style="animation-delay:0.35s">
-              <span class="pg-badge gem">hidden gem</span>
-              <div class="pg-item-icon">&#128640;</div>
-              <h4>Replit Agent</h4>
-              <p>MVP 从一周变成一天。Describe an app, watch it build.</p>
-            </a>
-            <a class="pg-item" href="#" style="animation-delay:0.4s">
-              <span class="pg-badge interesting">trying</span>
-              <div class="pg-item-icon">&#127911;</div>
-              <h4>NotebookLM</h4>
-              <p>Feed it papers, get a podcast. 最好的 AI 信息消化工具。</p>
-            </a>
-            <div class="pg-divider">&#128214; stories from the field</div>
-            <a class="pg-item" href="#" style="animation-delay:0.45s">
-              <span class="pg-badge story">story</span>
-              <div class="pg-item-icon">&#128161;</div>
-              <h4>81 &times; 81</h4>
-              <p>How I explained multiplication to a kid using Rubik's cubes.</p>
-            </a>
-            <a class="pg-item" href="#" style="animation-delay:0.5s">
-              <span class="pg-badge story">story</span>
-              <div class="pg-item-icon">&#129504;</div>
-              <h4>FearOS</h4>
-              <p>你以为是你在焦虑。其实是操作系统在自动运行。</p>
-            </a>
-            <a class="pg-item" href="#" style="animation-delay:0.55s">
-              <span class="pg-badge story">story</span>
-              <div class="pg-item-icon">&#128200;</div>
-              <h4>Metrics Trap</h4>
-              <p>Dashboard said great. Users disagreed. Who was right?</p>
-            </a>
-          </div>
-        </div>
+        <div class="drawer-hint">click to enter</div>
       </div>
     </section>
 
@@ -1397,6 +1363,99 @@
       </div>
     </div>
   </footer>
+
+  <!-- ===== PORTAL OVERLAY ===== -->
+  <div class="portal-overlay" id="portalOverlay"></div>
+  <button class="portal-close" id="portalClose">esc &middot; close</button>
+  <div class="portal-room" id="portalRoom">
+    <div class="portal-ambient portal-ambient-1"></div>
+    <div class="portal-ambient portal-ambient-2"></div>
+    <div class="portal-ambient portal-ambient-3"></div>
+    <div class="portal-room-inner" id="portalInner">
+      <div class="portal-header">
+        <h2>daac's playground</h2>
+        <p>Products I tried, tools I kept, stories worth telling. Move your mouse around.</p>
+      </div>
+
+      <div class="portal-section-label" style="animation-delay:0.35s">&#9889; tools that stuck</div>
+      <div class="portal-grid">
+        <a class="pg-item" href="#" style="animation-delay:0.4s" data-depth="1">
+          <span class="pg-badge keeper">keeper</span>
+          <div class="pg-item-icon">&#9889;</div>
+          <h4>Cursor</h4>
+          <p>切过来三天就回不去了。AI reads your whole codebase.</p>
+        </a>
+        <a class="pg-item" href="#" style="animation-delay:0.48s" data-depth="2">
+          <span class="pg-badge keeper">keeper</span>
+          <div class="pg-item-icon">&#129302;</div>
+          <h4>Claude Code</h4>
+          <p>这网站就是用它做的。Terminal-native AI coding.</p>
+        </a>
+        <a class="pg-item" href="#" style="animation-delay:0.56s" data-depth="1">
+          <span class="pg-badge keeper">keeper</span>
+          <div class="pg-item-icon">&#128172;</div>
+          <h4>Granola</h4>
+          <p>Replaced my post-meeting ritual. 90% accurate action items.</p>
+        </a>
+        <a class="pg-item" href="#" style="animation-delay:0.64s" data-depth="3">
+          <span class="pg-badge gem">hidden gem</span>
+          <div class="pg-item-icon">&#128202;</div>
+          <h4>Evidence</h4>
+          <p>DS 梦想工具。SQL + Markdown = report。比 Tableau 快 10 倍。</p>
+        </a>
+      </div>
+
+      <div class="portal-section-label" style="animation-delay:0.7s">&#127912; interesting finds</div>
+      <div class="portal-grid">
+        <a class="pg-item" href="#" style="animation-delay:0.75s" data-depth="2">
+          <span class="pg-badge interesting">trying</span>
+          <div class="pg-item-icon">&#127912;</div>
+          <h4>Napkin AI</h4>
+          <p>Text to diagram, 80% usable. Saved 2 hours of Figma work.</p>
+        </a>
+        <a class="pg-item" href="#" style="animation-delay:0.83s" data-depth="3">
+          <span class="pg-badge gem">hidden gem</span>
+          <div class="pg-item-icon">&#128640;</div>
+          <h4>Replit Agent</h4>
+          <p>MVP 从一周变成一天。Describe an app, watch it build.</p>
+        </a>
+        <a class="pg-item" href="#" style="animation-delay:0.91s" data-depth="1">
+          <span class="pg-badge interesting">trying</span>
+          <div class="pg-item-icon">&#127911;</div>
+          <h4>NotebookLM</h4>
+          <p>Feed it papers, get a podcast. 最好的 AI 信息消化工具。</p>
+        </a>
+        <a class="pg-item" href="#" style="animation-delay:0.99s" data-depth="2">
+          <span class="pg-badge interesting">trying</span>
+          <div class="pg-item-icon">&#128736;</div>
+          <h4>v0 by Vercel</h4>
+          <p>Prompt to UI component. 原型速度从天到秒。</p>
+        </a>
+      </div>
+
+      <div class="portal-section-label" style="animation-delay:1.05s">&#128214; stories from the field</div>
+      <div class="portal-grid">
+        <a class="pg-item" href="#" style="animation-delay:1.1s" data-depth="3">
+          <span class="pg-badge story">story</span>
+          <div class="pg-item-icon">&#128161;</div>
+          <h4>81 &times; 81</h4>
+          <p>How I explained multiplication to a kid using Rubik's cubes.</p>
+        </a>
+        <a class="pg-item" href="#" style="animation-delay:1.18s" data-depth="1">
+          <span class="pg-badge story">story</span>
+          <div class="pg-item-icon">&#129504;</div>
+          <h4>FearOS</h4>
+          <p>你以为是你在焦虑。其实是操作系统在自动运行。</p>
+        </a>
+        <a class="pg-item" href="#" style="animation-delay:1.26s" data-depth="2">
+          <span class="pg-badge story">story</span>
+          <div class="pg-item-icon">&#128200;</div>
+          <h4>Metrics Trap</h4>
+          <p>Dashboard said great. Users disagreed. Who was right?</p>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Scroll-triggered reveals
@@ -1472,18 +1531,99 @@
       setTimeout(() => heroChicken.classList.remove('pecking'), 800);
     });
 
-    // 3D Drawer — open/close
-    const drawerWrapper = document.getElementById('drawerWrapper');
+    // Immersive Portal
     const drawerFace = document.getElementById('drawerFace');
-    const drawerClose = document.getElementById('drawerClose');
+    const portalOverlay = document.getElementById('portalOverlay');
+    const portalRoom = document.getElementById('portalRoom');
+    const portalClose = document.getElementById('portalClose');
+    const portalInner = document.getElementById('portalInner');
+    let portalOpen = false;
+    let portalParticles = [];
+    let portalRAF = null;
 
-    drawerFace.addEventListener('click', () => {
-      drawerWrapper.classList.add('open');
+    function openPortal() {
+      portalOpen = true;
+      document.body.style.overflow = 'hidden';
+      portalOverlay.classList.add('active');
+      portalRoom.classList.add('active');
+      portalClose.classList.add('active');
+      spawnParticles();
+    }
+
+    function closePortal() {
+      portalOpen = false;
+      document.body.style.overflow = '';
+      portalOverlay.classList.remove('active');
+      portalRoom.classList.remove('active');
+      portalClose.classList.remove('active');
+      portalRoom.querySelectorAll('.pg-item, .portal-section-label, .portal-header').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = '';
+      });
+      cancelAnimationFrame(portalRAF);
+      portalParticles.forEach(p => p.el.remove());
+      portalParticles = [];
+    }
+
+    drawerFace.addEventListener('click', openPortal);
+    portalClose.addEventListener('click', closePortal);
+    portalOverlay.addEventListener('click', closePortal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && portalOpen) closePortal(); });
+
+    // Mouse parallax inside portal
+    portalRoom.addEventListener('mousemove', e => {
+      if (!portalOpen) return;
+      const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+      const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+      portalRoom.querySelectorAll('.pg-item').forEach(item => {
+        const depth = parseInt(item.dataset.depth) || 1;
+        const dx = cx * depth * 4;
+        const dy = cy * depth * 3;
+        item.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
     });
 
-    drawerClose.addEventListener('click', () => {
-      drawerWrapper.classList.remove('open');
-    });
+    // Floating particles
+    function spawnParticles() {
+      const colors = ['rgba(196,168,130,0.4)', 'rgba(126,201,160,0.3)', 'rgba(139,173,201,0.3)', 'rgba(201,139,158,0.3)'];
+      for (let i = 0; i < 20; i++) {
+        const el = document.createElement('div');
+        el.className = 'portal-particle';
+        el.style.left = (Math.random() * 100) + 'vw';
+        el.style.top = (Math.random() * 100) + 'vh';
+        el.style.background = colors[i % colors.length];
+        el.style.width = (2 + Math.random() * 3) + 'px';
+        el.style.height = el.style.width;
+        portalRoom.appendChild(el);
+        portalParticles.push({
+          el,
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3 - 0.15,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+      animateParticles();
+    }
+
+    function animateParticles() {
+      if (!portalOpen) return;
+      portalParticles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.phase += 0.01;
+        const wobbleX = Math.sin(p.phase) * 0.5;
+        const wobbleY = Math.cos(p.phase * 0.7) * 0.3;
+        if (p.y < -20) p.y = window.innerHeight + 20;
+        if (p.x < -20) p.x = window.innerWidth + 20;
+        if (p.x > window.innerWidth + 20) p.x = -20;
+        p.el.style.left = (p.x + wobbleX) + 'px';
+        p.el.style.top = (p.y + wobbleY) + 'px';
+        p.el.style.opacity = 0.2 + Math.sin(p.phase) * 0.15;
+      });
+      portalRAF = requestAnimationFrame(animateParticles);
+    }
 
     // Mouse-following glow
     const glow = document.getElementById('mouseGlow');
