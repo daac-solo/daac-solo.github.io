@@ -32,8 +32,6 @@
       --pink-dim: rgba(244, 114, 182, 0.15);
       --amber: #fbbf24;
       --amber-dim: rgba(251, 191, 36, 0.15);
-      --red: #f87171;
-      --red-dim: rgba(248, 113, 113, 0.15);
     }
 
     body {
@@ -44,268 +42,179 @@
       overflow-x: hidden;
     }
 
-    /* Scroll progress */
     .scroll-progress {
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--accent), var(--cyan), var(--green));
       z-index: 1000;
       box-shadow: 0 0 10px var(--accent);
     }
 
-    /* Star field */
     canvas#stars {
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
 
     .grid-bg {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background-image:
         linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
       background-size: 64px 64px;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 0 24px;
       position: relative;
       z-index: 1;
     }
 
-    /* Navigation */
+    /* Nav */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: rgba(9, 9, 11, 0.75);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
     nav .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
+      display: flex; align-items: center; justify-content: space-between; height: 56px;
     }
 
     .nav-logo {
       font-family: 'JetBrains Mono', monospace;
-      font-weight: 500;
-      font-size: 15px;
-      color: var(--text);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-weight: 500; font-size: 15px;
+      color: var(--text); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
     }
 
     .nav-logo .dot {
       width: 8px; height: 8px;
-      background: var(--green);
-      border-radius: 50%;
+      background: var(--green); border-radius: 50%;
       box-shadow: 0 0 8px var(--green);
       animation: blink 3s ease-in-out infinite;
     }
 
-    @keyframes blink {
-      0%, 90%, 100% { opacity: 1; }
-      95% { opacity: 0.3; }
-    }
+    @keyframes blink { 0%,90%,100% { opacity:1; } 95% { opacity:0.3; } }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 20px; list-style: none; }
 
     .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 400;
-      transition: color 0.2s;
-      position: relative;
+      color: var(--text-muted); text-decoration: none;
+      font-size: 13px; transition: color 0.2s; position: relative;
     }
 
     .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 1px;
-      background: var(--accent);
-      transition: width 0.3s;
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--accent); transition: width 0.3s;
     }
 
     .nav-links a:hover { color: var(--text); }
     .nav-links a:hover::after { width: 100%; }
 
     /* Hero */
-    .hero {
-      padding: 140px 0 80px;
-      text-align: center;
-    }
+    .hero { padding: 140px 0 60px; }
 
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-bottom: 32px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 13px; color: var(--text-dim); margin-bottom: 28px;
     }
 
-    .hero-badge .pulse-dot {
-      width: 6px; height: 6px;
-      background: var(--green);
-      border-radius: 50%;
-      animation: pulse-dot 2s ease-in-out infinite;
+    .pulse-dot {
+      width: 6px; height: 6px; background: var(--green);
+      border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite;
     }
 
     @keyframes pulse-dot {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
-      50% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); }
+      50% { box-shadow: 0 0 0 6px rgba(52,211,153,0); }
     }
 
     .hero h1 {
-      font-size: clamp(36px, 6vw, 56px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: hero-in 1s ease forwards 0.3s;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700; letter-spacing: -0.03em;
+      line-height: 1.15; margin-bottom: 16px;
+      opacity: 0; animation: hero-in 1s ease forwards 0.2s;
     }
 
     @keyframes hero-in {
-      from { opacity: 0; transform: translateY(20px); filter: blur(8px); }
-      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+      from { opacity:0; transform:translateY(16px); filter:blur(6px); }
+      to { opacity:1; transform:translateY(0); filter:blur(0); }
     }
 
     .hero h1 .gradient {
       background: linear-gradient(135deg, var(--accent) 0%, var(--cyan) 50%, var(--green) 100%);
       background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradient-shift 4s ease infinite;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; animation: gradient-shift 4s ease infinite;
     }
 
-    @keyframes gradient-shift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
+    @keyframes gradient-shift { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
 
     .hero p {
-      color: var(--text-dim);
-      font-size: 18px;
-      max-width: 560px;
-      margin: 0 auto 16px;
-      font-weight: 300;
-      opacity: 0;
-      animation: hero-in 1s ease forwards 0.6s;
+      color: var(--text-dim); font-size: 17px; max-width: 540px;
+      font-weight: 300; margin-bottom: 12px;
+      opacity: 0; animation: hero-in 1s ease forwards 0.5s;
     }
 
     .hero .sub {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: hero-in 1s ease forwards 0.8s;
+      font-size: 14px; color: var(--text-muted);
+      margin-bottom: 28px;
+      opacity: 0; animation: hero-in 1s ease forwards 0.7s;
     }
 
     .hero-links {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      opacity: 0;
-      animation: hero-in 1s ease forwards 1s;
+      display: flex; gap: 12px;
+      opacity: 0; animation: hero-in 1s ease forwards 0.9s;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: 8px;
+      font-size: 14px; font-weight: 500;
+      text-decoration: none; transition: all 0.3s;
     }
 
     .btn-primary {
-      background: var(--accent-2);
-      color: white;
+      background: var(--accent-2); color: white;
       box-shadow: 0 0 20px var(--glow-strong);
     }
 
-    .btn-primary:hover {
-      box-shadow: 0 0 40px var(--glow-strong);
-      transform: translateY(-2px);
-    }
+    .btn-primary:hover { box-shadow: 0 0 40px var(--glow-strong); transform: translateY(-2px); }
 
     .btn-ghost {
-      background: var(--surface);
-      color: var(--text-dim);
+      background: var(--surface); color: var(--text-dim);
       border: 1px solid var(--border);
     }
 
-    .btn-ghost:hover {
-      color: var(--text);
-      border-color: var(--accent);
-    }
-
+    .btn-ghost:hover { color: var(--text); border-color: var(--accent); }
     .btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-    /* Sections */
-    section { padding: 64px 0; }
+    /* Section common */
+    section { padding: 56px 0; }
 
     .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px;
     }
 
     .section-title {
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 13px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--accent);
+      display: flex; align-items: center; gap: 8px;
     }
 
-    .section-title::before {
-      content: '';
-      width: 16px; height: 1px;
-      background: var(--accent);
-    }
+    .section-title::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
 
     .section-link {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
+      font-size: 13px; color: var(--text-muted);
+      text-decoration: none; transition: color 0.2s;
     }
 
     .section-link:hover { color: var(--accent); }
@@ -313,534 +222,201 @@
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 20px 0;
+      margin: 8px 0;
     }
 
-    /* ===== EXPERTISE DOMAIN CARDS ===== */
-    .domain-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .domain-card {
+    /* ===== NOW ===== */
+    .now-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 28px;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s;
-      transform-style: preserve-3d;
+      transition: box-shadow 0.3s;
     }
 
-    .domain-card::before {
+    .now-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+
+    .now-card::before {
       content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      opacity: 0;
-      transition: opacity 0.3s;
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--cyan), var(--accent));
     }
 
-    .domain-card:hover {
-      border-color: rgba(129, 140, 248, 0.3);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    .now-items { display: flex; flex-direction: column; gap: 16px; }
+
+    .now-item {
+      display: flex; align-items: flex-start; gap: 12px;
     }
 
-    .domain-card:hover::before { opacity: 1; }
-
-    .domain-card.accent-green::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
-    .domain-card.accent-cyan::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
-    .domain-card.accent-pink::before { background: linear-gradient(90deg, transparent, var(--pink), transparent); }
-    .domain-card.accent-amber::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
-
-    .domain-card .card-spotlight {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s;
+    .now-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      margin-top: 7px; flex-shrink: 0;
     }
 
-    .domain-card:hover .card-spotlight { opacity: 1; }
+    .now-dot.active { background: var(--green); box-shadow: 0 0 8px rgba(52,211,153,0.4); }
+    .now-dot.thinking { background: var(--amber); box-shadow: 0 0 8px rgba(251,191,36,0.3); }
+    .now-dot.exploring { background: var(--cyan); box-shadow: 0 0 8px rgba(34,211,238,0.3); }
 
-    .domain-card > * { position: relative; z-index: 1; }
+    .now-content { flex: 1; }
 
-    .domain-icon {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      margin-bottom: 16px;
-      transition: transform 0.3s;
-    }
-
-    .domain-card:hover .domain-icon { transform: scale(1.1); }
-
-    .icon-green { background: var(--green-dim); border: 1px solid rgba(52, 211, 153, 0.2); }
-    .icon-cyan { background: var(--cyan-dim); border: 1px solid rgba(34, 211, 238, 0.2); }
-    .icon-pink { background: var(--pink-dim); border: 1px solid rgba(244, 114, 182, 0.2); }
-    .icon-amber { background: var(--amber-dim); border: 1px solid rgba(251, 191, 36, 0.2); }
-
-    .domain-card h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .domain-card .desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    /* Interactive mini-viz inside domain cards */
-    .mini-viz {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--text-dim);
-      overflow-x: auto;
-    }
-
-    /* ===== METRIC TREE VIZ ===== */
-    .metric-tree {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .metric-node {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s;
-    }
-
-    .metric-node .indent { width: 20px; flex-shrink: 0; }
-    .metric-node .indent-2 { width: 40px; flex-shrink: 0; }
-
-    .metric-node .connector {
-      color: var(--border-light);
-      flex-shrink: 0;
-      width: 16px;
-    }
-
-    .metric-node .label {
-      color: var(--text-dim);
-      white-space: nowrap;
-    }
-
-    .metric-node .value {
-      margin-left: auto;
-      padding: 1px 6px;
-      border-radius: 3px;
-      font-size: 11px;
-      white-space: nowrap;
-    }
-
-    .val-green { background: var(--green-dim); color: var(--green); }
-    .val-red { background: var(--red-dim); color: var(--red); }
-    .val-amber { background: var(--amber-dim); color: var(--amber); }
-    .val-cyan { background: var(--cyan-dim); color: var(--cyan); }
-
-    .metric-node:hover .label { color: var(--text); }
-
-    /* ===== EXPERIMENT VIZ ===== */
-    .experiment-viz {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .exp-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .exp-label {
-      width: 60px;
-      font-size: 11px;
-      color: var(--text-muted);
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .exp-bar-track {
-      flex: 1;
-      height: 24px;
-      background: var(--surface-3);
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .exp-bar {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-      width: 0;
-      display: flex;
-      align-items: center;
-      padding-left: 8px;
-      font-size: 11px;
-      color: white;
-      font-weight: 500;
-    }
-
-    .exp-bar.control { background: var(--text-muted); }
-    .exp-bar.treatment { background: linear-gradient(90deg, var(--accent-2), var(--cyan)); }
-
-    .exp-ci {
-      position: absolute;
-      top: 50%;
-      height: 2px;
-      background: var(--amber);
-      transform: translateY(-50%);
-      opacity: 0;
-      transition: opacity 0.5s 1.5s;
-    }
-
-    .exp-ci::before, .exp-ci::after {
-      content: '';
-      position: absolute;
-      top: -4px;
-      width: 2px; height: 10px;
-      background: var(--amber);
-    }
-
-    .exp-ci::before { left: 0; }
-    .exp-ci::after { right: 0; }
-
-    .exp-result {
-      text-align: center;
-      padding: 6px 0 0;
-      font-size: 11px;
-      opacity: 0;
-      transition: opacity 0.5s 2s;
-    }
-
-    .exp-result .lift { color: var(--green); font-weight: 600; }
-    .exp-result .pval { color: var(--text-muted); }
-
-    /* ===== CAUSAL DIAGRAM ===== */
-    .causal-diagram {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      padding: 8px 0;
-      flex-wrap: wrap;
-    }
-
-    .causal-node {
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 500;
-      text-align: center;
-      transition: all 0.3s;
-      border: 1px solid;
-    }
-
-    .causal-node.treatment { background: var(--cyan-dim); border-color: rgba(34,211,238,0.3); color: var(--cyan); }
-    .causal-node.outcome { background: var(--green-dim); border-color: rgba(52,211,153,0.3); color: var(--green); }
-    .causal-node.confounder { background: var(--amber-dim); border-color: rgba(251,191,36,0.3); color: var(--amber); }
-    .causal-node.instrument { background: var(--pink-dim); border-color: rgba(244,114,182,0.3); color: var(--pink); }
-
-    .causal-arrow {
-      color: var(--border-light);
-      font-size: 16px;
-      padding: 0 4px;
-      transition: color 0.3s;
-    }
-
-    .causal-diagram:hover .causal-arrow { color: var(--accent); }
-    .causal-node:hover { transform: scale(1.08); }
-
-    .causal-legend {
-      display: flex;
-      gap: 12px;
-      margin-top: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .causal-legend span {
-      font-size: 10px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .legend-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    /* ===== AGENT FLOW ===== */
-    .agent-flow {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .agent-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 8px 0;
-      position: relative;
-    }
-
-    .agent-step-line {
-      width: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .agent-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      z-index: 1;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .agent-step:hover .agent-dot {
-      transform: scale(1.3);
-    }
-
-    .dot-accent { background: var(--accent); box-shadow: 0 0 8px var(--glow); }
-    .dot-green { background: var(--green); box-shadow: 0 0 8px rgba(52,211,153,0.3); }
-    .dot-cyan { background: var(--cyan); box-shadow: 0 0 8px rgba(34,211,238,0.3); }
-    .dot-pink { background: var(--pink); box-shadow: 0 0 8px rgba(244,114,182,0.3); }
-    .dot-amber { background: var(--amber); box-shadow: 0 0 8px rgba(251,191,36,0.3); }
-
-    .agent-line {
-      width: 1px;
-      flex: 1;
-      min-height: 20px;
-      background: var(--border);
-    }
-
-    .agent-content {
-      flex: 1;
-      padding-bottom: 4px;
-    }
-
-    .agent-content .step-title {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text);
+    .now-content strong {
+      font-size: 14px; font-weight: 600; display: block;
       margin-bottom: 2px;
     }
 
-    .agent-content .step-desc {
-      font-size: 11px;
-      color: var(--text-muted);
+    .now-content span {
+      font-size: 13px; color: var(--text-muted); line-height: 1.5;
     }
 
-    .agent-step:hover .step-title { color: var(--accent); }
+    .now-date {
+      font-size: 11px; color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 16px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
 
-    /* ===== MATH DECOMPOSITION VIZ ===== */
-    .math-grid {
+    /* ===== THOUGHTS ===== */
+    .post-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .post-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; border-radius: 8px;
+      text-decoration: none; color: var(--text);
+      transition: all 0.3s; gap: 16px; position: relative;
+    }
+
+    .post-item::before {
+      content: ''; position: absolute; left: 0; top: 50%;
+      width: 0; height: 60%; transform: translateY(-50%);
+      background: var(--accent); border-radius: 0 2px 2px 0;
+      transition: width 0.2s;
+    }
+
+    .post-item:hover { background: var(--surface); padding-left: 24px; }
+    .post-item:hover::before { width: 3px; }
+
+    .post-info { display: flex; flex-direction: column; gap: 2px; }
+    .post-title { font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .post-item:hover .post-title { color: var(--accent); }
+    .post-tag { font-size: 11px; color: var(--text-muted); }
+
+    .post-meta {
+      font-size: 12px; color: var(--text-muted);
+      white-space: nowrap; font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ===== BUILDS ===== */
+    .build-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-
-    .math-block {
-      text-align: center;
-      padding: 12px 8px;
-    }
-
-    .math-eq {
-      font-size: 14px;
-      color: var(--text);
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
-
-    .math-eq .op { color: var(--text-muted); }
-    .math-eq .hi-green { color: var(--green); }
-    .math-eq .hi-cyan { color: var(--cyan); }
-    .math-eq .hi-pink { color: var(--pink); }
-    .math-eq .hi-amber { color: var(--amber); }
-
-    .square-viz {
-      display: inline-grid;
-      gap: 2px;
-      margin: 8px auto;
-    }
-
-    .sq-cell {
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    .sq-cell:hover { transform: scale(1.15); }
-    .sq-big { background: rgba(129, 140, 248, 0.3); border: 1px solid rgba(129,140,248,0.2); }
-    .sq-h { background: rgba(34, 211, 238, 0.3); border: 1px solid rgba(34,211,238,0.2); }
-    .sq-v { background: rgba(52, 211, 153, 0.3); border: 1px solid rgba(52,211,153,0.2); }
-    .sq-corner { background: rgba(251, 191, 36, 0.5); border: 1px solid rgba(251,191,36,0.3); }
-
-    .sq-label {
-      font-size: 9px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.7);
-    }
-
-    /* ===== FULL-WIDTH SHOWCASE ===== */
-    .showcase {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 32px;
-      margin-top: 16px;
-      overflow: hidden;
-    }
-
-    .showcase-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .showcase-header h3 {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .showcase-header .tag-pill {
-      font-size: 11px;
-      padding: 2px 10px;
-      border-radius: 100px;
-      background: var(--accent-2);
-      color: white;
-      font-weight: 500;
-    }
-
-    /* ===== PROJECT CARDS ===== */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
 
-    .project-card {
+    .build-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 20px;
-      text-decoration: none;
-      color: var(--text);
+      text-decoration: none; color: var(--text);
       transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
+      transform-style: preserve-3d;
     }
 
-    .project-card:hover {
+    .build-card .card-spotlight {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    }
+
+    .build-card:hover .card-spotlight { opacity: 1; }
+
+    .build-card:hover {
       border-color: rgba(129, 140, 248, 0.3);
       transform: translateY(-3px);
       box-shadow: 0 12px 32px rgba(0,0,0,0.3);
     }
 
-    .project-card h4 {
+    .build-card > * { position: relative; z-index: 1; }
+
+    .build-card h4 {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 6px;
+      font-size: 14px; font-weight: 500; margin-bottom: 6px;
     }
 
-    .project-card p {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
+    .build-card p { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
 
-    .project-card .p-tag {
-      margin-top: 10px;
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 3px;
-      background: var(--surface-2);
-      color: var(--text-muted);
+    .build-tags { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+
+    .tag {
+      font-size: 10px; padding: 2px 7px; border-radius: 3px;
+      background: var(--surface-2); color: var(--text-muted);
       border: 1px solid var(--border);
-      display: inline-block;
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* ===== POSTS ===== */
-    .post-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+    /* ===== COLLECTION ===== */
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
 
-    .post-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      color: var(--text);
-      transition: all 0.3s;
-      gap: 16px;
-      position: relative;
-    }
-
-    .post-item::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 50%;
-      width: 0; height: 60%;
-      transform: translateY(-50%);
-      background: var(--accent);
-      border-radius: 0 2px 2px 0;
-      transition: width 0.2s;
-    }
-
-    .post-item:hover {
+    .collection-card {
       background: var(--surface);
-      padding-left: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+      transform-style: preserve-3d;
     }
 
-    .post-item:hover::before { width: 3px; }
-
-    .post-title { font-size: 14px; font-weight: 500; }
-    .post-item:hover .post-title { color: var(--accent); }
-
-    .post-meta {
-      font-size: 12px;
-      color: var(--text-muted);
-      white-space: nowrap;
-      font-family: 'JetBrains Mono', monospace;
+    .collection-card .card-spotlight {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; opacity: 0; transition: opacity 0.3s;
     }
+
+    .collection-card:hover .card-spotlight { opacity: 1; }
+
+    .collection-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; opacity: 0; transition: opacity 0.3s;
+    }
+
+    .collection-card:hover { border-color: rgba(129,140,248,0.3); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+    .collection-card:hover::before { opacity: 1; }
+
+    .collection-card.c-cyan::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+    .collection-card.c-amber::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+    .collection-card.c-green::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+    .collection-card.c-pink::before { background: linear-gradient(90deg, transparent, var(--pink), transparent); }
+
+    .collection-card > * { position: relative; z-index: 1; }
+
+    .c-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 14px;
+      transition: transform 0.3s;
+    }
+
+    .collection-card:hover .c-icon { transform: scale(1.1) rotate(-3deg); }
+
+    .c-icon.i-cyan { background: var(--cyan-dim); border: 1px solid rgba(34,211,238,0.2); }
+    .c-icon.i-amber { background: var(--amber-dim); border: 1px solid rgba(251,191,36,0.2); }
+    .c-icon.i-green { background: var(--green-dim); border: 1px solid rgba(52,211,153,0.2); }
+    .c-icon.i-pink { background: var(--pink-dim); border: 1px solid rgba(244,114,182,0.2); }
+
+    .collection-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .collection-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    .c-tags { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
 
     /* Footer */
     footer {
-      padding: 40px 0;
-      text-align: center;
+      padding: 40px 0; text-align: center;
       border-top: 1px solid var(--border);
     }
 
@@ -850,27 +426,16 @@
 
     /* Animations */
     .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
     }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    .stagger-1 { transition-delay: 0.05s; }
-    .stagger-2 { transition-delay: 0.1s; }
-    .stagger-3 { transition-delay: 0.15s; }
-    .stagger-4 { transition-delay: 0.2s; }
-
-    @media (max-width: 700px) {
-      .domain-grid { grid-template-columns: 1fr; }
-      .card-grid { grid-template-columns: 1fr; }
-      .hero { padding: 120px 0 60px; }
+    @media (max-width: 600px) {
+      .build-grid, .collection-grid { grid-template-columns: 1fr; }
+      .hero { padding: 120px 0 50px; }
       .post-item { flex-direction: column; align-items: flex-start; gap: 4px; }
-      .causal-diagram { gap: 4px; }
       .nav-links { gap: 12px; }
       .nav-links a { font-size: 12px; }
     }
@@ -888,9 +453,9 @@
         daac
       </a>
       <ul class="nav-links">
-        <li><a href="#craft">Craft</a></li>
-        <li><a href="#builds">Builds</a></li>
+        <li><a href="#now">Now</a></li>
         <li><a href="#thoughts">Thoughts</a></li>
+        <li><a href="#builds">Builds</a></li>
         <li><a href="#collection">Collection</a></li>
       </ul>
     </div>
@@ -898,265 +463,107 @@
 
   <div class="container">
 
-    <!-- Hero -->
+    <!-- ===== HERO ===== -->
     <header class="hero">
       <div class="hero-badge">
         <span class="pulse-dot"></span>
-        Explorer &middot; Builder &middot; Data Scientist
+        Building in public
       </div>
       <h1>Hey, I'm <span class="gradient">daac</span></h1>
-      <p>Dumb as a chicken, curious about everything. Product Data Scientist by day, AI tinkerer by night. I explore new things, build with AI, and write about what I learn.</p>
-      <p class="sub">This is my corner of the internet &mdash; part portfolio, part lab notebook, part bookshelf.</p>
+      <p>Product Data Scientist by day. Explorer of AI, new products, and life experiments by always. I build things, write about what I learn, and collect what inspires me.</p>
+      <p class="sub">daac = dumb as a chicken. Stay curious, stay humble, ship it.</p>
       <div class="hero-links">
         <a class="btn btn-primary" href="https://github.com/daac-solo">
           <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
           GitHub
         </a>
-        <a class="btn btn-ghost" href="#craft">Explore</a>
+        <a class="btn btn-ghost" href="#thoughts">Read my thoughts</a>
       </div>
     </header>
 
     <div class="divider"></div>
 
-    <!-- ===== MY CRAFT: Professional Expertise ===== -->
-    <section id="craft">
+    <!-- ===== NOW ===== -->
+    <section id="now" class="fade-in">
       <div class="section-header">
-        <span class="section-title">My Craft</span>
+        <span class="section-title">Now</span>
       </div>
-
-      <div class="domain-grid">
-
-        <!-- 1. Goals & Metrics Framework -->
-        <div class="domain-card accent-green fade-in stagger-1">
-          <div class="card-spotlight"></div>
-          <div class="domain-icon icon-green">&#127919;</div>
-          <h3>Goals & Metrics Framework</h3>
-          <p class="desc">Design North Star metrics and decompose them into actionable driver trees. Every metric tells a story — I make sure it's the right one.</p>
-          <div class="mini-viz">
-            <div class="metric-tree" id="metricTree">
-              <div class="metric-node">
-                <span class="connector">&#9670;</span>
-                <span class="label" style="color:var(--green);font-weight:600;">Revenue</span>
-                <span class="value val-green">&#9650; 12%</span>
-              </div>
-              <div class="metric-node">
-                <span class="indent"></span>
-                <span class="connector">&#9500;&#9472;</span>
-                <span class="label">Users</span>
-                <span class="value val-green">&#9650; 8%</span>
-              </div>
-              <div class="metric-node">
-                <span class="indent-2"></span>
-                <span class="connector">&#9500;&#9472;</span>
-                <span class="label">New signups</span>
-                <span class="value val-green">&#9650; 15%</span>
-              </div>
-              <div class="metric-node">
-                <span class="indent-2"></span>
-                <span class="connector">&#9492;&#9472;</span>
-                <span class="label">Retention D7</span>
-                <span class="value val-red">&#9660; 3%</span>
-              </div>
-              <div class="metric-node">
-                <span class="indent"></span>
-                <span class="connector">&#9492;&#9472;</span>
-                <span class="label">ARPU</span>
-                <span class="value val-amber">&#9472; flat</span>
-              </div>
-              <div class="metric-node">
-                <span class="indent-2"></span>
-                <span class="connector">&#9500;&#9472;</span>
-                <span class="label">Conversion %</span>
-                <span class="value val-green">&#9650; 2%</span>
-              </div>
-              <div class="metric-node">
-                <span class="indent-2"></span>
-                <span class="connector">&#9492;&#9472;</span>
-                <span class="label">Avg order value</span>
-                <span class="value val-red">&#9660; 5%</span>
-              </div>
+      <div class="now-card">
+        <div class="now-items">
+          <div class="now-item">
+            <div class="now-dot active"></div>
+            <div class="now-content">
+              <strong>Building this site in public</strong>
+              <span>Setting up my corner of the internet. Learning by doing, sharing as I go.</span>
+            </div>
+          </div>
+          <div class="now-item">
+            <div class="now-dot active"></div>
+            <div class="now-content">
+              <strong>Exploring agentic workflows at work</strong>
+              <span>Using AI agents to automate metric monitoring and anomaly detection. Product DS meets LLMs.</span>
+            </div>
+          </div>
+          <div class="now-item">
+            <div class="now-dot thinking"></div>
+            <div class="now-content">
+              <strong>Writing about how I explain complex things</strong>
+              <span>Starting with "how to explain 81&times;81 to a gifted kid" &mdash; decomposition, visualization, intuition.</span>
+            </div>
+          </div>
+          <div class="now-item">
+            <div class="now-dot exploring"></div>
+            <div class="now-content">
+              <strong>Testing every new AI tool I can find</strong>
+              <span>Keeping notes on what sticks and what doesn't. Will share the ones worth your time.</span>
             </div>
           </div>
         </div>
-
-        <!-- 2. Experimental & Causal Inference -->
-        <div class="domain-card accent-cyan fade-in stagger-2">
-          <div class="card-spotlight"></div>
-          <div class="domain-icon icon-cyan">&#128300;</div>
-          <h3>Experiment & Causal Inference</h3>
-          <p class="desc">A/B tests, diff-in-diff, instrumental variables — I pick the right tool for the causal question and make results legible to non-stats people.</p>
-          <div class="mini-viz">
-            <div class="experiment-viz" id="expViz">
-              <div class="exp-row">
-                <span class="exp-label">Control</span>
-                <div class="exp-bar-track">
-                  <div class="exp-bar control" data-width="62" style="width:0%">6.2%</div>
-                </div>
-              </div>
-              <div class="exp-row">
-                <span class="exp-label">Treatment</span>
-                <div class="exp-bar-track">
-                  <div class="exp-bar treatment" data-width="74" style="width:0%">7.4%</div>
-                  <div class="exp-ci" id="expCI" style="left:70%;width:8%;opacity:0;"></div>
-                </div>
-              </div>
-              <div class="exp-result" id="expResult">
-                <span class="lift">+19.4% lift</span>&nbsp;&nbsp;
-                <span class="pval">p = 0.003 &nbsp; 95% CI [+11.2%, +27.6%]</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. Business Cases -->
-        <div class="domain-card accent-pink fade-in stagger-3">
-          <div class="card-spotlight"></div>
-          <div class="domain-icon icon-pink">&#128200;</div>
-          <h3>Business Cases</h3>
-          <p class="desc">Translate product intuition into numbers. I build sizing models, estimate ROI, and create the analytical backbone for go/no-go decisions.</p>
-          <div class="mini-viz">
-            <div class="causal-diagram">
-              <div class="causal-node instrument">Feature launch</div>
-              <span class="causal-arrow">&#8594;</span>
-              <div class="causal-node treatment">Adoption</div>
-              <span class="causal-arrow">&#8594;</span>
-              <div class="causal-node outcome">Revenue &#9650;</div>
-            </div>
-            <div style="text-align:center;margin-top:10px;">
-              <div style="display:inline-flex;gap:4px;flex-wrap:wrap;justify-content:center;">
-                <span style="font-size:11px;padding:3px 8px;border-radius:4px;background:var(--surface-3);color:var(--text-muted);">TAM: 2.4M users</span>
-                <span style="font-size:11px;padding:3px 8px;border-radius:4px;background:var(--surface-3);color:var(--text-muted);">Est. adoption: 18%</span>
-                <span style="font-size:11px;padding:3px 8px;border-radius:4px;background:var(--green-dim);color:var(--green);">NPV: +$3.2M</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. Agentic Workflows -->
-        <div class="domain-card accent-amber fade-in stagger-4">
-          <div class="card-spotlight"></div>
-          <div class="domain-icon icon-amber">&#129302;</div>
-          <h3>Agentic Workflows</h3>
-          <p class="desc">Build AI agent pipelines that automate analysis, monitoring, and reporting. Let the machines do the repetitive thinking.</p>
-          <div class="mini-viz">
-            <div class="agent-flow">
-              <div class="agent-step">
-                <div class="agent-step-line">
-                  <div class="agent-dot dot-amber"></div>
-                  <div class="agent-line"></div>
-                </div>
-                <div class="agent-content">
-                  <div class="step-title">Trigger: anomaly detected</div>
-                  <div class="step-desc">Metric drops below threshold</div>
-                </div>
-              </div>
-              <div class="agent-step">
-                <div class="agent-step-line">
-                  <div class="agent-dot dot-cyan"></div>
-                  <div class="agent-line"></div>
-                </div>
-                <div class="agent-content">
-                  <div class="step-title">Agent: root cause analysis</div>
-                  <div class="step-desc">Query logs, segment users, check deploys</div>
-                </div>
-              </div>
-              <div class="agent-step">
-                <div class="agent-step-line">
-                  <div class="agent-dot dot-pink"></div>
-                  <div class="agent-line"></div>
-                </div>
-                <div class="agent-content">
-                  <div class="step-title">Agent: impact sizing</div>
-                  <div class="step-desc">Estimate revenue impact + affected users</div>
-                </div>
-              </div>
-              <div class="agent-step">
-                <div class="agent-step-line">
-                  <div class="agent-dot dot-green"></div>
-                </div>
-                <div class="agent-content">
-                  <div class="step-title">Output: Slack alert + doc</div>
-                  <div class="step-desc">Structured brief with action items</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <div class="now-date">Updated Oct 6, 2026</div>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <!-- ===== BUILDS: Projects & Experiments ===== -->
-    <section id="builds" class="fade-in">
-      <div class="section-header">
-        <span class="section-title">Builds & Experiments</span>
-        <a class="section-link" href="https://github.com/daac-solo">GitHub &rarr;</a>
-      </div>
-      <div class="card-grid">
-        <a class="project-card" href="https://github.com/daac-solo/Pause">
-          <h4>Pause</h4>
-          <p>iOS app to resolve arguments. Breathe before you react.</p>
-          <span class="p-tag">Swift</span>
-        </a>
-        <a class="project-card" href="https://github.com/daac-solo/social-observer">
-          <h4>social-observer</h4>
-          <p>Social media analysis toolkit.</p>
-          <span class="p-tag">Python</span>
-        </a>
-        <a class="project-card" href="https://github.com/daac-solo/quantum-life-lab">
-          <h4>quantum-life-lab</h4>
-          <p>Quantum-inspired life simulations.</p>
-          <span class="p-tag">TypeScript</span>
-        </a>
-        <a class="project-card" href="https://github.com/daac-solo/mood-weather-unlock">
-          <h4>mood-weather-unlock</h4>
-          <p>Unlock experiences by mood + weather.</p>
-          <span class="p-tag">TypeScript</span>
-        </a>
-        <a class="project-card" href="https://github.com/daac-solo/caffeine-sleep-calculator">
-          <h4>caffeine-sleep</h4>
-          <p>How caffeine affects your sleep.</p>
-          <span class="p-tag">JavaScript</span>
-        </a>
-        <a class="project-card" href="https://github.com/daac-solo/QuantumDiary">
-          <h4>QuantumDiary</h4>
-          <p>AI-powered journaling prompts.</p>
-          <span class="p-tag">Python</span>
-        </a>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- ===== THOUGHTS: Writing & Ideas ===== -->
+    <!-- ===== THOUGHTS ===== -->
     <section id="thoughts" class="fade-in">
       <div class="section-header">
         <span class="section-title">Thoughts & Writing</span>
       </div>
-      <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">
-        Things I'm thinking about &mdash; AI, product, parenting, life experiments, and whatever else catches my attention.
-      </p>
       <div class="post-list">
         <a class="post-item" href="#">
-          <span class="post-title">Explaining 81&times;81 to a Gifted Kid</span>
-          <span class="post-meta">2026-10-06</span>
-        </a>
-        <a class="post-item" href="#">
-          <span class="post-title">How I Think About North Star Metrics</span>
+          <div class="post-info">
+            <span class="post-title">Explaining 81&times;81 to a Gifted Kid</span>
+            <span class="post-tag">parenting &middot; math &middot; teaching</span>
+          </div>
           <span class="post-meta">coming soon</span>
         </a>
         <a class="post-item" href="#">
-          <span class="post-title">A/B Testing When You Can't Randomize</span>
+          <div class="post-info">
+            <span class="post-title">How I Think About North Star Metrics</span>
+            <span class="post-tag">product &middot; data science</span>
+          </div>
           <span class="post-meta">coming soon</span>
         </a>
         <a class="post-item" href="#">
-          <span class="post-title">Building an AI Agent That Monitors My Metrics</span>
+          <div class="post-info">
+            <span class="post-title">A/B Testing When You Can't Randomize</span>
+            <span class="post-tag">causal inference &middot; experiments</span>
+          </div>
           <span class="post-meta">coming soon</span>
         </a>
         <a class="post-item" href="#">
-          <span class="post-title">What I Learned from 100 Days of AI Tools</span>
+          <div class="post-info">
+            <span class="post-title">My AI Agent That Watches Metrics for Me</span>
+            <span class="post-tag">AI &middot; automation &middot; build log</span>
+          </div>
+          <span class="post-meta">coming soon</span>
+        </a>
+        <a class="post-item" href="#">
+          <div class="post-info">
+            <span class="post-title">100 AI Tools Later: What Actually Stuck</span>
+            <span class="post-tag">AI &middot; tools &middot; review</span>
+          </div>
           <span class="post-meta">coming soon</span>
         </a>
       </div>
@@ -1164,61 +571,87 @@
 
     <div class="divider"></div>
 
-    <!-- ===== COLLECTION: Curated Interests ===== -->
+    <!-- ===== BUILDS ===== -->
+    <section id="builds" class="fade-in">
+      <div class="section-header">
+        <span class="section-title">Builds</span>
+        <a class="section-link" href="https://github.com/daac-solo">All projects &rarr;</a>
+      </div>
+      <div class="build-grid">
+        <a class="build-card" href="https://github.com/daac-solo/Pause">
+          <div class="card-spotlight"></div>
+          <h4>Pause</h4>
+          <p>iOS app to resolve arguments. Breathe before you react.</p>
+          <div class="build-tags"><span class="tag">Swift</span><span class="tag">iOS</span></div>
+        </a>
+        <a class="build-card" href="https://github.com/daac-solo/social-observer">
+          <div class="card-spotlight"></div>
+          <h4>social-observer</h4>
+          <p>Social media observation and analysis.</p>
+          <div class="build-tags"><span class="tag">Python</span></div>
+        </a>
+        <a class="build-card" href="https://github.com/daac-solo/quantum-life-lab">
+          <div class="card-spotlight"></div>
+          <h4>quantum-life-lab</h4>
+          <p>Quantum-inspired life simulations.</p>
+          <div class="build-tags"><span class="tag">TypeScript</span></div>
+        </a>
+        <a class="build-card" href="https://github.com/daac-solo/mood-weather-unlock">
+          <div class="card-spotlight"></div>
+          <h4>mood-weather-unlock</h4>
+          <p>Unlock experiences by mood + weather.</p>
+          <div class="build-tags"><span class="tag">TypeScript</span></div>
+        </a>
+        <a class="build-card" href="https://github.com/daac-solo/caffeine-sleep-calculator">
+          <div class="card-spotlight"></div>
+          <h4>caffeine-sleep</h4>
+          <p>How caffeine affects your sleep quality.</p>
+          <div class="build-tags"><span class="tag">JavaScript</span></div>
+        </a>
+        <a class="build-card" href="https://github.com/daac-solo/QuantumDiary">
+          <div class="card-spotlight"></div>
+          <h4>QuantumDiary</h4>
+          <p>AI-powered journaling with reflection prompts.</p>
+          <div class="build-tags"><span class="tag">Python</span><span class="tag">AI</span></div>
+        </a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== COLLECTION ===== -->
     <section id="collection" class="fade-in">
       <div class="section-header">
         <span class="section-title">Collection</span>
       </div>
-      <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">
-        Things I find interesting and keep coming back to.
-      </p>
-      <div class="domain-grid">
-        <div class="domain-card accent-cyan" style="cursor:default;">
+      <div class="collection-grid">
+        <div class="collection-card c-cyan">
           <div class="card-spotlight"></div>
-          <div class="domain-icon icon-cyan" style="font-size:24px;">&#129302;</div>
-          <h3>AI Tools I Actually Use</h3>
-          <p class="desc">Curated list of AI products and tools that changed how I work. Not hype, just things that stuck.</p>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;">
-            <span class="p-tag">Claude Code</span>
-            <span class="p-tag">Cursor</span>
-            <span class="p-tag">Perplexity</span>
-            <span class="p-tag">+ more</span>
-          </div>
+          <div class="c-icon i-cyan">&#129302;</div>
+          <h3>AI Tools I Use</h3>
+          <p>Not hype &mdash; tools that actually changed how I work. Updated as I discover new ones.</p>
+          <div class="c-tags"><span class="tag">Claude Code</span><span class="tag">Cursor</span><span class="tag">Perplexity</span></div>
         </div>
-        <div class="domain-card accent-amber" style="cursor:default;">
+        <div class="collection-card c-amber">
           <div class="card-spotlight"></div>
-          <div class="domain-icon icon-amber" style="font-size:24px;">&#128218;</div>
+          <div class="c-icon i-amber">&#128218;</div>
           <h3>Reading List</h3>
-          <p class="desc">Books, articles, and threads that shaped my thinking. Updated as I discover new things.</p>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;">
-            <span class="p-tag">AI</span>
-            <span class="p-tag">Product</span>
-            <span class="p-tag">Data</span>
-            <span class="p-tag">Life</span>
-          </div>
+          <p>Books, articles, and threads that shaped my thinking across AI, product, and life.</p>
+          <div class="c-tags"><span class="tag">AI</span><span class="tag">Product</span><span class="tag">Life</span></div>
         </div>
-        <div class="domain-card accent-green" style="cursor:default;">
+        <div class="collection-card c-green">
           <div class="card-spotlight"></div>
-          <div class="domain-icon icon-green" style="font-size:24px;">&#127912;</div>
-          <h3>Cool Things I Found</h3>
-          <p class="desc">Products, designs, ideas, and random discoveries that made me go "whoa".</p>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;">
-            <span class="p-tag">Products</span>
-            <span class="p-tag">Design</span>
-            <span class="p-tag">Ideas</span>
-          </div>
+          <div class="c-icon i-green">&#128161;</div>
+          <h3>Cool Discoveries</h3>
+          <p>Products, designs, and ideas that made me go "whoa". The things I keep coming back to.</p>
+          <div class="c-tags"><span class="tag">Products</span><span class="tag">Design</span><span class="tag">Ideas</span></div>
         </div>
-        <div class="domain-card accent-pink" style="cursor:default;">
+        <div class="collection-card c-pink">
           <div class="card-spotlight"></div>
-          <div class="domain-icon icon-pink" style="font-size:24px;">&#128161;</div>
-          <h3>Experiment Log</h3>
-          <p class="desc">What I tried, what worked, what didn't. Life experiments with data.</p>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;">
-            <span class="p-tag">Caffeine</span>
-            <span class="p-tag">Sleep</span>
-            <span class="p-tag">Habits</span>
-            <span class="p-tag">Workflow</span>
-          </div>
+          <div class="c-icon i-pink">&#128300;</div>
+          <h3>Life Experiments</h3>
+          <p>What I tried, what worked, what didn't. Caffeine, sleep, habits, workflow &mdash; with data.</p>
+          <div class="c-tags"><span class="tag">Caffeine</span><span class="tag">Sleep</span><span class="tag">Habits</span></div>
         </div>
       </div>
     </section>
@@ -1232,57 +665,46 @@
   </footer>
 
   <script>
-    // ===== Scroll Progress =====
+    // Scroll progress
     const progressBar = document.getElementById('scrollProgress');
     window.addEventListener('scroll', () => {
       const h = document.documentElement.scrollHeight - window.innerHeight;
       progressBar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
     });
 
-    // ===== Star Field =====
+    // Star field
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
     let stars = [], mouseX = 0, mouseY = 0;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
 
     function initStars() {
       stars = [];
-      const count = Math.floor((canvas.width * canvas.height) / 10000);
+      const count = Math.floor((canvas.width * canvas.height) / 12000);
       for (let i = 0; i < count; i++) {
         stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 1 + 0.3,
-          a: Math.random() * 0.6 + 0.1,
-          speed: Math.random() * 0.0005 + 0.0002,
-          phase: Math.random() * Math.PI * 2
+          x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+          r: Math.random() * 1 + 0.3, a: Math.random() * 0.5 + 0.1,
+          speed: Math.random() * 0.0005 + 0.0002, phase: Math.random() * Math.PI * 2
         });
       }
     }
 
-    let starTime = 0;
+    let t = 0;
     function drawStars() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      starTime += 16;
+      t += 16;
       stars.forEach(s => {
-        const twinkle = 0.4 + 0.6 * Math.sin(starTime * s.speed + s.phase);
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 210, 255, ${s.a * twinkle})`;
-        ctx.fill();
-
+        const tw = 0.4 + 0.6 * Math.sin(t * s.speed + s.phase);
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,210,255,${s.a * tw})`; ctx.fill();
         const dx = s.x - mouseX, dy = s.y - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 100) {
           const intensity = 1 - dist / 100;
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r * (1 + intensity * 2), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(129, 140, 248, ${intensity * 0.6})`;
-          ctx.fill();
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r * (1 + intensity * 2), 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(129,140,248,${intensity * 0.6})`; ctx.fill();
         }
       });
       requestAnimationFrame(drawStars);
@@ -1292,112 +714,35 @@
     resizeCanvas(); initStars(); drawStars();
     window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
 
-    // ===== Card 3D Tilt =====
-    document.querySelectorAll('.domain-card').forEach(card => {
-      const spotlight = card.querySelector('.card-spotlight');
+    // Card 3D tilt
+    document.querySelectorAll('.build-card, .collection-card').forEach(card => {
+      const spot = card.querySelector('.card-spotlight');
       card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -6;
-        const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 6;
-        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
-        if (spotlight) spotlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(129,140,248,0.08) 0%, transparent 60%)`;
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        const rx = ((y - r.height/2) / (r.height/2)) * -5;
+        const ry = ((x - r.width/2) / (r.width/2)) * 5;
+        card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.01)`;
+        if (spot) spot.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(129,140,248,0.08) 0%, transparent 60%)`;
       });
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(600px) rotateX(0) rotateY(0) scale(1)';
       });
     });
 
-    // ===== Scroll Animations =====
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          if (entry.target.querySelector('.experiment-viz')) animateExperiment();
-          if (entry.target.querySelector('#squareViz')) buildSquareViz();
-        }
-      });
-    }, { threshold: 0.15 });
+    // Scroll animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // ===== Animate experiment bars =====
-    let expAnimated = false;
-    function animateExperiment() {
-      if (expAnimated) return;
-      expAnimated = true;
-      document.querySelectorAll('.exp-bar').forEach(bar => {
-        bar.style.width = bar.dataset.width + '%';
-      });
-      setTimeout(() => {
-        document.getElementById('expCI').style.opacity = '1';
-      }, 1500);
-      setTimeout(() => {
-        document.getElementById('expResult').style.opacity = '1';
-      }, 2000);
-    }
-
-    // ===== Build Square Visualization =====
-    let squareBuilt = false;
-    function buildSquareViz() {
-      if (squareBuilt) return;
-      squareBuilt = true;
-
-      const container = document.getElementById('squareViz');
-      const size = 9; // 9x9 grid representing 81x81 (each cell = 9x9 block)
-      const grid = document.createElement('div');
-      grid.style.cssText = 'display:inline-grid;grid-template-columns:repeat(9,1fr);gap:2px;width:180px;';
-
-      for (let r = 0; r < size; r++) {
-        for (let c = 0; c < size; c++) {
-          const cell = document.createElement('div');
-          cell.className = 'sq-cell';
-          cell.style.width = '18px';
-          cell.style.height = '18px';
-
-          if (r < 8 && c < 8) {
-            cell.classList.add('sq-big');
-          } else if (r < 8 && c === 8) {
-            cell.classList.add('sq-h');
-          } else if (r === 8 && c < 8) {
-            cell.classList.add('sq-v');
-          } else {
-            cell.classList.add('sq-corner');
-          }
-
-          cell.style.opacity = '0';
-          cell.style.animation = `cellFadeIn 0.3s ease forwards ${(r * size + c) * 15}ms`;
-          grid.appendChild(cell);
-        }
-      }
-
-      container.appendChild(grid);
-
-      const style = document.createElement('style');
-      style.textContent = '@keyframes cellFadeIn { from { opacity:0; transform:scale(0.5); } to { opacity:1; transform:scale(1); } }';
-      document.head.appendChild(style);
-    }
-
-    // ===== Smooth scroll =====
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-
-    // ===== Metric tree hover animation =====
-    document.querySelectorAll('.metric-node').forEach(node => {
-      node.addEventListener('mouseenter', () => {
-        node.style.paddingLeft = '4px';
-        node.style.background = 'var(--surface-2)';
-        node.style.borderRadius = '4px';
-      });
-      node.addEventListener('mouseleave', () => {
-        node.style.paddingLeft = '0';
-        node.style.background = 'transparent';
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth' });
       });
     });
   </script>
