@@ -6,7 +6,7 @@
   <title>daac — AI + Life Experiments</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -14,7 +14,9 @@
       --bg: #09090b;
       --surface: #111113;
       --surface-2: #18181b;
+      --surface-3: #1f1f23;
       --border: #27272a;
+      --border-light: #3f3f46;
       --text: #fafafa;
       --text-dim: #a1a1aa;
       --text-muted: #71717a;
@@ -23,8 +25,15 @@
       --glow: rgba(129, 140, 248, 0.15);
       --glow-strong: rgba(129, 140, 248, 0.3);
       --green: #34d399;
+      --green-dim: rgba(52, 211, 153, 0.15);
       --cyan: #22d3ee;
+      --cyan-dim: rgba(34, 211, 238, 0.15);
       --pink: #f472b6;
+      --pink-dim: rgba(244, 114, 182, 0.15);
+      --amber: #fbbf24;
+      --amber-dim: rgba(251, 191, 36, 0.15);
+      --red: #f87171;
+      --red-dim: rgba(248, 113, 113, 0.15);
     }
 
     body {
@@ -33,44 +42,6 @@
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* Custom cursor */
-    .cursor-dot {
-      position: fixed;
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s;
-      mix-blend-mode: screen;
-    }
-
-    .cursor-ring {
-      position: fixed;
-      width: 40px; height: 40px;
-      border: 1.5px solid rgba(129, 140, 248, 0.4);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transition: width 0.3s, height 0.3s, border-color 0.3s;
-    }
-
-    .cursor-ring.hover {
-      width: 60px; height: 60px;
-      border-color: var(--cyan);
-    }
-
-    .cursor-glow {
-      position: fixed;
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(129, 140, 248, 0.08) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      transition: opacity 0.3s;
     }
 
     /* Scroll progress */
@@ -80,7 +51,6 @@
       height: 2px;
       background: linear-gradient(90deg, var(--accent), var(--cyan), var(--green));
       z-index: 1000;
-      transition: width 0.1s linear;
       box-shadow: 0 0 10px var(--accent);
     }
 
@@ -93,20 +63,19 @@
       z-index: 0;
     }
 
-    /* Grid background */
     .grid-bg {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
       background-size: 64px 64px;
       pointer-events: none;
       z-index: 0;
     }
 
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 0 24px;
       position: relative;
@@ -118,7 +87,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(9, 9, 11, 0.7);
+      background: rgba(9, 9, 11, 0.75);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
@@ -139,7 +108,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      cursor: none;
     }
 
     .nav-logo .dot {
@@ -157,18 +125,17 @@
 
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 20px;
       list-style: none;
     }
 
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 400;
       transition: color 0.2s;
       position: relative;
-      cursor: none;
     }
 
     .nav-links a::after {
@@ -200,12 +167,6 @@
       font-size: 13px;
       color: var(--text-dim);
       margin-bottom: 32px;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
     }
 
     .hero-badge .pulse-dot {
@@ -252,11 +213,19 @@
     .hero p {
       color: var(--text-dim);
       font-size: 18px;
-      max-width: 520px;
-      margin: 0 auto 32px;
+      max-width: 560px;
+      margin: 0 auto 16px;
       font-weight: 300;
       opacity: 0;
       animation: hero-in 1s ease forwards 0.6s;
+    }
+
+    .hero .sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: hero-in 1s ease forwards 0.8s;
     }
 
     .hero-links {
@@ -264,10 +233,9 @@
       gap: 12px;
       justify-content: center;
       opacity: 0;
-      animation: hero-in 1s ease forwards 0.9s;
+      animation: hero-in 1s ease forwards 1s;
     }
 
-    /* Magnetic buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -277,25 +245,9 @@
       font-size: 14px;
       font-weight: 500;
       text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: none;
+      transition: all 0.3s;
       position: relative;
       overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 0; height: 0;
-      background: rgba(255,255,255,0.1);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-
-    .btn:hover::before {
-      width: 300px; height: 300px;
     }
 
     .btn-primary {
@@ -305,7 +257,7 @@
     }
 
     .btn-primary:hover {
-      box-shadow: 0 0 40px var(--glow-strong), 0 0 80px var(--glow);
+      box-shadow: 0 0 40px var(--glow-strong);
       transform: translateY(-2px);
     }
 
@@ -318,15 +270,11 @@
     .btn-ghost:hover {
       color: var(--text);
       border-color: var(--accent);
-      box-shadow: 0 0 20px var(--glow);
     }
 
-    .btn svg {
-      width: 16px; height: 16px;
-      fill: currentColor;
-    }
+    .btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-    /* Section */
+    /* Sections */
     section { padding: 64px 0; }
 
     .section-header {
@@ -349,7 +297,6 @@
 
     .section-title::before {
       content: '';
-      display: block;
       width: 16px; height: 1px;
       background: var(--accent);
     }
@@ -358,118 +305,491 @@
       font-size: 13px;
       color: var(--text-muted);
       text-decoration: none;
-      cursor: none;
       transition: color 0.2s;
     }
+
     .section-link:hover { color: var(--accent); }
 
-    /* Project cards with 3D tilt + spotlight */
-    .card-grid {
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 20px 0;
+    }
+
+    /* ===== EXPERTISE DOMAIN CARDS ===== */
+    .domain-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
 
-    .card {
+    .domain-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      text-decoration: none;
-      color: var(--text);
+      border-radius: 14px;
+      padding: 28px;
       position: relative;
       overflow: hidden;
-      cursor: none;
+      transition: all 0.3s;
       transform-style: preserve-3d;
-      transition: transform 0.1s ease, box-shadow 0.3s;
     }
 
-    .card-spotlight {
+    .domain-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .domain-card:hover {
+      border-color: rgba(129, 140, 248, 0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .domain-card:hover::before { opacity: 1; }
+
+    .domain-card.accent-green::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+    .domain-card.accent-cyan::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+    .domain-card.accent-pink::before { background: linear-gradient(90deg, transparent, var(--pink), transparent); }
+    .domain-card.accent-amber::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+
+    .domain-card .card-spotlight {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.3s;
-      z-index: 0;
     }
 
-    .card:hover .card-spotlight { opacity: 1; }
+    .domain-card:hover .card-spotlight { opacity: 1; }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
+    .domain-card > * { position: relative; z-index: 1; }
 
-    .card:hover {
-      border-color: rgba(129, 140, 248, 0.3);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px var(--glow);
-    }
-
-    .card:hover::before { opacity: 1; }
-
-    .card > * { position: relative; z-index: 1; }
-
-    .card-icon {
-      width: 40px; height: 40px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
+    .domain-icon {
+      width: 44px; height: 44px;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 20px;
       margin-bottom: 16px;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s;
     }
 
-    .card:hover .card-icon {
-      transform: scale(1.1) translateZ(20px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
+    .domain-card:hover .domain-icon { transform: scale(1.1); }
 
-    .card h3 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      font-weight: 500;
+    .icon-green { background: var(--green-dim); border: 1px solid rgba(52, 211, 153, 0.2); }
+    .icon-cyan { background: var(--cyan-dim); border: 1px solid rgba(34, 211, 238, 0.2); }
+    .icon-pink { background: var(--pink-dim); border: 1px solid rgba(244, 114, 182, 0.2); }
+    .icon-amber { background: var(--amber-dim); border: 1px solid rgba(251, 191, 36, 0.2); }
+
+    .domain-card h3 {
+      font-size: 16px;
+      font-weight: 600;
       margin-bottom: 8px;
     }
 
-    .card p {
+    .domain-card .desc {
       font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.6;
+      margin-bottom: 16px;
     }
 
-    .card-tags {
+    /* Interactive mini-viz inside domain cards */
+    .mini-viz {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+      overflow-x: auto;
+    }
+
+    /* ===== METRIC TREE VIZ ===== */
+    .metric-tree {
       display: flex;
-      gap: 6px;
-      margin-top: 16px;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .metric-node {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+
+    .metric-node .indent { width: 20px; flex-shrink: 0; }
+    .metric-node .indent-2 { width: 40px; flex-shrink: 0; }
+
+    .metric-node .connector {
+      color: var(--border-light);
+      flex-shrink: 0;
+      width: 16px;
+    }
+
+    .metric-node .label {
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .metric-node .value {
+      margin-left: auto;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .val-green { background: var(--green-dim); color: var(--green); }
+    .val-red { background: var(--red-dim); color: var(--red); }
+    .val-amber { background: var(--amber-dim); color: var(--amber); }
+    .val-cyan { background: var(--cyan-dim); color: var(--cyan); }
+
+    .metric-node:hover .label { color: var(--text); }
+
+    /* ===== EXPERIMENT VIZ ===== */
+    .experiment-viz {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .exp-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .exp-label {
+      width: 60px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .exp-bar-track {
+      flex: 1;
+      height: 24px;
+      background: var(--surface-3);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .exp-bar {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 0;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      font-size: 11px;
+      color: white;
+      font-weight: 500;
+    }
+
+    .exp-bar.control { background: var(--text-muted); }
+    .exp-bar.treatment { background: linear-gradient(90deg, var(--accent-2), var(--cyan)); }
+
+    .exp-ci {
+      position: absolute;
+      top: 50%;
+      height: 2px;
+      background: var(--amber);
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity 0.5s 1.5s;
+    }
+
+    .exp-ci::before, .exp-ci::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      width: 2px; height: 10px;
+      background: var(--amber);
+    }
+
+    .exp-ci::before { left: 0; }
+    .exp-ci::after { right: 0; }
+
+    .exp-result {
+      text-align: center;
+      padding: 6px 0 0;
+      font-size: 11px;
+      opacity: 0;
+      transition: opacity 0.5s 2s;
+    }
+
+    .exp-result .lift { color: var(--green); font-weight: 600; }
+    .exp-result .pval { color: var(--text-muted); }
+
+    /* ===== CAUSAL DIAGRAM ===== */
+    .causal-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 8px 0;
       flex-wrap: wrap;
     }
 
-    .tag {
+    .causal-node {
+      padding: 6px 12px;
+      border-radius: 6px;
       font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 4px;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s;
+      border: 1px solid;
+    }
+
+    .causal-node.treatment { background: var(--cyan-dim); border-color: rgba(34,211,238,0.3); color: var(--cyan); }
+    .causal-node.outcome { background: var(--green-dim); border-color: rgba(52,211,153,0.3); color: var(--green); }
+    .causal-node.confounder { background: var(--amber-dim); border-color: rgba(251,191,36,0.3); color: var(--amber); }
+    .causal-node.instrument { background: var(--pink-dim); border-color: rgba(244,114,182,0.3); color: var(--pink); }
+
+    .causal-arrow {
+      color: var(--border-light);
+      font-size: 16px;
+      padding: 0 4px;
+      transition: color 0.3s;
+    }
+
+    .causal-diagram:hover .causal-arrow { color: var(--accent); }
+    .causal-node:hover { transform: scale(1.08); }
+
+    .causal-legend {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .causal-legend span {
+      font-size: 10px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .legend-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* ===== AGENT FLOW ===== */
+    .agent-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .agent-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+      position: relative;
+    }
+
+    .agent-step-line {
+      width: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .agent-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      z-index: 1;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .agent-step:hover .agent-dot {
+      transform: scale(1.3);
+    }
+
+    .dot-accent { background: var(--accent); box-shadow: 0 0 8px var(--glow); }
+    .dot-green { background: var(--green); box-shadow: 0 0 8px rgba(52,211,153,0.3); }
+    .dot-cyan { background: var(--cyan); box-shadow: 0 0 8px rgba(34,211,238,0.3); }
+    .dot-pink { background: var(--pink); box-shadow: 0 0 8px rgba(244,114,182,0.3); }
+    .dot-amber { background: var(--amber); box-shadow: 0 0 8px rgba(251,191,36,0.3); }
+
+    .agent-line {
+      width: 1px;
+      flex: 1;
+      min-height: 20px;
+      background: var(--border);
+    }
+
+    .agent-content {
+      flex: 1;
+      padding-bottom: 4px;
+    }
+
+    .agent-content .step-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .agent-content .step-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .agent-step:hover .step-title { color: var(--accent); }
+
+    /* ===== MATH DECOMPOSITION VIZ ===== */
+    .math-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .math-block {
+      text-align: center;
+      padding: 12px 8px;
+    }
+
+    .math-eq {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .math-eq .op { color: var(--text-muted); }
+    .math-eq .hi-green { color: var(--green); }
+    .math-eq .hi-cyan { color: var(--cyan); }
+    .math-eq .hi-pink { color: var(--pink); }
+    .math-eq .hi-amber { color: var(--amber); }
+
+    .square-viz {
+      display: inline-grid;
+      gap: 2px;
+      margin: 8px auto;
+    }
+
+    .sq-cell {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .sq-cell:hover { transform: scale(1.15); }
+    .sq-big { background: rgba(129, 140, 248, 0.3); border: 1px solid rgba(129,140,248,0.2); }
+    .sq-h { background: rgba(34, 211, 238, 0.3); border: 1px solid rgba(34,211,238,0.2); }
+    .sq-v { background: rgba(52, 211, 153, 0.3); border: 1px solid rgba(52,211,153,0.2); }
+    .sq-corner { background: rgba(251, 191, 36, 0.5); border: 1px solid rgba(251,191,36,0.3); }
+
+    .sq-label {
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ===== FULL-WIDTH SHOWCASE ===== */
+    .showcase {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      margin-top: 16px;
+      overflow: hidden;
+    }
+
+    .showcase-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .showcase-header h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .showcase-header .tag-pill {
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 100px;
+      background: var(--accent-2);
+      color: white;
+      font-weight: 500;
+    }
+
+    /* ===== PROJECT CARDS ===== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      border-color: rgba(129, 140, 248, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    }
+
+    .project-card h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .project-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .project-card .p-tag {
+      margin-top: 10px;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
       background: var(--surface-2);
       color: var(--text-muted);
       border: 1px solid var(--border);
+      display: inline-block;
       font-family: 'JetBrains Mono', monospace;
-      transition: border-color 0.2s, color 0.2s;
     }
 
-    .card:hover .tag {
-      border-color: rgba(129, 140, 248, 0.2);
-      color: var(--text-dim);
-    }
-
-    /* Posts with hover slide */
+    /* ===== POSTS ===== */
     .post-list {
       display: flex;
       flex-direction: column;
@@ -480,13 +800,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 20px;
+      padding: 14px 20px;
       border-radius: 8px;
       text-decoration: none;
       color: var(--text);
       transition: all 0.3s;
       gap: 16px;
-      cursor: none;
       position: relative;
     }
 
@@ -508,173 +827,28 @@
 
     .post-item:hover::before { width: 3px; }
 
-    .post-title {
-      font-size: 15px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
+    .post-title { font-size: 14px; font-weight: 500; }
     .post-item:hover .post-title { color: var(--accent); }
 
     .post-meta {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
       white-space: nowrap;
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Interactive Terminal */
-    .terminal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 20px;
-      transition: box-shadow 0.3s;
-    }
-
-    .terminal:hover {
-      box-shadow: 0 0 40px rgba(0,0,0,0.3);
-    }
-
-    .terminal-bar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 12px 16px;
-      background: var(--surface-2);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .terminal-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      cursor: none;
-      transition: transform 0.2s;
-    }
-
-    .terminal-dot:hover { transform: scale(1.3); }
-    .terminal-dot.r { background: #f87171; }
-    .terminal-dot.y { background: #fbbf24; }
-    .terminal-dot.g { background: #34d399; }
-
-    .terminal-body {
-      padding: 20px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      line-height: 1.8;
-      color: var(--text-dim);
-      min-height: 200px;
-    }
-
-    .terminal-line { overflow: hidden; }
-
-    .terminal-body .prompt { color: var(--green); }
-    .terminal-body .cmd { color: var(--text); }
-    .terminal-body .comment { color: var(--text-muted); }
-    .terminal-body .accent { color: var(--accent); }
-    .terminal-body .cyan { color: var(--cyan); }
-    .terminal-body .pink { color: var(--pink); }
-
-    .terminal-body .cursor-block {
-      display: inline-block;
-      width: 8px; height: 16px;
-      background: var(--accent);
-      animation: cursor-blink 1s step-end infinite;
-      vertical-align: text-bottom;
-      margin-left: 2px;
-    }
-
-    @keyframes cursor-blink { 50% { opacity: 0; } }
-
-    .terminal-input-area {
-      display: flex;
-      align-items: center;
-      margin-top: 8px;
-    }
-
-    .terminal-input {
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      flex: 1;
-      caret-color: var(--accent);
-      cursor: none;
-    }
-
-    /* Collections with hover morph */
-    .collection-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .collection-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 24px 20px;
+    /* Footer */
+    footer {
+      padding: 40px 0;
       text-align: center;
-      text-decoration: none;
-      color: var(--text);
-      transition: all 0.3s;
-      cursor: none;
-      position: relative;
-      overflow: hidden;
+      border-top: 1px solid var(--border);
     }
 
-    .collection-item::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 50%;
-      width: 0; height: 2px;
-      transform: translateX(-50%);
-      background: linear-gradient(90deg, var(--accent), var(--cyan));
-      transition: width 0.3s;
-    }
+    footer p { font-size: 13px; color: var(--text-muted); }
+    footer a { color: var(--text-dim); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
 
-    .collection-item:hover {
-      border-color: var(--border);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-    }
-
-    .collection-item:hover::after { width: 60%; }
-
-    .collection-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
-      display: inline-block;
-      transition: transform 0.3s;
-    }
-
-    .collection-item:hover .collection-icon {
-      transform: scale(1.2) rotate(-5deg);
-    }
-
-    .collection-item h3 {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .collection-item p {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* Divider with glow */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 20px 0;
-      position: relative;
-    }
-
-    /* Scroll-triggered animations */
+    /* Animations */
     .fade-in {
       opacity: 0;
       transform: translateY(30px);
@@ -686,65 +860,24 @@
       transform: translateY(0);
     }
 
-    .stagger-1 { transition-delay: 0.1s; }
-    .stagger-2 { transition-delay: 0.2s; }
-    .stagger-3 { transition-delay: 0.3s; }
-    .stagger-4 { transition-delay: 0.4s; }
-    .stagger-5 { transition-delay: 0.5s; }
-    .stagger-6 { transition-delay: 0.6s; }
+    .stagger-1 { transition-delay: 0.05s; }
+    .stagger-2 { transition-delay: 0.1s; }
+    .stagger-3 { transition-delay: 0.15s; }
+    .stagger-4 { transition-delay: 0.2s; }
 
-    /* Footer */
-    footer {
-      padding: 40px 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-
-    footer p {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    footer a {
-      color: var(--text-dim);
-      text-decoration: none;
-      cursor: none;
-    }
-
-    footer a:hover { color: var(--accent); }
-
-    /* Mobile: disable custom cursor */
-    @media (max-width: 768px) {
-      body, a, .btn, .post-item, .terminal-input, .section-link,
-      .nav-links a, .nav-logo, .terminal-dot, .collection-item, .card, footer a {
-        cursor: auto;
-      }
-      .cursor-dot, .cursor-ring, .cursor-glow { display: none; }
+    @media (max-width: 700px) {
+      .domain-grid { grid-template-columns: 1fr; }
       .card-grid { grid-template-columns: 1fr; }
-      .collection-grid { grid-template-columns: 1fr 1fr; }
       .hero { padding: 120px 0 60px; }
       .post-item { flex-direction: column; align-items: flex-start; gap: 4px; }
-    }
-
-    @media (hover: none) {
-      .cursor-dot, .cursor-ring, .cursor-glow { display: none; }
-      body, a, .btn, .post-item, .terminal-input, .section-link,
-      .nav-links a, .nav-logo, .terminal-dot, .collection-item, .card, footer a {
-        cursor: auto;
-      }
+      .causal-diagram { gap: 4px; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 12px; }
     }
   </style>
 </head>
 <body>
-  <!-- Custom cursor -->
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-  <div class="cursor-glow" id="cursorGlow"></div>
-
-  <!-- Scroll progress -->
   <div class="scroll-progress" id="scrollProgress"></div>
-
-  <!-- Star field -->
   <canvas id="stars"></canvas>
   <div class="grid-bg"></div>
 
@@ -755,118 +888,275 @@
         daac
       </a>
       <ul class="nav-links">
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#posts">Posts</a></li>
-        <li><a href="#collections">Collections</a></li>
+        <li><a href="#craft">Craft</a></li>
+        <li><a href="#builds">Builds</a></li>
+        <li><a href="#thoughts">Thoughts</a></li>
+        <li><a href="#collection">Collection</a></li>
       </ul>
     </div>
   </nav>
 
   <div class="container">
 
+    <!-- Hero -->
     <header class="hero">
       <div class="hero-badge">
         <span class="pulse-dot"></span>
-        AI + Life Experiments
+        Explorer &middot; Builder &middot; Data Scientist
       </div>
       <h1>Hey, I'm <span class="gradient">daac</span></h1>
-      <p>Dumb as a chicken, but building smart things. I use AI to run experiments on life — tools, ideas, and everything in between.</p>
+      <p>Dumb as a chicken, curious about everything. Product Data Scientist by day, AI tinkerer by night. I explore new things, build with AI, and write about what I learn.</p>
+      <p class="sub">This is my corner of the internet &mdash; part portfolio, part lab notebook, part bookshelf.</p>
       <div class="hero-links">
-        <a class="btn btn-primary magnetic" href="https://github.com/daac-solo">
+        <a class="btn btn-primary" href="https://github.com/daac-solo">
           <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
           GitHub
         </a>
-        <a class="btn btn-ghost magnetic" href="#posts">Read Posts</a>
+        <a class="btn btn-ghost" href="#craft">Explore</a>
       </div>
     </header>
 
     <div class="divider"></div>
 
-    <!-- Interactive Terminal -->
-    <section class="fade-in">
-      <div class="terminal" id="terminal">
-        <div class="terminal-bar">
-          <span class="terminal-dot r"></span>
-          <span class="terminal-dot y"></span>
-          <span class="terminal-dot g"></span>
-          <span style="margin-left:auto;font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">~/daac</span>
+    <!-- ===== MY CRAFT: Professional Expertise ===== -->
+    <section id="craft">
+      <div class="section-header">
+        <span class="section-title">My Craft</span>
+      </div>
+
+      <div class="domain-grid">
+
+        <!-- 1. Goals & Metrics Framework -->
+        <div class="domain-card accent-green fade-in stagger-1">
+          <div class="card-spotlight"></div>
+          <div class="domain-icon icon-green">&#127919;</div>
+          <h3>Goals & Metrics Framework</h3>
+          <p class="desc">Design North Star metrics and decompose them into actionable driver trees. Every metric tells a story — I make sure it's the right one.</p>
+          <div class="mini-viz">
+            <div class="metric-tree" id="metricTree">
+              <div class="metric-node">
+                <span class="connector">&#9670;</span>
+                <span class="label" style="color:var(--green);font-weight:600;">Revenue</span>
+                <span class="value val-green">&#9650; 12%</span>
+              </div>
+              <div class="metric-node">
+                <span class="indent"></span>
+                <span class="connector">&#9500;&#9472;</span>
+                <span class="label">Users</span>
+                <span class="value val-green">&#9650; 8%</span>
+              </div>
+              <div class="metric-node">
+                <span class="indent-2"></span>
+                <span class="connector">&#9500;&#9472;</span>
+                <span class="label">New signups</span>
+                <span class="value val-green">&#9650; 15%</span>
+              </div>
+              <div class="metric-node">
+                <span class="indent-2"></span>
+                <span class="connector">&#9492;&#9472;</span>
+                <span class="label">Retention D7</span>
+                <span class="value val-red">&#9660; 3%</span>
+              </div>
+              <div class="metric-node">
+                <span class="indent"></span>
+                <span class="connector">&#9492;&#9472;</span>
+                <span class="label">ARPU</span>
+                <span class="value val-amber">&#9472; flat</span>
+              </div>
+              <div class="metric-node">
+                <span class="indent-2"></span>
+                <span class="connector">&#9500;&#9472;</span>
+                <span class="label">Conversion %</span>
+                <span class="value val-green">&#9650; 2%</span>
+              </div>
+              <div class="metric-node">
+                <span class="indent-2"></span>
+                <span class="connector">&#9492;&#9472;</span>
+                <span class="label">Avg order value</span>
+                <span class="value val-red">&#9660; 5%</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="terminal-body" id="terminalBody"></div>
+
+        <!-- 2. Experimental & Causal Inference -->
+        <div class="domain-card accent-cyan fade-in stagger-2">
+          <div class="card-spotlight"></div>
+          <div class="domain-icon icon-cyan">&#128300;</div>
+          <h3>Experiment & Causal Inference</h3>
+          <p class="desc">A/B tests, diff-in-diff, instrumental variables — I pick the right tool for the causal question and make results legible to non-stats people.</p>
+          <div class="mini-viz">
+            <div class="experiment-viz" id="expViz">
+              <div class="exp-row">
+                <span class="exp-label">Control</span>
+                <div class="exp-bar-track">
+                  <div class="exp-bar control" data-width="62" style="width:0%">6.2%</div>
+                </div>
+              </div>
+              <div class="exp-row">
+                <span class="exp-label">Treatment</span>
+                <div class="exp-bar-track">
+                  <div class="exp-bar treatment" data-width="74" style="width:0%">7.4%</div>
+                  <div class="exp-ci" id="expCI" style="left:70%;width:8%;opacity:0;"></div>
+                </div>
+              </div>
+              <div class="exp-result" id="expResult">
+                <span class="lift">+19.4% lift</span>&nbsp;&nbsp;
+                <span class="pval">p = 0.003 &nbsp; 95% CI [+11.2%, +27.6%]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Business Cases -->
+        <div class="domain-card accent-pink fade-in stagger-3">
+          <div class="card-spotlight"></div>
+          <div class="domain-icon icon-pink">&#128200;</div>
+          <h3>Business Cases</h3>
+          <p class="desc">Translate product intuition into numbers. I build sizing models, estimate ROI, and create the analytical backbone for go/no-go decisions.</p>
+          <div class="mini-viz">
+            <div class="causal-diagram">
+              <div class="causal-node instrument">Feature launch</div>
+              <span class="causal-arrow">&#8594;</span>
+              <div class="causal-node treatment">Adoption</div>
+              <span class="causal-arrow">&#8594;</span>
+              <div class="causal-node outcome">Revenue &#9650;</div>
+            </div>
+            <div style="text-align:center;margin-top:10px;">
+              <div style="display:inline-flex;gap:4px;flex-wrap:wrap;justify-content:center;">
+                <span style="font-size:11px;padding:3px 8px;border-radius:4px;background:var(--surface-3);color:var(--text-muted);">TAM: 2.4M users</span>
+                <span style="font-size:11px;padding:3px 8px;border-radius:4px;background:var(--surface-3);color:var(--text-muted);">Est. adoption: 18%</span>
+                <span style="font-size:11px;padding:3px 8px;border-radius:4px;background:var(--green-dim);color:var(--green);">NPV: +$3.2M</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Agentic Workflows -->
+        <div class="domain-card accent-amber fade-in stagger-4">
+          <div class="card-spotlight"></div>
+          <div class="domain-icon icon-amber">&#129302;</div>
+          <h3>Agentic Workflows</h3>
+          <p class="desc">Build AI agent pipelines that automate analysis, monitoring, and reporting. Let the machines do the repetitive thinking.</p>
+          <div class="mini-viz">
+            <div class="agent-flow">
+              <div class="agent-step">
+                <div class="agent-step-line">
+                  <div class="agent-dot dot-amber"></div>
+                  <div class="agent-line"></div>
+                </div>
+                <div class="agent-content">
+                  <div class="step-title">Trigger: anomaly detected</div>
+                  <div class="step-desc">Metric drops below threshold</div>
+                </div>
+              </div>
+              <div class="agent-step">
+                <div class="agent-step-line">
+                  <div class="agent-dot dot-cyan"></div>
+                  <div class="agent-line"></div>
+                </div>
+                <div class="agent-content">
+                  <div class="step-title">Agent: root cause analysis</div>
+                  <div class="step-desc">Query logs, segment users, check deploys</div>
+                </div>
+              </div>
+              <div class="agent-step">
+                <div class="agent-step-line">
+                  <div class="agent-dot dot-pink"></div>
+                  <div class="agent-line"></div>
+                </div>
+                <div class="agent-content">
+                  <div class="step-title">Agent: impact sizing</div>
+                  <div class="step-desc">Estimate revenue impact + affected users</div>
+                </div>
+              </div>
+              <div class="agent-step">
+                <div class="agent-step-line">
+                  <div class="agent-dot dot-green"></div>
+                </div>
+                <div class="agent-content">
+                  <div class="step-title">Output: Slack alert + doc</div>
+                  <div class="step-desc">Structured brief with action items</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <!-- Projects -->
-    <section id="projects" class="fade-in">
+    <!-- ===== BUILDS: Projects & Experiments ===== -->
+    <section id="builds" class="fade-in">
       <div class="section-header">
-        <span class="section-title">Projects</span>
-        <a class="section-link" href="https://github.com/daac-solo">View all &rarr;</a>
+        <span class="section-title">Builds & Experiments</span>
+        <a class="section-link" href="https://github.com/daac-solo">GitHub &rarr;</a>
       </div>
       <div class="card-grid">
-        <a class="card fade-in stagger-1" href="https://github.com/daac-solo/Pause">
-          <div class="card-spotlight"></div>
-          <div class="card-icon">&#9208;</div>
-          <h3>Pause</h3>
-          <p>iOS app to resolve arguments. Take a breath before you react.</p>
-          <div class="card-tags"><span class="tag">iOS</span><span class="tag">SwiftUI</span></div>
+        <a class="project-card" href="https://github.com/daac-solo/Pause">
+          <h4>Pause</h4>
+          <p>iOS app to resolve arguments. Breathe before you react.</p>
+          <span class="p-tag">Swift</span>
         </a>
-        <a class="card fade-in stagger-2" href="https://github.com/daac-solo/social-observer">
-          <div class="card-spotlight"></div>
-          <div class="card-icon">&#128065;</div>
-          <h3>social-observer</h3>
-          <p>Social media observation and analysis toolkit.</p>
-          <div class="card-tags"><span class="tag">Python</span><span class="tag">Analysis</span></div>
+        <a class="project-card" href="https://github.com/daac-solo/social-observer">
+          <h4>social-observer</h4>
+          <p>Social media analysis toolkit.</p>
+          <span class="p-tag">Python</span>
         </a>
-        <a class="card fade-in stagger-3" href="https://github.com/daac-solo/quantum-life-lab">
-          <div class="card-spotlight"></div>
-          <div class="card-icon">&#9883;</div>
-          <h3>quantum-life-lab</h3>
-          <p>Quantum-inspired life simulations and experiments.</p>
-          <div class="card-tags"><span class="tag">TypeScript</span><span class="tag">Simulation</span></div>
+        <a class="project-card" href="https://github.com/daac-solo/quantum-life-lab">
+          <h4>quantum-life-lab</h4>
+          <p>Quantum-inspired life simulations.</p>
+          <span class="p-tag">TypeScript</span>
         </a>
-        <a class="card fade-in stagger-4" href="https://github.com/daac-solo/mood-weather-unlock">
-          <div class="card-spotlight"></div>
-          <div class="card-icon">&#127780;</div>
-          <h3>mood-weather-unlock</h3>
-          <p>Unlock experiences based on mood and weather.</p>
-          <div class="card-tags"><span class="tag">TypeScript</span><span class="tag">API</span></div>
+        <a class="project-card" href="https://github.com/daac-solo/mood-weather-unlock">
+          <h4>mood-weather-unlock</h4>
+          <p>Unlock experiences by mood + weather.</p>
+          <span class="p-tag">TypeScript</span>
         </a>
-        <a class="card fade-in stagger-5" href="https://github.com/daac-solo/caffeine-sleep-calculator">
-          <div class="card-spotlight"></div>
-          <div class="card-icon">&#9749;</div>
-          <h3>caffeine-sleep</h3>
-          <p>Calculate how caffeine affects your sleep quality.</p>
-          <div class="card-tags"><span class="tag">JavaScript</span><span class="tag">Health</span></div>
+        <a class="project-card" href="https://github.com/daac-solo/caffeine-sleep-calculator">
+          <h4>caffeine-sleep</h4>
+          <p>How caffeine affects your sleep.</p>
+          <span class="p-tag">JavaScript</span>
         </a>
-        <a class="card fade-in stagger-6" href="https://github.com/daac-solo/QuantumDiary">
-          <div class="card-spotlight"></div>
-          <div class="card-icon">&#128214;</div>
-          <h3>QuantumDiary</h3>
-          <p>Journaling with quantum-inspired reflection prompts.</p>
-          <div class="card-tags"><span class="tag">Python</span><span class="tag">AI</span></div>
+        <a class="project-card" href="https://github.com/daac-solo/QuantumDiary">
+          <h4>QuantumDiary</h4>
+          <p>AI-powered journaling prompts.</p>
+          <span class="p-tag">Python</span>
         </a>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <!-- Posts -->
-    <section id="posts" class="fade-in">
+    <!-- ===== THOUGHTS: Writing & Ideas ===== -->
+    <section id="thoughts" class="fade-in">
       <div class="section-header">
-        <span class="section-title">Posts</span>
+        <span class="section-title">Thoughts & Writing</span>
       </div>
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">
+        Things I'm thinking about &mdash; AI, product, parenting, life experiments, and whatever else catches my attention.
+      </p>
       <div class="post-list">
         <a class="post-item" href="#">
-          <span class="post-title">Welcome - Why I'm Building in Public</span>
+          <span class="post-title">Explaining 81&times;81 to a Gifted Kid</span>
           <span class="post-meta">2026-10-06</span>
         </a>
         <a class="post-item" href="#">
-          <span class="post-title">My AI Agent Stack in 2026</span>
+          <span class="post-title">How I Think About North Star Metrics</span>
           <span class="post-meta">coming soon</span>
         </a>
         <a class="post-item" href="#">
-          <span class="post-title">Building iOS Apps with Claude Code</span>
+          <span class="post-title">A/B Testing When You Can't Randomize</span>
+          <span class="post-meta">coming soon</span>
+        </a>
+        <a class="post-item" href="#">
+          <span class="post-title">Building an AI Agent That Monitors My Metrics</span>
+          <span class="post-meta">coming soon</span>
+        </a>
+        <a class="post-item" href="#">
+          <span class="post-title">What I Learned from 100 Days of AI Tools</span>
           <span class="post-meta">coming soon</span>
         </a>
       </div>
@@ -874,26 +1164,61 @@
 
     <div class="divider"></div>
 
-    <!-- Collections -->
-    <section id="collections" class="fade-in">
+    <!-- ===== COLLECTION: Curated Interests ===== -->
+    <section id="collection" class="fade-in">
       <div class="section-header">
-        <span class="section-title">Collections</span>
+        <span class="section-title">Collection</span>
       </div>
-      <div class="collection-grid">
-        <div class="collection-item">
-          <div class="collection-icon">&#129302;</div>
-          <h3>AI Tools</h3>
-          <p>Curated AI tools & resources</p>
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">
+        Things I find interesting and keep coming back to.
+      </p>
+      <div class="domain-grid">
+        <div class="domain-card accent-cyan" style="cursor:default;">
+          <div class="card-spotlight"></div>
+          <div class="domain-icon icon-cyan" style="font-size:24px;">&#129302;</div>
+          <h3>AI Tools I Actually Use</h3>
+          <p class="desc">Curated list of AI products and tools that changed how I work. Not hype, just things that stuck.</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;">
+            <span class="p-tag">Claude Code</span>
+            <span class="p-tag">Cursor</span>
+            <span class="p-tag">Perplexity</span>
+            <span class="p-tag">+ more</span>
+          </div>
         </div>
-        <div class="collection-item">
-          <div class="collection-icon">&#128218;</div>
+        <div class="domain-card accent-amber" style="cursor:default;">
+          <div class="card-spotlight"></div>
+          <div class="domain-icon icon-amber" style="font-size:24px;">&#128218;</div>
           <h3>Reading List</h3>
-          <p>Books & articles worth reading</p>
+          <p class="desc">Books, articles, and threads that shaped my thinking. Updated as I discover new things.</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;">
+            <span class="p-tag">AI</span>
+            <span class="p-tag">Product</span>
+            <span class="p-tag">Data</span>
+            <span class="p-tag">Life</span>
+          </div>
         </div>
-        <div class="collection-item">
-          <div class="collection-icon">&#127912;</div>
-          <h3>Inspiration</h3>
-          <p>Design & ideas I love</p>
+        <div class="domain-card accent-green" style="cursor:default;">
+          <div class="card-spotlight"></div>
+          <div class="domain-icon icon-green" style="font-size:24px;">&#127912;</div>
+          <h3>Cool Things I Found</h3>
+          <p class="desc">Products, designs, ideas, and random discoveries that made me go "whoa".</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;">
+            <span class="p-tag">Products</span>
+            <span class="p-tag">Design</span>
+            <span class="p-tag">Ideas</span>
+          </div>
+        </div>
+        <div class="domain-card accent-pink" style="cursor:default;">
+          <div class="card-spotlight"></div>
+          <div class="domain-icon icon-pink" style="font-size:24px;">&#128161;</div>
+          <h3>Experiment Log</h3>
+          <p class="desc">What I tried, what worked, what didn't. Life experiments with data.</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;">
+            <span class="p-tag">Caffeine</span>
+            <span class="p-tag">Sleep</span>
+            <span class="p-tag">Habits</span>
+            <span class="p-tag">Workflow</span>
+          </div>
         </div>
       </div>
     </section>
@@ -907,51 +1232,17 @@
   </footer>
 
   <script>
-    // ===== Custom Cursor =====
-    const dot = document.getElementById('cursorDot');
-    const ring = document.getElementById('cursorRing');
-    const glow = document.getElementById('cursorGlow');
-    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0, glowX = 0, glowY = 0;
-
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      dot.style.left = mouseX - 4 + 'px';
-      dot.style.top = mouseY - 4 + 'px';
-    });
-
-    function animateCursor() {
-      ringX += (mouseX - ringX) * 0.15;
-      ringY += (mouseY - ringY) * 0.15;
-      ring.style.left = ringX - 20 + 'px';
-      ring.style.top = ringY - 20 + 'px';
-
-      glowX += (mouseX - glowX) * 0.08;
-      glowY += (mouseY - glowY) * 0.08;
-      glow.style.left = glowX - 150 + 'px';
-      glow.style.top = glowY - 150 + 'px';
-
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    document.querySelectorAll('a, .btn, .card, .collection-item, .post-item').forEach(el => {
-      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-    });
-
     // ===== Scroll Progress =====
     const progressBar = document.getElementById('scrollProgress');
     window.addEventListener('scroll', () => {
       const h = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
-      progressBar.style.width = pct + '%';
+      progressBar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
     });
 
     // ===== Star Field =====
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
-    let stars = [];
+    let stars = [], mouseX = 0, mouseY = 0;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -960,13 +1251,13 @@
 
     function initStars() {
       stars = [];
-      const count = Math.floor((canvas.width * canvas.height) / 8000);
+      const count = Math.floor((canvas.width * canvas.height) / 10000);
       for (let i = 0; i < count; i++) {
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          r: Math.random() * 1.2 + 0.3,
-          a: Math.random(),
+          r: Math.random() * 1 + 0.3,
+          a: Math.random() * 0.6 + 0.1,
           speed: Math.random() * 0.0005 + 0.0002,
           phase: Math.random() * Math.PI * 2
         });
@@ -983,210 +1274,110 @@
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(200, 210, 255, ${s.a * twinkle})`;
         ctx.fill();
-      });
 
-      // Mouse proximity glow
-      const mx = mouseX, my = mouseY + window.scrollY;
-      stars.forEach(s => {
-        const dx = s.x - mx, dy = s.y - (my - window.scrollY);
+        const dx = s.x - mouseX, dy = s.y - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          const intensity = 1 - dist / 120;
+        if (dist < 100) {
+          const intensity = 1 - dist / 100;
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.r * (1 + intensity * 2), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(129, 140, 248, ${intensity * 0.8})`;
+          ctx.fillStyle = `rgba(129, 140, 248, ${intensity * 0.6})`;
           ctx.fill();
         }
       });
-
       requestAnimationFrame(drawStars);
     }
 
-    resizeCanvas();
-    initStars();
-    drawStars();
+    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+    resizeCanvas(); initStars(); drawStars();
     window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
 
-    // ===== 3D Card Tilt + Spotlight =====
-    document.querySelectorAll('.card').forEach(card => {
+    // ===== Card 3D Tilt =====
+    document.querySelectorAll('.domain-card').forEach(card => {
       const spotlight = card.querySelector('.card-spotlight');
-
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = ((y - centerY) / centerY) * -8;
-        const rotateY = ((x - centerX) / centerX) * 8;
-
-        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-
-        if (spotlight) {
-          spotlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(129,140,248,0.12) 0%, transparent 60%)`;
-        }
+        const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -6;
+        const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 6;
+        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+        if (spotlight) spotlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(129,140,248,0.08) 0%, transparent 60%)`;
       });
-
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(600px) rotateX(0) rotateY(0) scale(1)';
-        if (spotlight) spotlight.style.opacity = '0';
       });
     });
-
-    // ===== Magnetic Buttons =====
-    document.querySelectorAll('.magnetic').forEach(btn => {
-      btn.addEventListener('mousemove', e => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-      });
-
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = 'translate(0, 0)';
-      });
-    });
-
-    // ===== Interactive Terminal Typing =====
-    const terminalBody = document.getElementById('terminalBody');
-    const lines = [
-      { type: 'cmd', prompt: '$ ', text: 'whoami', delay: 60 },
-      { type: 'output', html: '<span class="accent">daac</span> <span class="comment">// dumb as a chicken, building smart things</span>' },
-      { type: 'blank' },
-      { type: 'cmd', prompt: '$ ', text: 'cat experiments.txt', delay: 40 },
-      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">AI agents & tools that actually help</span>' },
-      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">Life experiments powered by code</span>' },
-      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">iOS apps for everyday problems</span>' },
-      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">Quantified self & data-driven decisions</span>' },
-      { type: 'blank' },
-      { type: 'cmd', prompt: '$ ', text: 'echo $MOTTO', delay: 50 },
-      { type: 'output', html: '<span class="accent">Stay dumb, stay curious. Ship it and see what happens.</span>' },
-      { type: 'blank' },
-      { type: 'input' }
-    ];
-
-    const terminalCommands = {
-      help: '<span class="accent">Available commands:</span> help, projects, skills, contact, clear, fortune',
-      projects: '<span class="cyan">&#9656;</span> Pause <span class="comment">- iOS: resolve arguments</span>\n<span class="cyan">&#9656;</span> social-observer <span class="comment">- social media analysis</span>\n<span class="cyan">&#9656;</span> quantum-life-lab <span class="comment">- life simulations</span>\n<span class="cyan">&#9656;</span> caffeine-sleep <span class="comment">- sleep optimizer</span>',
-      skills: '<span class="pink">Languages:</span> Python, TypeScript, Swift, JavaScript\n<span class="pink">Domains:</span>  AI/ML, iOS, Web, Data\n<span class="pink">Tools:</span>    Claude Code, Cursor, Xcode',
-      contact: '<span class="accent">GitHub:</span> <span class="comment">github.com/daac-solo</span>',
-      fortune: [
-        '<span class="accent">"The best way to predict the future is to build it."</span>',
-        '<span class="accent">"Ship fast, learn faster."</span>',
-        '<span class="accent">"AI won\'t replace you. Someone using AI will."</span>',
-        '<span class="accent">"The only way to do great work is to love what you do."</span>',
-        '<span class="accent">"First, solve the problem. Then, write the code."</span>'
-      ]
-    };
-
-    let terminalStarted = false;
-
-    function typeText(container, text, delay) {
-      return new Promise(resolve => {
-        let i = 0;
-        function type() {
-          if (i < text.length) {
-            container.textContent += text[i];
-            i++;
-            setTimeout(type, delay + Math.random() * 30);
-          } else {
-            resolve();
-          }
-        }
-        type();
-      });
-    }
-
-    async function runTerminal() {
-      if (terminalStarted) return;
-      terminalStarted = true;
-
-      for (const line of lines) {
-        if (line.type === 'blank') {
-          terminalBody.appendChild(document.createElement('br'));
-        } else if (line.type === 'cmd') {
-          const div = document.createElement('div');
-          div.className = 'terminal-line';
-          const promptSpan = document.createElement('span');
-          promptSpan.className = 'prompt';
-          promptSpan.textContent = line.prompt;
-          div.appendChild(promptSpan);
-          const cmdSpan = document.createElement('span');
-          cmdSpan.className = 'cmd';
-          div.appendChild(cmdSpan);
-          terminalBody.appendChild(div);
-          await new Promise(r => setTimeout(r, 300));
-          await typeText(cmdSpan, line.text, line.delay);
-          await new Promise(r => setTimeout(r, 200));
-        } else if (line.type === 'output') {
-          const div = document.createElement('div');
-          div.className = 'terminal-line';
-          div.innerHTML = line.html;
-          terminalBody.appendChild(div);
-          await new Promise(r => setTimeout(r, 80));
-        } else if (line.type === 'input') {
-          const div = document.createElement('div');
-          div.className = 'terminal-input-area';
-          div.innerHTML = '<span class="prompt">$ </span>';
-          const input = document.createElement('input');
-          input.className = 'terminal-input';
-          input.type = 'text';
-          input.placeholder = 'type "help" for commands...';
-          input.spellcheck = false;
-          input.autocomplete = 'off';
-          div.appendChild(input);
-          terminalBody.appendChild(div);
-
-          input.addEventListener('keydown', e => {
-            if (e.key === 'Enter') {
-              const cmd = input.value.trim().toLowerCase();
-              input.value = '';
-
-              const echo = document.createElement('div');
-              echo.className = 'terminal-line';
-              echo.innerHTML = `<span class="prompt">$ </span><span class="cmd">${cmd}</span>`;
-              terminalBody.insertBefore(echo, div);
-
-              if (cmd === 'clear') {
-                while (terminalBody.firstChild !== div) {
-                  terminalBody.removeChild(terminalBody.firstChild);
-                }
-              } else {
-                let response = terminalCommands[cmd];
-                if (!response) {
-                  response = `<span class="comment">command not found: ${cmd}. Try "help"</span>`;
-                }
-                if (Array.isArray(response)) {
-                  response = response[Math.floor(Math.random() * response.length)];
-                }
-                const out = document.createElement('div');
-                out.className = 'terminal-line';
-                out.innerHTML = response;
-                terminalBody.insertBefore(out, div);
-                terminalBody.insertBefore(document.createElement('br'), div);
-              }
-
-              terminalBody.scrollTop = terminalBody.scrollHeight;
-            }
-          });
-        }
-      }
-    }
 
     // ===== Scroll Animations =====
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          if (entry.target.querySelector('.terminal')) {
-            runTerminal();
-          }
+          if (entry.target.querySelector('.experiment-viz')) animateExperiment();
+          if (entry.target.querySelector('#squareViz')) buildSquareViz();
         }
       });
     }, { threshold: 0.15 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ===== Animate experiment bars =====
+    let expAnimated = false;
+    function animateExperiment() {
+      if (expAnimated) return;
+      expAnimated = true;
+      document.querySelectorAll('.exp-bar').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      setTimeout(() => {
+        document.getElementById('expCI').style.opacity = '1';
+      }, 1500);
+      setTimeout(() => {
+        document.getElementById('expResult').style.opacity = '1';
+      }, 2000);
+    }
+
+    // ===== Build Square Visualization =====
+    let squareBuilt = false;
+    function buildSquareViz() {
+      if (squareBuilt) return;
+      squareBuilt = true;
+
+      const container = document.getElementById('squareViz');
+      const size = 9; // 9x9 grid representing 81x81 (each cell = 9x9 block)
+      const grid = document.createElement('div');
+      grid.style.cssText = 'display:inline-grid;grid-template-columns:repeat(9,1fr);gap:2px;width:180px;';
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          const cell = document.createElement('div');
+          cell.className = 'sq-cell';
+          cell.style.width = '18px';
+          cell.style.height = '18px';
+
+          if (r < 8 && c < 8) {
+            cell.classList.add('sq-big');
+          } else if (r < 8 && c === 8) {
+            cell.classList.add('sq-h');
+          } else if (r === 8 && c < 8) {
+            cell.classList.add('sq-v');
+          } else {
+            cell.classList.add('sq-corner');
+          }
+
+          cell.style.opacity = '0';
+          cell.style.animation = `cellFadeIn 0.3s ease forwards ${(r * size + c) * 15}ms`;
+          grid.appendChild(cell);
+        }
+      }
+
+      container.appendChild(grid);
+
+      const style = document.createElement('style');
+      style.textContent = '@keyframes cellFadeIn { from { opacity:0; transform:scale(0.5); } to { opacity:1; transform:scale(1); } }';
+      document.head.appendChild(style);
+    }
 
     // ===== Smooth scroll =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1194,6 +1385,19 @@
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // ===== Metric tree hover animation =====
+    document.querySelectorAll('.metric-node').forEach(node => {
+      node.addEventListener('mouseenter', () => {
+        node.style.paddingLeft = '4px';
+        node.style.background = 'var(--surface-2)';
+        node.style.borderRadius = '4px';
+      });
+      node.addEventListener('mouseleave', () => {
+        node.style.paddingLeft = '0';
+        node.style.background = 'transparent';
       });
     });
   </script>
