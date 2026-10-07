@@ -2354,7 +2354,16 @@
         return;
       }
 
-      const noiseHeadlines = [
+      const noiseHeadlines = document.body.classList.contains('lang-zh') ? [
+        '美联储暗示暂停加息', '比特币创新高', '科技行业继续裁员',
+        '油价飙升5%', '中国PMI不及预期', '英伟达财报超预期',
+        '欧盟AI监管投票', '美元兑日元走弱', '新屋开工数下降',
+        'IPO市场升温', '债券收益率倒挂', '零售销售喜忧参半',
+        'VIX飙升至28', '避险情绪推高金价', '铜需求上升',
+        '苹果供应链问题', '通胀卡在3%', '周五非农报告',
+        '并购谈判破裂', '欧盟电动车销量放缓', '芯片出口管制',
+        '银行财报参差', '消费者信心下滑', '创投融资缩水',
+      ] : [
         'Fed signals rate pause', 'Bitcoin hits new high', 'Tech layoffs continue',
         'Oil prices surge 5%', 'China PMI disappoints', 'NVIDIA earnings beat',
         'EU AI regulation vote', 'Dollar weakens vs yen', 'Housing starts fall',
