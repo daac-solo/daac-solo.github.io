@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>daac-solo</title>
+  <title>daac — AI + Life Experiments</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -752,7 +752,7 @@
     <div class="container">
       <a class="nav-logo" href="/">
         <span class="dot"></span>
-        daac-solo
+        daac
       </a>
       <ul class="nav-links">
         <li><a href="#projects">Projects</a></li>
@@ -767,10 +767,10 @@
     <header class="hero">
       <div class="hero-badge">
         <span class="pulse-dot"></span>
-        Building with AI
+        AI + Life Experiments
       </div>
-      <h1>Hi, I'm <span class="gradient">daac-solo</span></h1>
-      <p>I build AI-powered tools, explore ideas at the edge of technology, and collect things that spark curiosity.</p>
+      <h1>Hey, I'm <span class="gradient">daac</span></h1>
+      <p>Dumb as a chicken, but building smart things. I use AI to run experiments on life — tools, ideas, and everything in between.</p>
       <div class="hero-links">
         <a class="btn btn-primary magnetic" href="https://github.com/daac-solo">
           <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -789,7 +789,7 @@
           <span class="terminal-dot r"></span>
           <span class="terminal-dot y"></span>
           <span class="terminal-dot g"></span>
-          <span style="margin-left:auto;font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">~/daac-solo</span>
+          <span style="margin-left:auto;font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">~/daac</span>
         </div>
         <div class="terminal-body" id="terminalBody"></div>
       </div>
@@ -902,7 +902,7 @@
 
   <footer>
     <div class="container">
-      <p>Built by <a href="https://github.com/daac-solo">daac-solo</a> &middot; Powered by curiosity & caffeine</p>
+      <p>Built by <a href="https://github.com/daac-solo">daac</a> &middot; dumb as a chicken, building smart things</p>
     </div>
   </footer>
 
@@ -1052,24 +1052,24 @@
     const terminalBody = document.getElementById('terminalBody');
     const lines = [
       { type: 'cmd', prompt: '$ ', text: 'whoami', delay: 60 },
-      { type: 'output', html: '<span class="accent">daac-solo</span> <span class="comment">// builder, tinkerer, AI enthusiast</span>' },
+      { type: 'output', html: '<span class="accent">daac</span> <span class="comment">// dumb as a chicken, building smart things</span>' },
       { type: 'blank' },
-      { type: 'cmd', prompt: '$ ', text: 'cat interests.txt', delay: 40 },
-      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">AI / LLMs / Agents</span>' },
-      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">iOS & Web Development</span>' },
-      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">Data Science & Quantitative Analysis</span>' },
-      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">Building tools that solve real problems</span>' },
+      { type: 'cmd', prompt: '$ ', text: 'cat experiments.txt', delay: 40 },
+      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">AI agents & tools that actually help</span>' },
+      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">Life experiments powered by code</span>' },
+      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">iOS apps for everyday problems</span>' },
+      { type: 'output', html: '<span class="cyan">&#9656;</span> <span class="comment">Quantified self & data-driven decisions</span>' },
       { type: 'blank' },
-      { type: 'cmd', prompt: '$ ', text: 'echo $STATUS', delay: 50 },
-      { type: 'output', html: '<span class="accent">Shipping side projects and exploring what\'s next.</span>' },
+      { type: 'cmd', prompt: '$ ', text: 'echo $MOTTO', delay: 50 },
+      { type: 'output', html: '<span class="accent">Stay dumb, stay curious. Ship it and see what happens.</span>' },
       { type: 'blank' },
       { type: 'input' }
     ];
 
     const terminalCommands = {
       help: '<span class="accent">Available commands:</span> help, projects, skills, contact, clear, fortune',
-      projects: '<span class="cyan">&#9656;</span> Pause <span class="comment">- iOS app for conflict resolution</span>\n<span class="cyan">&#9656;</span> social-observer <span class="comment">- Social analysis toolkit</span>\n<span class="cyan">&#9656;</span> quantum-life-lab <span class="comment">- Life simulations</span>\n<span class="cyan">&#9656;</span> QuantumDiary <span class="comment">- AI journaling</span>',
-      skills: '<span class="pink">Languages:</span> Python, TypeScript, Swift, JavaScript\n<span class="pink">Domains:</span>  AI/ML, iOS, Web, Data\n<span class="pink">Tools:</span>    Claude, Cursor, Xcode, VS Code',
+      projects: '<span class="cyan">&#9656;</span> Pause <span class="comment">- iOS: resolve arguments</span>\n<span class="cyan">&#9656;</span> social-observer <span class="comment">- social media analysis</span>\n<span class="cyan">&#9656;</span> quantum-life-lab <span class="comment">- life simulations</span>\n<span class="cyan">&#9656;</span> caffeine-sleep <span class="comment">- sleep optimizer</span>',
+      skills: '<span class="pink">Languages:</span> Python, TypeScript, Swift, JavaScript\n<span class="pink">Domains:</span>  AI/ML, iOS, Web, Data\n<span class="pink">Tools:</span>    Claude Code, Cursor, Xcode',
       contact: '<span class="accent">GitHub:</span> <span class="comment">github.com/daac-solo</span>',
       fortune: [
         '<span class="accent">"The best way to predict the future is to build it."</span>',
