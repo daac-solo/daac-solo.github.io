@@ -6,354 +6,344 @@
   <title>daac — AI + Life Experiments</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #09090b;
-      --surface: #111113;
-      --surface-2: #18181b;
-      --surface-3: #1f1f23;
-      --border: #27272a;
-      --border-light: #3f3f46;
-      --text: #fafafa;
-      --text-dim: #a1a1aa;
-      --text-muted: #71717a;
-      --accent: #818cf8;
-      --accent-2: #6366f1;
-      --glow: rgba(129, 140, 248, 0.15);
-      --glow-strong: rgba(129, 140, 248, 0.3);
-      --green: #34d399;
-      --green-dim: rgba(52, 211, 153, 0.15);
-      --cyan: #22d3ee;
-      --cyan-dim: rgba(34, 211, 238, 0.15);
-      --pink: #f472b6;
-      --pink-dim: rgba(244, 114, 182, 0.15);
-      --amber: #fbbf24;
-      --amber-dim: rgba(251, 191, 36, 0.15);
+      --bg: #0c0c0e;
+      --surface: #141416;
+      --surface-2: #1a1a1e;
+      --border: #242428;
+      --text: #e8e6e3;
+      --text-dim: #9a9890;
+      --text-muted: #6b6960;
+      --accent: #c4a882;
+      --accent-light: #d4bc9a;
+      --accent-dim: rgba(196, 168, 130, 0.12);
+      --green: #7ec9a0;
+      --green-dim: rgba(126, 201, 160, 0.12);
+      --blue: #8badc9;
+      --blue-dim: rgba(139, 173, 201, 0.12);
+      --rose: #c98b9e;
+      --rose-dim: rgba(201, 139, 158, 0.12);
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
     }
 
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: var(--sans);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .scroll-progress {
-      position: fixed; top: 0; left: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--cyan), var(--green));
-      z-index: 1000;
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    canvas#stars {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
+    /* Subtle warm ambient */
+    .ambient {
+      position: fixed;
+      top: -300px; left: 30%;
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse, rgba(196,168,130,0.04) 0%, transparent 70%);
       pointer-events: none; z-index: 0;
     }
 
-    .grid-bg {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-      background-size: 64px 64px;
+    .ambient-2 {
+      position: fixed;
+      bottom: -200px; right: 10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(ellipse, rgba(139,173,201,0.03) 0%, transparent 70%);
       pointer-events: none; z-index: 0;
     }
 
     .container {
-      max-width: 760px;
+      max-width: 680px;
       margin: 0 auto;
       padding: 0 24px;
       position: relative;
       z-index: 1;
     }
 
-    /* Nav */
+    /* Nav — minimal */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(9, 9, 11, 0.75);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(12, 12, 14, 0.85);
+      backdrop-filter: blur(12px);
     }
 
     nav .container {
-      display: flex; align-items: center; justify-content: space-between; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 52px;
     }
 
     .nav-logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 500; font-size: 15px;
-      color: var(--text); text-decoration: none;
-      display: flex; align-items: center; gap: 8px;
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
     }
 
-    .nav-logo .dot {
-      width: 8px; height: 8px;
-      background: var(--green); border-radius: 50%;
-      box-shadow: 0 0 8px var(--green);
-      animation: blink 3s ease-in-out infinite;
-    }
-
-    @keyframes blink { 0%,90%,100% { opacity:1; } 95% { opacity:0.3; } }
-
-    .nav-links { display: flex; gap: 20px; list-style: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
 
     .nav-links a {
-      color: var(--text-muted); text-decoration: none;
-      font-size: 13px; transition: color 0.2s; position: relative;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
     }
 
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0;
-      width: 0; height: 1px; background: var(--accent); transition: width 0.3s;
+    .nav-links a:hover { color: var(--text-dim); }
+
+    /* Hero — literary, warm */
+    .hero {
+      padding: 160px 0 80px;
     }
 
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a:hover::after { width: 100%; }
-
-    /* Hero */
-    .hero { padding: 140px 0 60px; }
-
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 100px; padding: 6px 16px;
-      font-size: 13px; color: var(--text-dim); margin-bottom: 28px;
-    }
-
-    .pulse-dot {
-      width: 6px; height: 6px; background: var(--green);
-      border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%,100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); }
-      50% { box-shadow: 0 0 0 6px rgba(52,211,153,0); }
+    .hero-greeting {
+      font-size: 14px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.2s;
     }
 
     .hero h1 {
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 700; letter-spacing: -0.03em;
-      line-height: 1.15; margin-bottom: 16px;
-      opacity: 0; animation: hero-in 1s ease forwards 0.2s;
-    }
-
-    @keyframes hero-in {
-      from { opacity:0; transform:translateY(16px); filter:blur(6px); }
-      to { opacity:1; transform:translateY(0); filter:blur(0); }
-    }
-
-    .hero h1 .gradient {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--cyan) 50%, var(--green) 100%);
-      background-size: 200% 200%;
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; animation: gradient-shift 4s ease infinite;
-    }
-
-    @keyframes gradient-shift { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
-
-    .hero p {
-      color: var(--text-dim); font-size: 17px; max-width: 540px;
-      font-weight: 300; margin-bottom: 12px;
-      opacity: 0; animation: hero-in 1s ease forwards 0.5s;
-    }
-
-    .hero .sub {
-      font-size: 14px; color: var(--text-muted);
+      font-family: var(--serif);
+      font-size: clamp(40px, 7vw, 64px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
       margin-bottom: 28px;
-      opacity: 0; animation: hero-in 1s ease forwards 0.7s;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.4s;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-bio {
+      font-size: 16px;
+      color: var(--text-dim);
+      max-width: 520px;
+      line-height: 1.8;
+      font-weight: 300;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.6s;
+    }
+
+    .hero-bio strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .hero-footnote {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.8s;
     }
 
     .hero-links {
-      display: flex; gap: 12px;
-      opacity: 0; animation: hero-in 1s ease forwards 0.9s;
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 1s;
     }
 
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px; border-radius: 8px;
-      font-size: 14px; font-weight: 500;
-      text-decoration: none; transition: all 0.3s;
-    }
-
-    .btn-primary {
-      background: var(--accent-2); color: white;
-      box-shadow: 0 0 20px var(--glow-strong);
-    }
-
-    .btn-primary:hover { box-shadow: 0 0 40px var(--glow-strong); transform: translateY(-2px); }
-
-    .btn-ghost {
-      background: var(--surface); color: var(--text-dim);
+    .link-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
       border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: all 0.3s;
     }
 
-    .btn-ghost:hover { color: var(--text); border-color: var(--accent); }
-    .btn svg { width: 16px; height: 16px; fill: currentColor; }
+    .link-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
 
-    /* Section common */
+    .link-pill svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* Section */
     section { padding: 56px 0; }
 
-    .section-header {
-      display: flex; align-items: center; justify-content: space-between;
+    .section-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       margin-bottom: 24px;
     }
 
-    .section-title {
-      font-size: 13px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--accent);
-      display: flex; align-items: center; gap: 8px;
+    .section-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 24px;
     }
 
-    .section-title::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
-
-    .section-link {
+    .section-more {
       font-size: 13px; color: var(--text-muted);
-      text-decoration: none; transition: color 0.2s;
+      text-decoration: none; transition: color 0.3s;
     }
 
-    .section-link:hover { color: var(--accent); }
+    .section-more:hover { color: var(--accent); }
 
-    .divider {
+    .line {
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 8px 0;
+      background: var(--border);
+      margin: 16px 0;
     }
 
     /* ===== NOW ===== */
     .now-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 12px;
       padding: 28px;
-      position: relative;
-      overflow: hidden;
-      transition: box-shadow 0.3s;
     }
 
-    .now-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .now-items { display: flex; flex-direction: column; gap: 20px; }
 
-    .now-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--green), var(--cyan), var(--accent));
+    .now-item { display: flex; gap: 14px; align-items: flex-start; }
+
+    .now-marker {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      margin-top: 9px;
+      flex-shrink: 0;
     }
 
-    .now-items { display: flex; flex-direction: column; gap: 16px; }
+    .now-marker.doing { background: var(--green); box-shadow: 0 0 6px rgba(126,201,160,0.3); }
+    .now-marker.thinking { background: var(--accent); box-shadow: 0 0 6px rgba(196,168,130,0.3); }
+    .now-marker.exploring { background: var(--blue); box-shadow: 0 0 6px rgba(139,173,201,0.3); }
 
-    .now-item {
-      display: flex; align-items: flex-start; gap: 12px;
-    }
-
-    .now-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      margin-top: 7px; flex-shrink: 0;
-    }
-
-    .now-dot.active { background: var(--green); box-shadow: 0 0 8px rgba(52,211,153,0.4); }
-    .now-dot.thinking { background: var(--amber); box-shadow: 0 0 8px rgba(251,191,36,0.3); }
-    .now-dot.exploring { background: var(--cyan); box-shadow: 0 0 8px rgba(34,211,238,0.3); }
-
-    .now-content { flex: 1; }
-
-    .now-content strong {
-      font-size: 14px; font-weight: 600; display: block;
+    .now-text strong {
+      display: block;
+      font-size: 14px; font-weight: 500;
       margin-bottom: 2px;
     }
 
-    .now-content span {
-      font-size: 13px; color: var(--text-muted); line-height: 1.5;
+    .now-text span {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
     }
 
     .now-date {
-      font-size: 11px; color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-      margin-top: 16px; padding-top: 12px;
+      margin-top: 20px; padding-top: 16px;
       border-top: 1px solid var(--border);
-    }
-
-    /* ===== THOUGHTS ===== */
-    .post-list { display: flex; flex-direction: column; gap: 2px; }
-
-    .post-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 16px; border-radius: 8px;
-      text-decoration: none; color: var(--text);
-      transition: all 0.3s; gap: 16px; position: relative;
-    }
-
-    .post-item::before {
-      content: ''; position: absolute; left: 0; top: 50%;
-      width: 0; height: 60%; transform: translateY(-50%);
-      background: var(--accent); border-radius: 0 2px 2px 0;
-      transition: width 0.2s;
-    }
-
-    .post-item:hover { background: var(--surface); padding-left: 24px; }
-    .post-item:hover::before { width: 3px; }
-
-    .post-info { display: flex; flex-direction: column; gap: 2px; }
-    .post-title { font-size: 15px; font-weight: 500; transition: color 0.2s; }
-    .post-item:hover .post-title { color: var(--accent); }
-    .post-tag { font-size: 11px; color: var(--text-muted); }
-
-    .post-meta {
       font-size: 12px; color: var(--text-muted);
-      white-space: nowrap; font-family: 'JetBrains Mono', monospace;
+      font-family: var(--mono);
+    }
+
+    /* ===== WRITING ===== */
+    .writing-list { display: flex; flex-direction: column; }
+
+    .writing-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s;
+    }
+
+    .writing-item:first-child { border-top: 1px solid var(--border); }
+
+    .writing-item:hover { padding-left: 8px; }
+
+    .writing-info { display: flex; flex-direction: column; gap: 3px; }
+
+    .writing-title {
+      font-size: 15px; font-weight: 400;
+      transition: color 0.3s;
+    }
+
+    .writing-item:hover .writing-title { color: var(--accent); }
+
+    .writing-tags {
+      font-size: 12px; color: var(--text-muted);
+    }
+
+    .writing-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      white-space: nowrap;
     }
 
     /* ===== BUILDS ===== */
-    .build-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
+    .build-list { display: flex; flex-direction: column; gap: 12px; }
 
-    .build-card {
+    .build-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 20px;
-      text-decoration: none; color: var(--text);
+      text-decoration: none;
+      color: var(--text);
       transition: all 0.3s;
-      position: relative; overflow: hidden;
-      transform-style: preserve-3d;
     }
 
-    .build-card .card-spotlight {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    .build-item:hover {
+      border-color: rgba(196,168,130,0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
 
-    .build-card:hover .card-spotlight { opacity: 1; }
-
-    .build-card:hover {
-      border-color: rgba(129, 140, 248, 0.3);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    .build-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface-2);
+      border-radius: 8px;
     }
 
-    .build-card > * { position: relative; z-index: 1; }
+    .build-info { flex: 1; }
 
-    .build-card h4 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px; font-weight: 500; margin-bottom: 6px;
+    .build-info h4 {
+      font-size: 14px; font-weight: 500;
+      margin-bottom: 3px;
     }
 
-    .build-card p { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+    .build-info p {
+      font-size: 13px; color: var(--text-muted);
+    }
 
-    .build-tags { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
-
-    .tag {
-      font-size: 10px; padding: 2px 7px; border-radius: 3px;
-      background: var(--surface-2); color: var(--text-muted);
-      border: 1px solid var(--border);
-      font-family: 'JetBrains Mono', monospace;
+    .build-lang {
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--text-muted);
+      padding: 2px 6px;
+      background: var(--surface-2);
+      border-radius: 3px;
+      align-self: center;
     }
 
     /* ===== COLLECTION ===== */
@@ -364,97 +354,96 @@
     }
 
     .collection-card {
+      padding: 24px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
+      border-radius: 10px;
       transition: all 0.3s;
-      position: relative; overflow: hidden;
-      transform-style: preserve-3d;
     }
 
-    .collection-card .card-spotlight {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    .collection-card:hover {
+      border-color: rgba(196,168,130,0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
 
-    .collection-card:hover .card-spotlight { opacity: 1; }
-
-    .collection-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; opacity: 0; transition: opacity 0.3s;
+    .c-emoji {
+      font-size: 24px;
+      margin-bottom: 12px;
     }
 
-    .collection-card:hover { border-color: rgba(129,140,248,0.3); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
-    .collection-card:hover::before { opacity: 1; }
-
-    .collection-card.c-cyan::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
-    .collection-card.c-amber::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
-    .collection-card.c-green::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
-    .collection-card.c-pink::before { background: linear-gradient(90deg, transparent, var(--pink), transparent); }
-
-    .collection-card > * { position: relative; z-index: 1; }
-
-    .c-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; margin-bottom: 14px;
-      transition: transform 0.3s;
+    .collection-card h3 {
+      font-size: 15px; font-weight: 500;
+      margin-bottom: 6px;
     }
 
-    .collection-card:hover .c-icon { transform: scale(1.1) rotate(-3deg); }
-
-    .c-icon.i-cyan { background: var(--cyan-dim); border: 1px solid rgba(34,211,238,0.2); }
-    .c-icon.i-amber { background: var(--amber-dim); border: 1px solid rgba(251,191,36,0.2); }
-    .c-icon.i-green { background: var(--green-dim); border: 1px solid rgba(52,211,153,0.2); }
-    .c-icon.i-pink { background: var(--pink-dim); border: 1px solid rgba(244,114,182,0.2); }
-
-    .collection-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-    .collection-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-
-    .c-tags { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
+    .collection-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
 
     /* Footer */
     footer {
-      padding: 40px 0; text-align: center;
+      padding: 48px 0 36px;
       border-top: 1px solid var(--border);
     }
 
-    footer p { font-size: 13px; color: var(--text-muted); }
-    footer a { color: var(--text-dim); text-decoration: none; }
-    footer a:hover { color: var(--accent); }
-
-    /* Animations */
-    .fade-in {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
     }
 
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .footer-left {
+      font-family: var(--serif);
+      font-size: 16px;
+      color: var(--text-dim);
+    }
+
+    .footer-right {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Scroll animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
     @media (max-width: 600px) {
-      .build-grid, .collection-grid { grid-template-columns: 1fr; }
-      .hero { padding: 120px 0 50px; }
-      .post-item { flex-direction: column; align-items: flex-start; gap: 4px; }
-      .nav-links { gap: 12px; }
-      .nav-links a { font-size: 12px; }
+      .hero { padding: 120px 0 60px; }
+      .hero h1 { font-size: 36px; }
+      .collection-grid { grid-template-columns: 1fr; }
+      .writing-item { flex-direction: column; gap: 4px; }
+      .footer-inner { flex-direction: column; gap: 8px; }
+      .nav-links { gap: 16px; }
     }
   </style>
 </head>
 <body>
-  <div class="scroll-progress" id="scrollProgress"></div>
-  <canvas id="stars"></canvas>
-  <div class="grid-bg"></div>
+  <div class="ambient"></div>
+  <div class="ambient-2"></div>
 
   <nav>
     <div class="container">
-      <a class="nav-logo" href="/">
-        <span class="dot"></span>
-        daac
-      </a>
+      <a class="nav-logo" href="/">daac</a>
       <ul class="nav-links">
         <li><a href="#now">Now</a></li>
-        <li><a href="#thoughts">Thoughts</a></li>
+        <li><a href="#writing">Writing</a></li>
         <li><a href="#builds">Builds</a></li>
         <li><a href="#collection">Collection</a></li>
       </ul>
@@ -465,57 +454,58 @@
 
     <!-- ===== HERO ===== -->
     <header class="hero">
-      <div class="hero-badge">
-        <span class="pulse-dot"></span>
-        Building in public
-      </div>
-      <h1>Hey, I'm <span class="gradient">daac</span></h1>
-      <p>Product Data Scientist by day. Explorer of AI, new products, and life experiments by always. I build things, write about what I learn, and collect what inspires me.</p>
-      <p class="sub">daac = dumb as a chicken. Stay curious, stay humble, ship it.</p>
+      <p class="hero-greeting">Hello, world</p>
+      <h1>I'm daac.<br>I build things, <em>break things apart</em>, and write about what I find.</h1>
+      <p class="hero-bio">
+        Product Data Scientist by trade — I design metrics, run experiments, and figure out what's actually working.
+        But I'm also the person who explains <strong>81 &times; 81</strong> to a kid using Rubik's cubes,
+        tests every new AI tool that ships, and keeps a 131-day streak of curating the internet's best ideas.
+      </p>
+      <p class="hero-footnote">
+        daac = dumb as a chicken. 文科底子，理科脑子，跨学科长大的人。
+      </p>
       <div class="hero-links">
-        <a class="btn btn-primary" href="https://github.com/daac-solo">
+        <a class="link-pill" href="https://github.com/daac-solo">
           <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
           GitHub
         </a>
-        <a class="btn btn-ghost" href="#thoughts">Read my thoughts</a>
+        <a class="link-pill" href="#writing">Read my writing</a>
       </div>
     </header>
 
-    <div class="divider"></div>
+    <div class="line"></div>
 
     <!-- ===== NOW ===== -->
-    <section id="now" class="fade-in">
-      <div class="section-header">
-        <span class="section-title">Now</span>
-      </div>
+    <section id="now" class="reveal">
+      <p class="section-label">What I'm doing now</p>
       <div class="now-card">
         <div class="now-items">
           <div class="now-item">
-            <div class="now-dot active"></div>
-            <div class="now-content">
+            <div class="now-marker doing"></div>
+            <div class="now-text">
               <strong>Building this site in public</strong>
-              <span>Setting up my corner of the internet. Learning by doing, sharing as I go.</span>
+              <span>Setting up my corner of the internet. Slow is fine.</span>
             </div>
           </div>
           <div class="now-item">
-            <div class="now-dot active"></div>
-            <div class="now-content">
-              <strong>Exploring agentic workflows at work</strong>
-              <span>Using AI agents to automate metric monitoring and anomaly detection. Product DS meets LLMs.</span>
+            <div class="now-marker doing"></div>
+            <div class="now-text">
+              <strong>AI agent workflows at work</strong>
+              <span>Using LLMs to automate metric monitoring and root-cause analysis. Product DS meets agentic AI.</span>
             </div>
           </div>
           <div class="now-item">
-            <div class="now-dot thinking"></div>
-            <div class="now-content">
-              <strong>Writing about how I explain complex things</strong>
-              <span>Starting with "how to explain 81&times;81 to a gifted kid" &mdash; decomposition, visualization, intuition.</span>
+            <div class="now-marker thinking"></div>
+            <div class="now-text">
+              <strong>Writing about explaining hard things simply</strong>
+              <span>Starting with how to teach 81&times;81 through geometry and Rubik's cubes.</span>
             </div>
           </div>
           <div class="now-item">
-            <div class="now-dot exploring"></div>
-            <div class="now-content">
-              <strong>Testing every new AI tool I can find</strong>
-              <span>Keeping notes on what sticks and what doesn't. Will share the ones worth your time.</span>
+            <div class="now-marker exploring"></div>
+            <div class="now-text">
+              <strong>131 days of curating the internet</strong>
+              <span>每天 3 条信息蒸馏 — distilling the noise into what matters.</span>
             </div>
           </div>
         </div>
@@ -523,135 +513,135 @@
       </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="line"></div>
 
-    <!-- ===== THOUGHTS ===== -->
-    <section id="thoughts" class="fade-in">
-      <div class="section-header">
-        <span class="section-title">Thoughts & Writing</span>
+    <!-- ===== WRITING ===== -->
+    <section id="writing" class="reveal">
+      <div class="section-head">
+        <p class="section-label">Writing & Thinking</p>
       </div>
-      <div class="post-list">
-        <a class="post-item" href="#">
-          <div class="post-info">
-            <span class="post-title">Explaining 81&times;81 to a Gifted Kid</span>
-            <span class="post-tag">parenting &middot; math &middot; teaching</span>
+      <div class="writing-list">
+        <a class="writing-item" href="#">
+          <div class="writing-info">
+            <span class="writing-title">FearOS: 你的内耗是一套操作系统</span>
+            <span class="writing-tags">self-awareness &middot; mental models</span>
           </div>
-          <span class="post-meta">coming soon</span>
+          <span class="writing-date">coming soon</span>
         </a>
-        <a class="post-item" href="#">
-          <div class="post-info">
-            <span class="post-title">How I Think About North Star Metrics</span>
-            <span class="post-tag">product &middot; data science</span>
+        <a class="writing-item" href="#">
+          <div class="writing-info">
+            <span class="writing-title">I went from chatting with AI to running 6 autonomous agents</span>
+            <span class="writing-tags">AI &middot; workflows &middot; build log</span>
           </div>
-          <span class="post-meta">coming soon</span>
+          <span class="writing-date">coming soon</span>
         </a>
-        <a class="post-item" href="#">
-          <div class="post-info">
-            <span class="post-title">A/B Testing When You Can't Randomize</span>
-            <span class="post-tag">causal inference &middot; experiments</span>
+        <a class="writing-item" href="#">
+          <div class="writing-info">
+            <span class="writing-title">Explaining 81&times;81 to a gifted kid</span>
+            <span class="writing-tags">parenting &middot; math &middot; teaching</span>
           </div>
-          <span class="post-meta">coming soon</span>
+          <span class="writing-date">coming soon</span>
         </a>
-        <a class="post-item" href="#">
-          <div class="post-info">
-            <span class="post-title">My AI Agent That Watches Metrics for Me</span>
-            <span class="post-tag">AI &middot; automation &middot; build log</span>
+        <a class="writing-item" href="#">
+          <div class="writing-info">
+            <span class="writing-title">The AI metrics trap: measuring what's easy, not what matters</span>
+            <span class="writing-tags">data science &middot; AI &middot; product</span>
           </div>
-          <span class="post-meta">coming soon</span>
+          <span class="writing-date">coming soon</span>
         </a>
-        <a class="post-item" href="#">
-          <div class="post-info">
-            <span class="post-title">100 AI Tools Later: What Actually Stuck</span>
-            <span class="post-tag">AI &middot; tools &middot; review</span>
+        <a class="writing-item" href="#">
+          <div class="writing-info">
+            <span class="writing-title">新 PM 上任第一件事就要换指标</span>
+            <span class="writing-tags">product &middot; metrics &middot; real story</span>
           </div>
-          <span class="post-meta">coming soon</span>
+          <span class="writing-date">coming soon</span>
+        </a>
+        <a class="writing-item" href="#">
+          <div class="writing-info">
+            <span class="writing-title">AI 不是工具，是关系</span>
+            <span class="writing-tags">AI &middot; philosophy</span>
+          </div>
+          <span class="writing-date">coming soon</span>
+        </a>
+        <a class="writing-item" href="#">
+          <div class="writing-info">
+            <span class="writing-title">看得懂是第一层，做得到是第十层</span>
+            <span class="writing-tags">life &middot; self-awareness</span>
+          </div>
+          <span class="writing-date">coming soon</span>
         </a>
       </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="line"></div>
 
     <!-- ===== BUILDS ===== -->
-    <section id="builds" class="fade-in">
-      <div class="section-header">
-        <span class="section-title">Builds</span>
-        <a class="section-link" href="https://github.com/daac-solo">All projects &rarr;</a>
+    <section id="builds" class="reveal">
+      <div class="section-head">
+        <p class="section-label">Things I've built</p>
+        <a class="section-more" href="https://github.com/daac-solo">all projects &rarr;</a>
       </div>
-      <div class="build-grid">
-        <a class="build-card" href="https://github.com/daac-solo/Pause">
-          <div class="card-spotlight"></div>
-          <h4>Pause</h4>
-          <p>iOS app to resolve arguments. Breathe before you react.</p>
-          <div class="build-tags"><span class="tag">Swift</span><span class="tag">iOS</span></div>
+      <div class="build-list">
+        <a class="build-item" href="https://github.com/daac-solo/Pause">
+          <div class="build-icon">&#9208;</div>
+          <div class="build-info">
+            <h4>Pause</h4>
+            <p>iOS app to resolve arguments. Breathe before you react.</p>
+          </div>
+          <span class="build-lang">Swift</span>
         </a>
-        <a class="build-card" href="https://github.com/daac-solo/social-observer">
-          <div class="card-spotlight"></div>
-          <h4>social-observer</h4>
-          <p>Social media observation and analysis.</p>
-          <div class="build-tags"><span class="tag">Python</span></div>
+        <a class="build-item" href="https://github.com/daac-solo/social-observer">
+          <div class="build-icon">&#128065;</div>
+          <div class="build-info">
+            <h4>social-observer</h4>
+            <p>Social media observation and analysis toolkit.</p>
+          </div>
+          <span class="build-lang">Python</span>
         </a>
-        <a class="build-card" href="https://github.com/daac-solo/quantum-life-lab">
-          <div class="card-spotlight"></div>
-          <h4>quantum-life-lab</h4>
-          <p>Quantum-inspired life simulations.</p>
-          <div class="build-tags"><span class="tag">TypeScript</span></div>
+        <a class="build-item" href="https://github.com/daac-solo/caffeine-sleep-calculator">
+          <div class="build-icon">&#9749;</div>
+          <div class="build-info">
+            <h4>caffeine-sleep</h4>
+            <p>Calculate how caffeine really affects your sleep.</p>
+          </div>
+          <span class="build-lang">JS</span>
         </a>
-        <a class="build-card" href="https://github.com/daac-solo/mood-weather-unlock">
-          <div class="card-spotlight"></div>
-          <h4>mood-weather-unlock</h4>
-          <p>Unlock experiences by mood + weather.</p>
-          <div class="build-tags"><span class="tag">TypeScript</span></div>
-        </a>
-        <a class="build-card" href="https://github.com/daac-solo/caffeine-sleep-calculator">
-          <div class="card-spotlight"></div>
-          <h4>caffeine-sleep</h4>
-          <p>How caffeine affects your sleep quality.</p>
-          <div class="build-tags"><span class="tag">JavaScript</span></div>
-        </a>
-        <a class="build-card" href="https://github.com/daac-solo/QuantumDiary">
-          <div class="card-spotlight"></div>
-          <h4>QuantumDiary</h4>
-          <p>AI-powered journaling with reflection prompts.</p>
-          <div class="build-tags"><span class="tag">Python</span><span class="tag">AI</span></div>
+        <a class="build-item" href="https://github.com/daac-solo/QuantumDiary">
+          <div class="build-icon">&#128214;</div>
+          <div class="build-info">
+            <h4>QuantumDiary</h4>
+            <p>AI-powered journaling with reflection prompts.</p>
+          </div>
+          <span class="build-lang">Python</span>
         </a>
       </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="line"></div>
 
     <!-- ===== COLLECTION ===== -->
-    <section id="collection" class="fade-in">
-      <div class="section-header">
-        <span class="section-title">Collection</span>
-      </div>
+    <section id="collection" class="reveal">
+      <p class="section-label">Things I collect</p>
       <div class="collection-grid">
-        <div class="collection-card c-cyan">
-          <div class="card-spotlight"></div>
-          <div class="c-icon i-cyan">&#129302;</div>
-          <h3>AI Tools I Use</h3>
-          <p>Not hype &mdash; tools that actually changed how I work. Updated as I discover new ones.</p>
-          <div class="c-tags"><span class="tag">Claude Code</span><span class="tag">Cursor</span><span class="tag">Perplexity</span></div>
+        <div class="collection-card">
+          <div class="c-emoji">&#129302;</div>
+          <h3>AI tools I actually use</h3>
+          <p>Not hype. Tools that stuck after the novelty wore off.</p>
         </div>
-        <div class="collection-card c-amber">
-          <div class="card-spotlight"></div>
-          <div class="c-icon i-amber">&#128218;</div>
-          <h3>Reading List</h3>
-          <p>Books, articles, and threads that shaped my thinking across AI, product, and life.</p>
-          <div class="c-tags"><span class="tag">AI</span><span class="tag">Product</span><span class="tag">Life</span></div>
+        <div class="collection-card">
+          <div class="c-emoji">&#128218;</div>
+          <h3>Reading list</h3>
+          <p>Books, articles, and threads that changed how I think.</p>
         </div>
-        <div class="collection-card c-green">
-          <div class="card-spotlight"></div>
-          <div class="c-icon i-green">&#128161;</div>
-          <h3>Cool Discoveries</h3>
-          <p>Products, designs, and ideas that made me go "whoa". The things I keep coming back to.</p>
-          <div class="c-tags"><span class="tag">Products</span><span class="tag">Design</span><span class="tag">Ideas</span></div>
+        <div class="collection-card">
+          <div class="c-emoji">&#128161;</div>
+          <h3>Cool discoveries</h3>
+          <p>Products, ideas, and random things that made me go "whoa".</p>
         </div>
-        <div class="collection-card c-pink">
-          <div class="card-spotlight"></div>
-          <div class="c-icon i-pink">&#128300;</div>
-          <h3>Life Experiments</h3>
-          <p>What I tried, what worked, what didn't. Caffeine, sleep, habits, workflow &mdash; with data.</p>
-          <div class="c-tags"><span class="tag">Caffeine</span><span class="tag">Sleep</span><span class="tag">Habits</span></div>
+        <div class="collection-card">
+          <div class="c-emoji">&#128300;</div>
+          <h3>Life experiments</h3>
+          <p>What I tried, what worked, what didn't. With data.</p>
         </div>
       </div>
     </section>
@@ -660,84 +650,20 @@
 
   <footer>
     <div class="container">
-      <p>Built by <a href="https://github.com/daac-solo">daac</a> &middot; dumb as a chicken, building smart things</p>
+      <div class="footer-inner">
+        <span class="footer-left">daac</span>
+        <span class="footer-right">dumb as a chicken, building smart things</span>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Scroll progress
-    const progressBar = document.getElementById('scrollProgress');
-    window.addEventListener('scroll', () => {
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      progressBar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
-    });
-
-    // Star field
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    let stars = [], mouseX = 0, mouseY = 0;
-
-    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-
-    function initStars() {
-      stars = [];
-      const count = Math.floor((canvas.width * canvas.height) / 12000);
-      for (let i = 0; i < count; i++) {
-        stars.push({
-          x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-          r: Math.random() * 1 + 0.3, a: Math.random() * 0.5 + 0.1,
-          speed: Math.random() * 0.0005 + 0.0002, phase: Math.random() * Math.PI * 2
-        });
-      }
-    }
-
-    let t = 0;
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      t += 16;
-      stars.forEach(s => {
-        const tw = 0.4 + 0.6 * Math.sin(t * s.speed + s.phase);
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200,210,255,${s.a * tw})`; ctx.fill();
-        const dx = s.x - mouseX, dy = s.y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 100) {
-          const intensity = 1 - dist / 100;
-          ctx.beginPath(); ctx.arc(s.x, s.y, s.r * (1 + intensity * 2), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(129,140,248,${intensity * 0.6})`; ctx.fill();
-        }
-      });
-      requestAnimationFrame(drawStars);
-    }
-
-    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-    resizeCanvas(); initStars(); drawStars();
-    window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
-
-    // Card 3D tilt
-    document.querySelectorAll('.build-card, .collection-card').forEach(card => {
-      const spot = card.querySelector('.card-spotlight');
-      card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        const x = e.clientX - r.left, y = e.clientY - r.top;
-        const rx = ((y - r.height/2) / (r.height/2)) * -5;
-        const ry = ((x - r.width/2) / (r.width/2)) * 5;
-        card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.01)`;
-        if (spot) spot.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(129,140,248,0.08) 0%, transparent 60%)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(600px) rotateX(0) rotateY(0) scale(1)';
-      });
-    });
-
-    // Scroll animations
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         e.preventDefault();
