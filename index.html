@@ -6,7 +6,7 @@
   <title>daac — AI + Life Experiments</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -27,7 +27,7 @@
       --blue-dim: rgba(139, 173, 201, 0.12);
       --rose: #c98b9e;
       --rose-dim: rgba(201, 139, 158, 0.12);
-      --serif: 'Instrument Serif', Georgia, serif;
+      --serif: 'Lora', Georgia, serif;
       --sans: 'Inter', -apple-system, sans-serif;
       --mono: 'JetBrains Mono', monospace;
     }
@@ -283,8 +283,43 @@
 
     .writing-item:hover .writing-title { color: var(--accent); }
 
+    .writing-hook {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.5;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+      opacity: 0;
+      margin-top: 0;
+    }
+
+    .writing-item:hover .writing-hook {
+      max-height: 60px;
+      opacity: 1;
+      margin-top: 6px;
+    }
+
     .writing-tags {
       font-size: 12px; color: var(--text-muted);
+    }
+
+    .writing-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .writing-ep {
+      font-size: 10px;
+      font-family: var(--mono);
+      color: var(--accent);
+      padding: 2px 6px;
+      border: 1px solid rgba(196,168,130,0.2);
+      border-radius: 3px;
+      letter-spacing: 0.05em;
     }
 
     .writing-date {
@@ -428,7 +463,8 @@
       .hero { padding: 120px 0 60px; }
       .hero h1 { font-size: 36px; }
       .collection-grid { grid-template-columns: 1fr; }
-      .writing-item { flex-direction: column; gap: 4px; }
+      .writing-item { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .writing-meta-row { align-self: flex-start; }
       .footer-inner { flex-direction: column; gap: 8px; }
       .nav-links { gap: 16px; }
     }
@@ -454,15 +490,15 @@
 
     <!-- ===== HERO ===== -->
     <header class="hero">
-      <p class="hero-greeting">Hello, world</p>
-      <h1>I'm daac.<br>I build things, <em>break things apart</em>, and write about what I find.</h1>
+      <p class="hero-greeting">Previously, on daac&hellip;</p>
+      <h1>A data scientist who <em>grew up predicting the next line</em> in Hong Kong dramas.</h1>
       <p class="hero-bio">
-        Product Data Scientist by trade — I design metrics, run experiments, and figure out what's actually working.
-        But I'm also the person who explains <strong>81 &times; 81</strong> to a kid using Rubik's cubes,
-        tests every new AI tool that ships, and keeps a 131-day streak of curating the internet's best ideas.
+        I design metrics that tell the truth, run experiments that settle arguments, and build AI agents that do the boring work.
+        Then I go home and explain <strong>81 &times; 81</strong> to a kid using Rubik's cubes.
+        文科底子，理科脑子 &mdash; I've been pattern-matching since before I knew there was a word for it.
       </p>
       <p class="hero-footnote">
-        daac = dumb as a chicken. 文科底子，理科脑子，跨学科长大的人。
+        daac = dumb as a chicken. Stay curious. Ship it. Write about what you find.
       </p>
       <div class="hero-links">
         <a class="link-pill" href="https://github.com/daac-solo">
@@ -477,39 +513,39 @@
 
     <!-- ===== NOW ===== -->
     <section id="now" class="reveal">
-      <p class="section-label">What I'm doing now</p>
+      <p class="section-label">Open cases</p>
       <div class="now-card">
         <div class="now-items">
           <div class="now-item">
             <div class="now-marker doing"></div>
             <div class="now-text">
-              <strong>Building this site in public</strong>
-              <span>Setting up my corner of the internet. Slow is fine.</span>
+              <strong>Case #001: Building this site in public</strong>
+              <span>Setting up my corner of the internet. Every commit is a clue.</span>
             </div>
           </div>
           <div class="now-item">
             <div class="now-marker doing"></div>
             <div class="now-text">
-              <strong>AI agent workflows at work</strong>
-              <span>Using LLMs to automate metric monitoring and root-cause analysis. Product DS meets agentic AI.</span>
+              <strong>Case #002: Can AI agents replace half my job?</strong>
+              <span>Wiring LLMs into metric monitoring and root-cause analysis. The results are... interesting.</span>
             </div>
           </div>
           <div class="now-item">
             <div class="now-marker thinking"></div>
             <div class="now-text">
-              <strong>Writing about explaining hard things simply</strong>
-              <span>Starting with how to teach 81&times;81 through geometry and Rubik's cubes.</span>
+              <strong>Case #003: Teaching hard things simply</strong>
+              <span>Starting with 81&times;81. If a kid can see it, anyone can.</span>
             </div>
           </div>
           <div class="now-item">
             <div class="now-marker exploring"></div>
             <div class="now-text">
-              <strong>131 days of curating the internet</strong>
-              <span>每天 3 条信息蒸馏 — distilling the noise into what matters.</span>
+              <strong>Case #004: 131-day distill streak</strong>
+              <span>每天 3 条信息蒸馏。The internet is noisy. I'm building a filter.</span>
             </div>
           </div>
         </div>
-        <div class="now-date">Updated Oct 6, 2026</div>
+        <div class="now-date">Last updated: Oct 6, 2026</div>
       </div>
     </section>
 
@@ -525,50 +561,78 @@
           <div class="writing-info">
             <span class="writing-title">FearOS: 你的内耗是一套操作系统</span>
             <span class="writing-tags">self-awareness &middot; mental models</span>
+            <span class="writing-hook">你以为是你在焦虑。其实是你脑子里的操作系统在自动运行。</span>
           </div>
-          <span class="writing-date">coming soon</span>
+          <div class="writing-meta-row">
+            <span class="writing-ep">EP.01</span>
+            <span class="writing-date">soon</span>
+          </div>
         </a>
         <a class="writing-item" href="#">
           <div class="writing-info">
             <span class="writing-title">I went from chatting with AI to running 6 autonomous agents</span>
-            <span class="writing-tags">AI &middot; workflows &middot; build log</span>
+            <span class="writing-tags">AI &middot; workflows &middot; origin story</span>
+            <span class="writing-hook">It started with "hey can you summarize this." Six months later, I had a team that never sleeps.</span>
           </div>
-          <span class="writing-date">coming soon</span>
+          <div class="writing-meta-row">
+            <span class="writing-ep">EP.02</span>
+            <span class="writing-date">soon</span>
+          </div>
         </a>
         <a class="writing-item" href="#">
           <div class="writing-info">
             <span class="writing-title">Explaining 81&times;81 to a gifted kid</span>
             <span class="writing-tags">parenting &middot; math &middot; teaching</span>
+            <span class="writing-hook">He asked "what's 81 times 81?" I could've said the answer. Instead I handed him a Rubik's cube.</span>
           </div>
-          <span class="writing-date">coming soon</span>
+          <div class="writing-meta-row">
+            <span class="writing-ep">EP.03</span>
+            <span class="writing-date">soon</span>
+          </div>
         </a>
         <a class="writing-item" href="#">
           <div class="writing-info">
-            <span class="writing-title">The AI metrics trap: measuring what's easy, not what matters</span>
+            <span class="writing-title">The AI metrics trap</span>
             <span class="writing-tags">data science &middot; AI &middot; product</span>
+            <span class="writing-hook">Everyone said the model was performing great. The dashboard agreed. The users didn't.</span>
           </div>
-          <span class="writing-date">coming soon</span>
+          <div class="writing-meta-row">
+            <span class="writing-ep">EP.04</span>
+            <span class="writing-date">soon</span>
+          </div>
         </a>
         <a class="writing-item" href="#">
           <div class="writing-info">
             <span class="writing-title">新 PM 上任第一件事就要换指标</span>
             <span class="writing-tags">product &middot; metrics &middot; real story</span>
+            <span class="writing-hook">他第一周就说"这个指标不对"。所有人都觉得他在找麻烦。三个月后我们才发现他是对的。</span>
           </div>
-          <span class="writing-date">coming soon</span>
+          <div class="writing-meta-row">
+            <span class="writing-ep">EP.05</span>
+            <span class="writing-date">soon</span>
+          </div>
         </a>
         <a class="writing-item" href="#">
           <div class="writing-info">
             <span class="writing-title">AI 不是工具，是关系</span>
             <span class="writing-tags">AI &middot; philosophy</span>
+            <span class="writing-hook">先是工具，然后是助手，然后是同事。最后你发现自己在跟它说谢谢。</span>
           </div>
-          <span class="writing-date">coming soon</span>
+          <div class="writing-meta-row">
+            <span class="writing-ep">EP.06</span>
+            <span class="writing-date">soon</span>
+          </div>
         </a>
         <a class="writing-item" href="#">
           <div class="writing-info">
             <span class="writing-title">看得懂是第一层，做得到是第十层</span>
             <span class="writing-tags">life &middot; self-awareness</span>
+            <span class="writing-hook">你一直以为问题是不知道。其实你早就知道了。</span>
           </div>
-          <span class="writing-date">coming soon</span>
+          <div class="writing-meta-row">
+            <span class="writing-ep">EP.07</span>
+            <span class="writing-date">soon</span>
+          </div>
         </a>
       </div>
     </section>
