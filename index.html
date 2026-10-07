@@ -557,6 +557,91 @@
       line-height: 1.6;
     }
 
+    /* ===== DISCOVERIES ===== */
+    .discovery-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .discovery-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .discovery-item:hover {
+      border-color: rgba(196,168,130,0.3);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(196,168,130,0.1);
+    }
+
+    .discovery-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface-2);
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .discovery-item:hover .discovery-icon { transform: scale(1.1); }
+
+    .discovery-info { flex: 1; min-width: 0; }
+
+    .discovery-info h4 {
+      font-size: 14px; font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .discovery-tagline {
+      font-size: 13px; color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .discovery-take {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.5;
+      padding-left: 10px;
+      border-left: 2px solid var(--accent-dim);
+    }
+
+    .discovery-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .discovery-verdict {
+      font-size: 11px;
+      font-family: var(--mono);
+      padding: 2px 8px;
+      border-radius: 3px;
+      letter-spacing: 0.03em;
+    }
+
+    .verdict-keeper { background: var(--green-dim); color: var(--green); }
+    .verdict-interesting { background: var(--blue-dim); color: var(--blue); }
+    .verdict-meh { background: rgba(107,105,96,0.15); color: var(--text-muted); }
+    .verdict-gem { background: var(--accent-dim); color: var(--accent); }
+
+    .discovery-category {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
     /* ===== SUBSCRIBE CTA ===== */
     .subscribe-section {
       text-align: center;
@@ -723,6 +808,7 @@
         <li><a href="#now">Now</a></li>
         <li><a href="#writing">Writing</a></li>
         <li><a href="#builds">Builds</a></li>
+        <li><a href="#discoveries">Discoveries</a></li>
         <li><a href="#collection">Collection</a></li>
       </ul>
     </div>
@@ -925,6 +1011,66 @@
 
     <div class="line"></div>
 
+    <!-- ===== DISCOVERIES ===== -->
+    <section id="discoveries" class="reveal">
+      <div class="section-head">
+        <p class="section-label">Discoveries</p>
+        <span class="section-more" style="cursor:default;">my personal Product Hunt</span>
+      </div>
+      <div class="discovery-list">
+        <a class="discovery-item tilt-card" href="#">
+          <div class="discovery-icon">&#9889;</div>
+          <div class="discovery-info">
+            <h4>Cursor</h4>
+            <div class="discovery-tagline">AI-native code editor that actually understands your codebase.</div>
+            <div class="discovery-take">从 VS Code 切过来三天就回不去了。Tab 补全不是花瓶,是真的读懂了 context。</div>
+          </div>
+          <div class="discovery-meta">
+            <span class="discovery-verdict verdict-keeper">keeper</span>
+            <span class="discovery-category">dev tool</span>
+          </div>
+        </a>
+        <a class="discovery-item tilt-card" href="#">
+          <div class="discovery-icon">&#127912;</div>
+          <div class="discovery-info">
+            <h4>Napkin AI</h4>
+            <div class="discovery-tagline">Turn text into diagrams and visuals instantly.</div>
+            <div class="discovery-take">Tried it for a deck. 80% of the output was usable without editing. The other 20% I'd have spent 2 hours on in Figma.</div>
+          </div>
+          <div class="discovery-meta">
+            <span class="discovery-verdict verdict-interesting">interesting</span>
+            <span class="discovery-category">AI design</span>
+          </div>
+        </a>
+        <a class="discovery-item tilt-card" href="#">
+          <div class="discovery-icon">&#128202;</div>
+          <div class="discovery-info">
+            <h4>Evidence</h4>
+            <div class="discovery-tagline">Code-driven dashboards in Markdown. SQL + charts, no drag-and-drop.</div>
+            <div class="discovery-take">DS 的梦想工具。写 SQL 直接出 report, 版本控制, 可以 PR review。比 Tableau 快 10 倍。</div>
+          </div>
+          <div class="discovery-meta">
+            <span class="discovery-verdict verdict-gem">hidden gem</span>
+            <span class="discovery-category">analytics</span>
+          </div>
+        </a>
+        <a class="discovery-item tilt-card" href="#">
+          <div class="discovery-icon">&#128172;</div>
+          <div class="discovery-info">
+            <h4>Granola</h4>
+            <div class="discovery-tagline">AI meeting notes that actually capture what matters.</div>
+            <div class="discovery-take">Replaced my entire post-meeting ritual. It gets the action items right 90% of the time.</div>
+          </div>
+          <div class="discovery-meta">
+            <span class="discovery-verdict verdict-keeper">keeper</span>
+            <span class="discovery-category">productivity</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div class="line"></div>
+
     <!-- ===== COLLECTION ===== -->
     <section id="collection" class="reveal">
       <p class="section-label">Things I collect</p>
@@ -957,13 +1103,13 @@
     <!-- ===== SUBSCRIBE ===== -->
     <section class="subscribe-section reveal">
       <div class="subscribe-card">
-        <h3>Stay in the loop</h3>
-        <p>New episodes, experiments, and things I find interesting. No spam, unsubscribe anytime.</p>
-        <a class="subscribe-btn" href="#">
+        <h3>Don't miss the next episode</h3>
+        <p>New discoveries, experiments, and things that made me think. 中英双语, no spam, unsubscribe anytime.</p>
+        <a class="subscribe-btn" href="https://substack.com/@daac-solo" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Subscribe
+          Subscribe on Substack
         </a>
-        <p class="subscribe-hint">Newsletter coming soon</p>
+        <p class="subscribe-hint">Free. Upgrade to paid when I start dropping exclusive content.</p>
       </div>
     </section>
 
