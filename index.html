@@ -2461,7 +2461,8 @@
           }
         });
       }, { threshold: 0.3 });
-      explainerObs.observe(explainer);
+      var introDelay = sessionStorage.getItem('daac-intro-seen') ? 0 : 5000;
+      setTimeout(function() { explainerObs.observe(explainer); }, introDelay);
     })();
 
     // ===== DAILY DISTILL =====
