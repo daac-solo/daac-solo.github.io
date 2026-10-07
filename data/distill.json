@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-07",
+  "day": 132,
+  "items": [
+    {
+      "tldr": "OpenAI 发布 GPT-5 turbo，推理成本降 60%，但 benchmark 提升只有 3%。边际收益递减开始了。",
+      "tags": ["AI", "cost"],
+      "source": "OpenAI Blog"
+    },
+    {
+      "tldr": "韩国 9 月前 20 日出口同比 +14%，半导体占一半。全球贸易金丝雀还在唱歌。",
+      "tags": ["macro", "trade"],
+      "source": "Korea Customs"
+    },
+    {
+      "tldr": "Anthropic 推出 Claude Code plugin 生态系统。从工具到平台的转变 — 谁拥有开发者，谁拥有未来。",
+      "tags": ["AI", "platform"],
+      "source": "Anthropic"
+    }
+  ]
+}

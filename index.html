@@ -473,6 +473,95 @@
       font-family: var(--mono);
     }
 
+    /* ===== DISTILL ===== */
+    .distill-section { margin-bottom: 0; }
+    .distill-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .distill-day {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .distill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .distill-item {
+      padding: 20px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.3s, transform 0.3s;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .distill-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .distill-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .distill-tldr {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .distill-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .distill-tag {
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--text-muted);
+      background: var(--surface-2);
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .distill-source {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      margin-left: auto;
+    }
+    .distill-cta {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .distill-cta a {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      font-family: var(--sans);
+      border-bottom: 1px solid rgba(196,168,130,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.3s;
+    }
+    .distill-cta a:hover {
+      border-color: var(--accent);
+    }
+    .distill-empty {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      padding: 40px 0;
+    }
+
     /* ===== WRITING ===== */
     .writing-list { display: flex; flex-direction: column; }
 
@@ -1471,6 +1560,7 @@
           <path d="M62 84 L58 92 M62 84 L62 93 M62 84 L66 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
         </svg> daac</a>
       <ul class="nav-links">
+        <li><a href="#distill">Distill</a></li>
         <li><a href="#now">Now</a></li>
         <li><a href="#writing">Writing</a></li>
         <li><a href="#builds">Builds</a></li>
@@ -1521,6 +1611,22 @@
         <a class="link-pill" href="#writing"><span>Read my writing</span></a>
       </div>
     </header>
+
+    <div class="line"></div>
+
+    <!-- ===== DISTILL ===== -->
+    <section id="distill" class="distill-section reveal">
+      <div class="distill-header">
+        <p class="section-label">Today's Distill</p>
+        <span class="distill-day" id="distillDay"></span>
+      </div>
+      <div class="distill-list" id="distillList">
+        <div class="distill-empty">Loading...</div>
+      </div>
+      <div class="distill-cta">
+        <a href="https://daaclab.substack.com/" target="_blank" rel="noopener">每日完整版 + 深度分析 → Subscribe free for 30 days &rarr;</a>
+      </div>
+    </section>
 
     <div class="line"></div>
 
@@ -1995,6 +2101,45 @@
         }, 300)); // pause before peck
       }, 2100));
 
+    })();
+
+    // ===== DAILY DISTILL =====
+    (function() {
+      const distillList = document.getElementById('distillList');
+      const distillDay = document.getElementById('distillDay');
+      fetch('/data/distill.json?' + Date.now())
+        .then(r => r.json())
+        .then(data => {
+          distillDay.textContent = 'Day ' + data.day + ' · ' + data.date;
+          if (!data.items || !data.items.length) {
+            distillList.innerHTML = '<div class="distill-empty">Today\'s distill is brewing...</div>';
+            return;
+          }
+          distillList.innerHTML = data.items.map((item, i) => `
+            <div class="distill-item" style="transition-delay:${i * 0.1}s">
+              <div class="distill-tldr">${item.tldr}</div>
+              <div class="distill-meta">
+                ${item.tags.map(t => `<span class="distill-tag">${t}</span>`).join('')}
+                <span class="distill-source">${item.source}</span>
+              </div>
+            </div>
+          `).join('');
+          const distillObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                e.target.querySelectorAll('.distill-item').forEach((item, i) => {
+                  setTimeout(() => item.classList.add('visible'), i * 120);
+                });
+                distillObserver.disconnect();
+              }
+            });
+          }, { threshold: 0.1 });
+          distillObserver.observe(distillList);
+        })
+        .catch(() => {
+          distillList.innerHTML = '<div class="distill-empty">Today\'s distill is brewing...</div>';
+          distillDay.textContent = '';
+        });
     })();
 
     // Scroll-triggered reveals
