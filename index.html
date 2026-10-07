@@ -1230,6 +1230,143 @@
     .story-skip.active { display: block; }
     .story-skip:hover { border-color: var(--accent); color: var(--accent); }
 
+    /* ===== CINEMATIC INTRO ===== */
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10010;
+      background: #060608;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease;
+    }
+    .intro-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .intro-spotlight {
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,215,110,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+    .intro-spotlight.on { opacity: 1; }
+
+    .intro-chicken {
+      position: relative;
+      width: 140px; height: 140px;
+      opacity: 0;
+      transform: translateX(-60vw);
+    }
+
+    @keyframes intro-walk-in {
+      0% { opacity: 0; transform: translateX(-60vw); }
+      10% { opacity: 1; }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes intro-bob {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      25% { transform: translateY(-4px) rotate(-2deg); }
+      50% { transform: translateY(0) rotate(0); }
+      75% { transform: translateY(-4px) rotate(2deg); }
+    }
+
+    .intro-chicken.walking {
+      animation: intro-walk-in 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    .intro-chicken.walking svg {
+      animation: intro-bob 0.4s ease-in-out infinite;
+    }
+
+    @keyframes intro-peck {
+      0% { transform: rotate(0); }
+      30% { transform: rotate(20deg) translateY(10px); }
+      50% { transform: rotate(25deg) translateY(14px); }
+      60% { transform: rotate(0); }
+      100% { transform: rotate(0); }
+    }
+
+    .intro-chicken.pecking svg {
+      animation: intro-peck 0.5s ease forwards;
+    }
+
+    .intro-cracks {
+      position: fixed;
+      inset: 0;
+      z-index: 10011;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .intro-crack {
+      position: absolute;
+      background: var(--accent);
+      transform-origin: 0 50%;
+      opacity: 0;
+      box-shadow: 0 0 12px rgba(196,168,130,0.7), 0 0 30px rgba(196,168,130,0.3);
+    }
+
+    @keyframes intro-crack-grow {
+      from { transform: rotate(var(--angle)) scaleX(0); opacity: 1; }
+      to { transform: rotate(var(--angle)) scaleX(1); opacity: 1; }
+    }
+
+    .intro-crack.grow {
+      animation: intro-crack-grow 0.35s ease-out forwards;
+    }
+
+    .intro-shard {
+      position: fixed;
+      background: #060608;
+      border: 1px solid rgba(196,168,130,0.3);
+      z-index: 10012;
+      pointer-events: none;
+    }
+
+    @keyframes intro-shard-fall {
+      0% { opacity: 1; transform: translate(0,0) rotate(0deg); }
+      100% { opacity: 0; transform: translate(var(--sx), 120vh) rotate(var(--sr)); }
+    }
+
+    .intro-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 10011;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(245,215,110,0) 0%, transparent 50%);
+      transition: background 0.6s ease;
+    }
+    .intro-glow.lit {
+      background: radial-gradient(circle at 50% 50%, rgba(245,215,110,0.2) 0%, rgba(196,168,130,0.08) 30%, transparent 60%);
+    }
+
+    .intro-skip {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 16px;
+      border-radius: 100px;
+      cursor: pointer;
+      z-index: 10020;
+      font-family: var(--sans);
+      transition: all 0.3s;
+      opacity: 0;
+    }
+    .intro-skip.visible { opacity: 1; }
+    .intro-skip:hover { border-color: var(--accent); color: var(--accent); }
+
+    body.intro-active { overflow: hidden; }
+    body.intro-active .grain { z-index: 10015; }
+
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
@@ -1248,7 +1385,34 @@
     }
   </style>
 </head>
-<body>
+<body class="intro-active">
+  <!-- Cinematic Intro -->
+  <div class="intro-overlay" id="introOverlay">
+    <div class="intro-spotlight" id="introSpotlight"></div>
+    <div class="intro-chicken" id="introChicken">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <ellipse cx="50" cy="58" rx="30" ry="28" fill="#f5d76e"/>
+        <ellipse cx="50" cy="64" rx="20" ry="18" fill="#fae9a0"/>
+        <ellipse cx="24" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(-15 24 56)"/>
+        <ellipse cx="76" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(15 76 56)"/>
+        <circle cx="50" cy="30" r="20" fill="#f5d76e"/>
+        <ellipse cx="36" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
+        <ellipse cx="64" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
+        <circle cx="42" cy="28" r="3.5" fill="#2d2520"/>
+        <circle cx="43" cy="27" r="1.2" fill="white"/>
+        <circle cx="58" cy="28" r="3.5" fill="#2d2520"/>
+        <circle cx="59" cy="27" r="1.2" fill="white"/>
+        <path d="M46 34 L50 40 L54 34 Z" fill="#e8874a"/>
+        <path d="M43 12 Q45 8 48 12 Q50 7 52 12 Q54 8 57 12 Q55 14 50 14 Q45 14 43 12Z" fill="#e85a4a"/>
+        <path d="M38 84 L34 92 M38 84 L38 93 M38 84 L42 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M62 84 L58 92 M62 84 L62 93 M62 84 L66 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+  <div class="intro-cracks" id="introCracks"></div>
+  <div class="intro-glow" id="introGlow"></div>
+  <button class="intro-skip" id="introSkip">skip</button>
+
   <div class="grain"></div>
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
@@ -1343,8 +1507,8 @@
       <h1>A data scientist who <em>grew up predicting the next line</em> in Hong Kong dramas.</h1>
       <p class="hero-bio">
         I design metrics that tell the truth, run experiments that settle arguments, and build AI agents that do the boring work.
-        Then I go home and explain <strong>81 &times; 81</strong> to a kid using Rubik's cubes.
-        文科底子，理科脑子 &mdash; I've been pattern-matching since before I knew there was a word for it.
+        My logical thinking? Learned it doing karate and Bolly X at the YMCA &mdash; <strong>basic techniques + permutations</strong>.
+        文科底子，理科脑子 &mdash; philosophy first, code second.
       </p>
       <p class="hero-footnote">
         daac = dumb as a chicken. Stay curious. Ship it. Write about what you find.
@@ -1677,8 +1841,8 @@
         <a class="pg-item" href="#" style="animation-delay:1.1s" data-depth="3">
           <span class="pg-badge story">story</span>
           <div class="pg-item-icon">&#128161;</div>
-          <h4>81 &times; 81</h4>
-          <p>How I explained multiplication to a kid using Rubik's cubes.</p>
+          <h4>一步步来</h4>
+          <p>空手道和 Bolly X 教会我的：basic technique + 排列组合 = everything.</p>
         </a>
         <a class="pg-item" href="#" style="animation-delay:1.18s" data-depth="1">
           <span class="pg-badge story">story</span>
@@ -1696,7 +1860,135 @@
     </div>
   </div>
 
+  <script data-goatcounter="https://daac-solo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
   <script>
+    // ===== CINEMATIC INTRO =====
+    (function() {
+      const introOverlay = document.getElementById('introOverlay');
+      const introChicken = document.getElementById('introChicken');
+      const introSpotlight = document.getElementById('introSpotlight');
+      const introCracks = document.getElementById('introCracks');
+      const introGlow = document.getElementById('introGlow');
+      const introSkip = document.getElementById('introSkip');
+
+      if (sessionStorage.getItem('daac-intro-seen')) {
+        introOverlay.remove();
+        introCracks.remove();
+        introGlow.remove();
+        introSkip.remove();
+        document.body.classList.remove('intro-active');
+        return;
+      }
+
+      let introTimeouts = [];
+      function clearIntro() {
+        introTimeouts.forEach(t => clearTimeout(t));
+        introTimeouts = [];
+      }
+
+      function endIntro() {
+        clearIntro();
+        sessionStorage.setItem('daac-intro-seen', '1');
+        introOverlay.classList.add('fade-out');
+        introGlow.style.opacity = '0';
+        introGlow.style.transition = 'opacity 0.6s';
+        introCracks.style.opacity = '0';
+        introCracks.style.transition = 'opacity 0.6s';
+        introSkip.style.opacity = '0';
+        document.body.classList.remove('intro-active');
+        setTimeout(() => {
+          introOverlay.remove();
+          introCracks.remove();
+          introGlow.remove();
+          introSkip.remove();
+          document.querySelectorAll('.intro-shard').forEach(s => s.remove());
+        }, 1000);
+      }
+
+      introSkip.addEventListener('click', endIntro);
+      document.addEventListener('keydown', function introEsc(e) {
+        if (e.key === 'Escape') { endIntro(); document.removeEventListener('keydown', introEsc); }
+      });
+
+      // Show skip button after brief delay
+      introTimeouts.push(setTimeout(() => introSkip.classList.add('visible'), 600));
+
+      // Phase 1: Spotlight fades in (0ms)
+      introSpotlight.classList.add('on');
+
+      // Phase 2: Chicken walks in from left (300ms)
+      introTimeouts.push(setTimeout(() => {
+        introChicken.classList.add('walking');
+      }, 300));
+
+      // Phase 3: Chicken arrives, stops bobbing, pecks (2100ms = 300 + 1800 walk)
+      introTimeouts.push(setTimeout(() => {
+        introChicken.classList.remove('walking');
+        introChicken.style.opacity = '1';
+        introChicken.style.transform = 'translateX(0)';
+
+        // Small pause then peck
+        introTimeouts.push(setTimeout(() => {
+          introChicken.classList.add('pecking');
+
+          // Screen shake on impact
+          introTimeouts.push(setTimeout(() => {
+            document.body.classList.add('shaking');
+            setTimeout(() => document.body.classList.remove('shaking'), 500);
+
+            // Cracks radiate from center
+            const cx = window.innerWidth / 2;
+            const cy = window.innerHeight / 2;
+
+            for (let i = 0; i < 10; i++) {
+              const crack = document.createElement('div');
+              crack.className = 'intro-crack';
+              const angle = (i / 10) * 360 + (Math.random() * 15 - 7.5);
+              const len = 80 + Math.random() * Math.min(window.innerWidth, window.innerHeight) * 0.4;
+              crack.style.left = cx + 'px';
+              crack.style.top = cy + 'px';
+              crack.style.width = len + 'px';
+              crack.style.height = (1.2 + Math.random() * 1.2) + 'px';
+              crack.style.setProperty('--angle', angle + 'deg');
+              introCracks.appendChild(crack);
+              setTimeout(() => crack.classList.add('grow'), i * 50);
+            }
+
+            // Golden glow
+            introTimeouts.push(setTimeout(() => {
+              introGlow.classList.add('lit');
+            }, 300));
+
+            // Shell shards fall (600ms after cracks)
+            introTimeouts.push(setTimeout(() => {
+              for (let i = 0; i < 14; i++) {
+                const shard = document.createElement('div');
+                shard.className = 'intro-shard';
+                const w = 25 + Math.random() * 90;
+                const h = 20 + Math.random() * 60;
+                shard.style.width = w + 'px';
+                shard.style.height = h + 'px';
+                shard.style.left = (Math.random() * 100) + 'vw';
+                shard.style.top = (Math.random() * 70) + 'vh';
+                shard.style.borderRadius = Math.random() * 6 + 'px';
+                shard.style.setProperty('--sx', (Math.random() * 120 - 60) + 'px');
+                shard.style.setProperty('--sr', (Math.random() * 360) + 'deg');
+                shard.style.animation = `intro-shard-fall ${0.7 + Math.random() * 0.5}s ease-in forwards`;
+                shard.style.animationDelay = (i * 0.04) + 's';
+                document.body.appendChild(shard);
+              }
+
+              // Reveal website
+              introTimeouts.push(setTimeout(endIntro, 500));
+            }, 600));
+
+          }, 250)); // delay after peck starts
+        }, 300)); // pause before peck
+      }, 2100));
+
+    })();
+
     // Scroll-triggered reveals
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -1747,7 +2039,8 @@
         setTimeout(typeChar, 60 + Math.random() * 40);
       }
     }
-    setTimeout(typeChar, 400);
+    const introDelay = sessionStorage.getItem('daac-intro-seen') ? 400 : 4200;
+    setTimeout(typeChar, introDelay);
 
     // Hero chicken — click to peck with sparks
     const heroChicken = document.getElementById('heroChicken');
