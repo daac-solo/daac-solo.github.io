@@ -3,28 +3,22 @@
   "day": 132,
   "items": [
     {
-      "tldr": "OpenAI releases GPT-5 turbo — inference cost down 60%, but benchmark gains only 3%. Diminishing returns are here.",
-      "tldr_zh": "OpenAI 发布 GPT-5 turbo，推理成本降 60%，但 benchmark 提升只有 3%。边际收益递减开始了。",
-      "tags": ["AI", "cost"],
-      "source": "OpenAI Blog",
-      "take": "Cost is the real moat now. When capability plateaus, whoever runs cheapest wins the API war.",
-      "take_zh": "成本才是真护城河。能力到顶之后，谁跑得最便宜谁赢 API 战争。"
+      "tldr_zh": "Google 新模型 Argon 被问：能否在前沿追上 OpenAI 与 Anthropic？",
+      "tags": ["AI", "竞争"],
+      "source": "CNBC",
+      "take_zh": "追赶者的最大风险，是跑得太像领跑者吗？"
     },
     {
-      "tldr": "Korea Sept first-20-day exports +14% YoY, semiconductors half of it. The global trade canary is still singing.",
-      "tldr_zh": "韩国 9 月前 20 日出口同比 +14%，半导体占一半。全球贸易金丝雀还在唱歌。",
-      "tags": ["macro", "trade"],
-      "source": "Korea Customs",
-      "take": "Korea exports are the closest thing to a real-time GDP pulse for the world. When this canary stops, sell everything.",
-      "take_zh": "韩国出口是全球 GDP 最接近实时的脉搏。这只金丝雀停止唱歌的时候，卖掉一切。"
+      "tldr_zh": "OpenAI、Anthropic、Meta、Google 谈安全合作数周，仍不给出"安全保证"",
+      "tags": ["AI", "安全"],
+      "source": "Fox",
+      "take_zh": "竞争对手一起说"我们很小心"，是在安抚公众，还是在互相取暖？"
     },
     {
-      "tldr": "Anthropic launches Claude Code plugin ecosystem. The shift from tool to platform — whoever owns the developers owns the future.",
-      "tldr_zh": "Anthropic 推出 Claude Code plugin 生态系统。从工具到平台的转变 — 谁拥有开发者，谁拥有未来。",
-      "tags": ["AI", "platform"],
-      "source": "Anthropic",
-      "take": "This is the Microsoft playbook: don't just make a good product, make it the thing other products are built on.",
-      "take_zh": "这是微软的剧本：不只是做一个好产品，而是让它成为别人产品的地基。"
+      "tldr_zh": "AI 陪伴提升心理健康，却削弱线下人际连接",
+      "tags": ["AI", "人性"],
+      "source": "PsyPost",
+      "take_zh": "如果止痛药同时让你不想出门，它治的是痛，还是出门的理由？"
     }
   ]
 }

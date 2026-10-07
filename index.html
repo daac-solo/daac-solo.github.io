@@ -2480,12 +2480,12 @@
           var isZh = document.body.classList.contains('lang-zh');
           distillList.innerHTML = data.items.map((item, i) => `
             <div class="distill-item" style="transition-delay:${i * 0.1}s">
-              <div class="distill-tldr"><span class="i18n-en">${item.tldr}</span><span class="i18n-zh">${item.tldr_zh || item.tldr}</span></div>
+              <div class="distill-tldr"><span class="i18n-en">${item.tldr || item.tldr_zh}</span><span class="i18n-zh">${item.tldr_zh || item.tldr}</span></div>
               <div class="distill-meta">
                 ${item.tags.map(t => `<span class="distill-tag">${t}</span>`).join('')}
                 <span class="distill-source">${item.source}</span>
               </div>
-              ${item.take ? `<button class="distill-take-btn" onclick="var t=this.nextElementSibling;t.classList.toggle('open');this.classList.toggle('open')"><span class="take-arrow">&#9654;</span> <span class="i18n-en">daac's take</span><span class="i18n-zh">鸡言鸡语</span></button><div class="distill-take-text"><span class="i18n-en">${item.take}</span><span class="i18n-zh">${item.take_zh || item.take}</span></div>` : ''}
+              ${(item.take || item.take_zh) ? `<button class="distill-take-btn" onclick="var t=this.nextElementSibling;t.classList.toggle('open');this.classList.toggle('open')"><span class="take-arrow">&#9654;</span> <span class="i18n-en">daac's take</span><span class="i18n-zh">鸡言鸡语</span></button><div class="distill-take-text"><span class="i18n-en">${item.take || item.take_zh}</span><span class="i18n-zh">${item.take_zh || item.take}</span></div>` : ''}
             </div>
           `).join('');
           const distillObserver = new IntersectionObserver(entries => {
