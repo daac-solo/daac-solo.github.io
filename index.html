@@ -739,6 +739,22 @@
       font-family: var(--mono);
       margin-left: auto;
     }
+    .distill-take-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; color: var(--text-muted); cursor: pointer;
+      background: none; border: 1px solid var(--border); border-radius: 4px;
+      padding: 3px 10px; margin-top: 10px;
+      font-family: var(--mono); transition: color .2s, border-color .2s;
+    }
+    .distill-take-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .distill-take-btn .take-arrow { transition: transform .2s; display: inline-block; }
+    .distill-take-btn.open .take-arrow { transform: rotate(90deg); }
+    .distill-take-text {
+      max-height: 0; overflow: hidden; transition: max-height .3s ease, opacity .3s;
+      opacity: 0; font-size: 13px; font-style: italic; color: var(--accent-light);
+      line-height: 1.6; padding-left: 2px;
+    }
+    .distill-take-text.open { max-height: 80px; opacity: 1; margin-top: 8px; }
     .distill-cta {
       margin-top: 20px;
       text-align: center;
@@ -1807,7 +1823,7 @@
         <span class="i18n-en">I design metrics that tell the truth, run experiments that settle arguments, and build AI agents that do the boring work.
         My logical thinking? Learned it doing Karate and BollyX dancing at the YMCA &mdash; <strong>basic techniques + permutations</strong>.
         Humanities heart, engineering brain &mdash; philosophy first, code second.</span>
-        <span class="i18n-zh">我设计说真话的指标，做能定争议的实验，造帮我干活的 AI agent。
+        <span class="i18n-zh">我设计说真话的指标，做能定争议的实验，探索 AI 和人的边界在哪里。
         我的逻辑思维？在 YMCA 学空手道和 BollyX 舞蹈练出来的 &mdash; <strong>基本功 + 排列组合</strong>。
         文科底子，理科脑子 &mdash; 哲学先行，代码随后。</span>
       </p>
@@ -2460,6 +2476,7 @@
             distillList.innerHTML = '<div class="distill-empty"><span class="i18n-en">Today\'s distill is brewing...</span><span class="i18n-zh">今日蒸馏酿造中...</span></div>';
             return;
           }
+          var isZh = document.body.classList.contains('lang-zh');
           distillList.innerHTML = data.items.map((item, i) => `
             <div class="distill-item" style="transition-delay:${i * 0.1}s">
               <div class="distill-tldr"><span class="i18n-en">${item.tldr}</span><span class="i18n-zh">${item.tldr_zh || item.tldr}</span></div>
@@ -2467,6 +2484,7 @@
                 ${item.tags.map(t => `<span class="distill-tag">${t}</span>`).join('')}
                 <span class="distill-source">${item.source}</span>
               </div>
+              ${item.take ? `<button class="distill-take-btn" onclick="var t=this.nextElementSibling;t.classList.toggle('open');this.classList.toggle('open')"><span class="take-arrow">&#9654;</span> <span class="i18n-en">daac's take</span><span class="i18n-zh">鸡言鸡语</span></button><div class="distill-take-text"><span class="i18n-en">${item.take}</span><span class="i18n-zh">${item.take_zh || item.take}</span></div>` : ''}
             </div>
           `).join('');
           const distillObserver = new IntersectionObserver(entries => {
