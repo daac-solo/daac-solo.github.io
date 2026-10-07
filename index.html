@@ -473,6 +473,195 @@
       font-family: var(--mono);
     }
 
+    /* ===== DISTILL EXPLAINER ===== */
+    .distill-explainer {
+      position: relative;
+      height: 280px;
+      margin-bottom: 32px;
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .distill-explainer.done {
+      height: 0;
+      margin: 0;
+      border: none;
+      overflow: hidden;
+      transition: height 0.6s ease, margin 0.6s ease;
+    }
+
+    .de-noise {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .de-noise.active { opacity: 1; }
+
+    .de-headline {
+      font-size: 11px;
+      font-family: var(--mono);
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: var(--surface-2);
+      color: var(--text-muted);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(-30px) rotate(var(--r, 0deg));
+    }
+    .de-headline.drop {
+      animation: de-drop 0.4s ease-out forwards;
+      animation-delay: var(--d, 0s);
+    }
+
+    @keyframes de-drop {
+      0% { opacity: 0; transform: translateY(-30px) rotate(var(--r, 0deg)); }
+      60% { opacity: 0.8; }
+      100% { opacity: 0.6; transform: translateY(0) rotate(0deg); }
+    }
+
+    .de-funnel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 2;
+    }
+    .de-funnel.active { opacity: 1; }
+
+    .de-funnel-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 20px rgba(196,168,130,0.4));
+      animation: de-pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes de-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .de-funnel-label {
+      font-family: var(--serif);
+      font-size: 16px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .de-funnel-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .de-compress {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .de-compress.active { opacity: 1; }
+
+    .de-compress .de-headline {
+      opacity: 0.6;
+      transform: none;
+    }
+    .de-compress .de-headline.shrink {
+      animation: de-shrink 0.5s ease-in forwards;
+      animation-delay: var(--d, 0s);
+    }
+
+    @keyframes de-shrink {
+      0% { opacity: 0.6; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.3) translateY(20px); }
+    }
+
+    .de-result {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 3;
+    }
+    .de-result.active { opacity: 1; }
+
+    .de-result-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      background: var(--bg);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(15px);
+      box-shadow: 0 0 20px rgba(196,168,130,0.08);
+    }
+    .de-result-card.pop {
+      animation: de-pop 0.5s ease-out forwards;
+      animation-delay: var(--d, 0s);
+    }
+
+    @keyframes de-pop {
+      0% { opacity: 0; transform: translateY(15px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .de-result-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .de-result-text {
+      font-size: 13px;
+      color: var(--text);
+      font-family: var(--sans);
+    }
+
+    .de-result-label {
+      font-family: var(--serif);
+      font-size: 14px;
+      color: var(--accent);
+      margin-top: 8px;
+      opacity: 0;
+    }
+    .de-result-label.show {
+      animation: de-fade-in 0.6s ease forwards;
+      animation-delay: 0.6s;
+    }
+
+    @keyframes de-fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     /* ===== DISTILL ===== */
     .distill-section { margin-bottom: 0; }
     .distill-header {
@@ -1616,6 +1805,21 @@
 
     <!-- ===== DISTILL ===== -->
     <section id="distill" class="distill-section reveal">
+      <div class="distill-explainer" id="distillExplainer">
+        <div class="de-noise" id="deNoise"></div>
+        <div class="de-compress" id="deCompress"></div>
+        <div class="de-funnel" id="deFunnel">
+          <div class="de-funnel-icon">&#9878;&#65039;</div>
+          <div class="de-funnel-label">Distilling...</div>
+          <div class="de-funnel-sub">100+ headlines &rarr; 3 that matter</div>
+        </div>
+        <div class="de-result" id="deResult">
+          <div class="de-result-card" style="--d:0s"><div class="de-result-dot"></div><div class="de-result-text">AI cost down 60%, gains only 3%</div></div>
+          <div class="de-result-card" style="--d:0.15s"><div class="de-result-dot" style="background:var(--green)"></div><div class="de-result-text">Korea exports +14% — canary sings</div></div>
+          <div class="de-result-card" style="--d:0.3s"><div class="de-result-dot" style="background:var(--blue)"></div><div class="de-result-text">Platform shift: tools to ecosystems</div></div>
+          <div class="de-result-label" id="deLabel">This is distill. 信息蒸馏。</div>
+        </div>
+      </div>
       <div class="distill-header">
         <p class="section-label">Today's Distill</p>
         <span class="distill-day" id="distillDay"></span>
@@ -2101,6 +2305,99 @@
         }, 300)); // pause before peck
       }, 2100));
 
+    })();
+
+    // ===== DISTILL EXPLAINER =====
+    (function() {
+      if (sessionStorage.getItem('daac-distill-explained')) {
+        const ex = document.getElementById('distillExplainer');
+        if (ex) ex.remove();
+        return;
+      }
+
+      const noiseHeadlines = [
+        'Fed signals rate pause', 'Bitcoin hits new high', 'Tech layoffs continue',
+        'Oil prices surge 5%', 'China PMI disappoints', 'NVIDIA earnings beat',
+        'EU AI regulation vote', 'Dollar weakens vs yen', 'Housing starts fall',
+        'IPO market heats up', 'Bond yields invert', 'Retail sales mixed',
+        'VIX spikes to 28', 'Gold rallies on fears', 'Copper demand rises',
+        'Apple supply chain', 'Inflation sticky at 3%', 'Jobs report Friday',
+        'Merger talks collapse', 'EV sales slow in EU', 'Chip export controls',
+        'Bank earnings mixed', 'Consumer confidence dip', 'Startup funding down',
+      ];
+
+      const deNoise = document.getElementById('deNoise');
+      const deCompress = document.getElementById('deCompress');
+      const deFunnel = document.getElementById('deFunnel');
+      const deResult = document.getElementById('deResult');
+      const deLabel = document.getElementById('deLabel');
+      const explainer = document.getElementById('distillExplainer');
+      let explainerDone = false;
+
+      noiseHeadlines.forEach((h, i) => {
+        const el = document.createElement('div');
+        el.className = 'de-headline';
+        el.textContent = h;
+        el.style.setProperty('--d', (i * 0.06) + 's');
+        el.style.setProperty('--r', (Math.random() * 10 - 5) + 'deg');
+        deNoise.appendChild(el);
+
+        const el2 = el.cloneNode(true);
+        el2.className = 'de-headline';
+        el2.style.opacity = '0.6';
+        el2.style.transform = 'none';
+        el2.style.setProperty('--d', (i * 0.03) + 's');
+        deCompress.appendChild(el2);
+      });
+
+      function runExplainer() {
+        if (explainerDone) return;
+        explainerDone = true;
+
+        // Phase 1: Headlines drop in (0-1.5s)
+        deNoise.classList.add('active');
+        deNoise.querySelectorAll('.de-headline').forEach(h => h.classList.add('drop'));
+
+        // Phase 2: Compress — headlines visible, then shrink away (1.8s)
+        setTimeout(() => {
+          deNoise.classList.remove('active');
+          deCompress.classList.add('active');
+          setTimeout(() => {
+            deCompress.querySelectorAll('.de-headline').forEach(h => h.classList.add('shrink'));
+          }, 200);
+        }, 1800);
+
+        // Phase 3: Funnel appears (2.5s)
+        setTimeout(() => {
+          deCompress.classList.remove('active');
+          deFunnel.classList.add('active');
+        }, 2500);
+
+        // Phase 4: Results appear (4s)
+        setTimeout(() => {
+          deFunnel.classList.remove('active');
+          deResult.classList.add('active');
+          deResult.querySelectorAll('.de-result-card').forEach(c => c.classList.add('pop'));
+          deLabel.classList.add('show');
+        }, 4000);
+
+        // Phase 5: Collapse explainer (6.5s)
+        setTimeout(() => {
+          sessionStorage.setItem('daac-distill-explained', '1');
+          explainer.classList.add('done');
+          setTimeout(() => explainer.remove(), 700);
+        }, 6500);
+      }
+
+      const explainerObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            runExplainer();
+            explainerObs.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      explainerObs.observe(explainer);
     })();
 
     // ===== DAILY DISTILL =====
