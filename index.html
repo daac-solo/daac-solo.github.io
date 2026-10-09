@@ -228,6 +228,78 @@
       100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
     }
 
+    /* Egg clue: click progress cracks on chicken */
+    .egg-progress {
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 3px;
+      pointer-events: none;
+    }
+    .egg-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(196,168,130,0.15);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .egg-dot.lit {
+      background: var(--accent);
+      box-shadow: 0 0 6px rgba(196,168,130,0.4);
+    }
+
+    /* Egg clue: hint that floats up */
+    .egg-hint {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--accent);
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      transition: none;
+    }
+    .egg-hint.show {
+      animation: egg-hint-float 2s ease-out forwards;
+    }
+    @keyframes egg-hint-float {
+      0% { opacity: 0; transform: translateX(-50%) translateY(0); }
+      20% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+    }
+
+    /* Hidden clue text in distill section */
+    .egg-clue-text {
+      color: rgba(196,168,130,0.06);
+      font-size: 10px;
+      font-family: var(--mono);
+      text-align: center;
+      margin-top: 8px;
+      user-select: none;
+      transition: color 0.5s;
+      cursor: default;
+    }
+    .egg-clue-text:hover {
+      color: rgba(196,168,130,0.2);
+    }
+
+    /* Footer dots clue */
+    .footer-dots {
+      color: rgba(196,168,130,0.08);
+      letter-spacing: 3px;
+      font-size: 14px;
+      margin-left: 8px;
+      user-select: none;
+      transition: color 0.5s;
+    }
+    .footer-dots:hover {
+      color: rgba(196,168,130,0.25);
+    }
+
     @media (max-width: 800px) {
       .hero-chicken { right: -20px; top: -10px; width: 80px; height: 80px; }
     }
@@ -1796,6 +1868,10 @@
     <!-- ===== HERO ===== -->
     <header class="hero" style="position:relative;">
       <div class="hero-chicken" id="heroChicken">
+        <div class="egg-hint" id="eggHint"></div>
+        <div class="egg-progress" id="eggProgress">
+          <div class="egg-dot"></div><div class="egg-dot"></div><div class="egg-dot"></div><div class="egg-dot"></div><div class="egg-dot"></div><div class="egg-dot"></div>
+        </div>
         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
           <ellipse cx="50" cy="58" rx="30" ry="28" fill="#f5d76e"/>
           <ellipse cx="50" cy="64" rx="20" ry="18" fill="#fae9a0"/>
@@ -1825,7 +1901,7 @@
         Humanities heart, engineering brain &mdash; philosophy first, code second.</span>
         <span class="i18n-zh">我设计说真话的指标，做能定争议的实验，探索 AI 和人的边界在哪里。
         我的逻辑思维？在 YMCA 学空手道和 BollyX 舞蹈练出来的 &mdash; <strong>基本功 + 排列组合</strong>。
-        文科底子，理科脑子 &mdash; 哲学先行，代码随后。</span>
+        凭感觉出身，用数据吃饭。哲学先行，代码随后。</span>
       </p>
       <p class="hero-footnote">
         <span class="i18n-en">daac /dæk/ = dumb as a chicken. Sounds like duck. My kid named a toy puppy "duck" &mdash; the brand wrote itself.</span>
@@ -1866,6 +1942,7 @@
       <div class="distill-list" id="distillList">
         <div class="distill-empty"><span class="i18n-en">Loading...</span><span class="i18n-zh">加载中...</span></div>
       </div>
+      <p class="egg-clue-text"><span class="i18n-en">even a dumb chicken has secrets</span><span class="i18n-zh">笨鸡也有秘密</span></p>
       <div class="distill-cta">
         <a href="https://daaclab.substack.com/" target="_blank" rel="noopener"><span class="i18n-en">Want more? Subscribe to get the full daily distill &rarr;</span><span class="i18n-zh">想看更多？订阅获取每日完整蒸馏 &rarr;</span></a>
       </div>
@@ -2058,8 +2135,8 @@
       <div class="collection-grid">
         <div class="collection-card tilt-card">
           <div class="c-emoji">&#129302;</div>
-          <h3><span class="i18n-en">AI tools I actually use</span><span class="i18n-zh">我真正在用的 AI 工具</span></h3>
-          <p><span class="i18n-en">Not hype. Tools that stuck after the novelty wore off.</span><span class="i18n-zh">不是跟风。新鲜感过后还在用的工具。</span></p>
+          <h3><span class="i18n-en">Products I love</span><span class="i18n-zh">我喜欢的产品</span></h3>
+          <p><span class="i18n-en">Tools, apps, and things I keep using. I care about the philosophy behind them.</span><span class="i18n-zh">一直在用的工具和产品。打动我的是背后的理念。</span></p>
         </div>
         <div class="collection-card tilt-card">
           <div class="c-emoji">&#128218;</div>
@@ -2100,7 +2177,7 @@
     <div class="container">
       <div class="footer-inner">
         <span class="footer-left"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;vertical-align:-3px;margin-right:4px;"><ellipse cx="50" cy="58" rx="30" ry="28" fill="#f5d76e"/><ellipse cx="50" cy="64" rx="20" ry="18" fill="#fae9a0"/><circle cx="50" cy="30" r="20" fill="#f5d76e"/><circle cx="42" cy="28" r="3.5" fill="#2d2520"/><circle cx="43" cy="27" r="1.2" fill="white"/><circle cx="58" cy="28" r="3.5" fill="#2d2520"/><circle cx="59" cy="27" r="1.2" fill="white"/><path d="M46 34 L50 40 L54 34 Z" fill="#e8874a"/><path d="M43 12 Q45 8 48 12 Q50 7 52 12 Q54 8 57 12 Q55 14 50 14 Q45 14 43 12Z" fill="#e85a4a"/></svg>daac</span>
-        <span class="footer-right"><span class="i18n-en">dumb as a chicken, building smart things</span><span class="i18n-zh">笨得像只鸡，做聪明的事</span></span>
+        <span class="footer-right"><span class="i18n-en">dumb as a chicken, building smart things</span><span class="i18n-zh">笨得像只鸡，做聪明的事</span><span class="footer-dots" title="·">······</span></span>
       </div>
     </div>
   </footer>
@@ -2774,7 +2851,7 @@
       });
     });
 
-    // Easter egg — click chicken 5 times → origin story
+    // Easter egg — click chicken 6 times → origin story (10.6 = site birthday)
     let chickenClicks = 0;
     let chickenTimer;
     let storyRunning = false;
@@ -2908,12 +2985,40 @@
     storySkip.addEventListener('click', endStory);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && storyRunning) endStory(); });
 
+    const eggDots = document.querySelectorAll('.egg-dot');
+    const eggHint = document.getElementById('eggHint');
+    const eggHints = {
+      en: ['', '', '', '', '', ''],
+      zh: ['', '', '', '', '', '']
+    };
+
+    function resetEggDots() {
+      chickenClicks = 0;
+      eggDots.forEach(d => d.classList.remove('lit'));
+    }
+
     heroChicken.addEventListener('click', () => {
       chickenClicks++;
       clearTimeout(chickenTimer);
-      chickenTimer = setTimeout(() => { chickenClicks = 0; }, 2000);
-      if (chickenClicks >= 5) {
-        chickenClicks = 0;
+      chickenTimer = setTimeout(resetEggDots, 2000);
+
+      // Light up progress dots
+      if (chickenClicks <= 6) {
+        eggDots[chickenClicks - 1].classList.add('lit');
+      }
+
+      // Show hint on click 4
+      const lang = document.body.classList.contains('lang-zh') ? 'zh' : 'en';
+      const hint = eggHints[lang][chickenClicks - 1];
+      if (hint) {
+        eggHint.textContent = hint;
+        eggHint.classList.remove('show');
+        void eggHint.offsetWidth;
+        eggHint.classList.add('show');
+      }
+
+      if (chickenClicks >= 6) {
+        setTimeout(resetEggDots, 300);
         runStory();
       }
     });
