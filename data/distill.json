@@ -1,24 +1,30 @@
 {
-  "date": "2026-10-07",
-  "day": 132,
+  "date": "2026-10-08",
+  "day": 133,
   "items": [
     {
-      "tldr_zh": "Google 新模型 Argon 被问：能否在前沿追上 OpenAI 与 Anthropic？",
-      "tags": ["AI", "竞争"],
+      "tldr": "Anthropic releases Claude Haiku 5.5 — API price drops 90%, competing with GPT-6 Luna",
+      "tldr_zh": "Anthropic 发布 Claude Haiku 5.5，API 价格降 90%，对标 GPT-6 Luna",
+      "tags": ["AI", "cost"],
+      "source": "VentureBeat",
+      "take": "When intelligence is nearly free, what becomes truly scarce?",
+      "take_zh": "当智能便宜到接近免费，真正稀缺的变成了什么？"
+    },
+    {
+      "tldr": "AI labs ship new models at breakneck pace — 'model fatigue' sets in",
+      "tldr_zh": "AI 实验室以极快节奏发布新模型，「模型疲劳」开始出现",
+      "tags": ["AI", "trend"],
       "source": "CNBC",
-      "take_zh": "追赶者的最大风险，是跑得太像领跑者吗？"
+      "take": "Are users tired of the models, or of the anxiety of having to keep up?",
+      "take_zh": "用户疲劳的是模型，还是「必须跟上」的焦虑？"
     },
     {
-      "tldr_zh": "OpenAI、Anthropic、Meta、Google 谈安全合作数周，仍不给出"安全保证"",
-      "tags": ["AI", "安全"],
+      "tldr": "OpenAI publishes new math proof; same day, a super PAC targets 'AI-backed' candidates",
+      "tldr_zh": "OpenAI 发布新数学证明，同日超级 PAC 针对「受 AI 支持」的候选人",
+      "tags": ["AI", "politics"],
       "source": "Fox",
-      "take_zh": "竞争对手一起说"我们很小心"，是在安抚公众，还是在互相取暖？"
-    },
-    {
-      "tldr_zh": "AI 陪伴提升心理健康，却削弱线下人际连接",
-      "tags": ["AI", "人性"],
-      "source": "PsyPost",
-      "take_zh": "如果止痛药同时让你不想出门，它治的是痛，还是出门的理由？"
+      "take": "AI proves truths while humans prove positions — which is harder to automate?",
+      "take_zh": "AI 在证明真理的同时，人类在忙着证明立场——哪边更难自动化？"
     }
   ]
 }
