@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FearOS — daac</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body.lang-en .i18n-zh { display: none !important; }
+    body.lang-zh .i18n-en { display: none !important; }
+
+    :root {
+      --bg: #0c0c0e;
+      --surface: #141416;
+      --surface-2: #1a1a1e;
+      --border: #242428;
+      --text: #e8e6e3;
+      --text-dim: #9a9890;
+      --text-muted: #6b6960;
+      --accent: #c4a882;
+      --accent-light: #d4bc9a;
+      --accent-dim: rgba(196, 168, 130, 0.12);
+      --green: #7ec9a0;
+      --serif: 'Lora', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(12,12,14,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-back {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--accent); }
+    .nav-back svg { width: 16px; height: 16px; }
+
+    .lang-toggle {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: all 0.2s;
+    }
+    .lang-toggle:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Article */
+    article {
+      padding: 120px 0 80px;
+    }
+
+    .article-meta {
+      margin-bottom: 40px;
+    }
+    .article-ep {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .article-tags {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .article-date {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 500;
+      line-height: 1.3;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .article-hook {
+      font-size: 17px;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Content */
+    .article-body h2 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--accent-light);
+      margin: 48px 0 20px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .article-body strong {
+      color: var(--accent-light);
+      font-weight: 600;
+    }
+
+    .article-body blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 16px 20px;
+      margin: 32px 0;
+      background: var(--accent-dim);
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: var(--text-dim);
+    }
+
+    .process-block {
+      margin: 28px 0;
+      padding: 20px 24px;
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .process-block h3 {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    .process-block p {
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+    .process-block p:last-child { margin-bottom: 0; }
+    .process-block .dim {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .step-block {
+      margin: 24px 0;
+      padding: 20px 24px;
+      background: var(--surface);
+      border-radius: 12px;
+      border-left: 3px solid var(--green);
+    }
+    .step-block h3 {
+      font-size: 16px;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+    .step-block p {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    .step-block p:last-child { margin-bottom: 0; }
+
+    /* Footer */
+    .article-footer {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .article-footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .article-footer a:hover { text-decoration: underline; }
+
+    .share-hint {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      article { padding: 100px 0 60px; }
+    }
+  </style>
+</head>
+<body class="lang-en">
+
+  <nav>
+    <div class="container">
+      <a class="nav-back" href="/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span>daac</span>
+      </a>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <span class="i18n-en">中文</span><span class="i18n-zh">EN</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <article>
+      <div class="article-meta">
+        <div class="article-ep">EP.01</div>
+        <h1>
+          <span class="i18n-en">FearOS: Your anxiety is an operating system</span>
+          <span class="i18n-zh">FearOS：你的内耗，其实是一套操作系统</span>
+        </h1>
+        <div class="article-tags">
+          <span class="i18n-en">self-awareness · mental models</span>
+          <span class="i18n-zh">自我认知 · 思维模型</span>
+        </div>
+        <div class="article-date">2026-05-23</div>
+      </div>
+
+      <p class="article-hook">
+        <span class="i18n-en">You think you're anxious. Actually, there's an OS running in your head on autopilot.</span>
+        <span class="i18n-zh">你以为你在焦虑。其实是脑子里有个操作系统在自动运行。</span>
+      </p>
+
+      <div class="article-body">
+
+        <p>
+          <span class="i18n-en">I call it <strong>FearOS</strong>.</span>
+          <span class="i18n-zh">我把它叫 <strong>FearOS</strong>。</span>
+        </p>
+        <p>
+          <span class="i18n-en">It runs in your background, hogging your CPU. You don't even know it's there.</span>
+          <span class="i18n-zh">它运行在你的后台，占用大量 CPU，你甚至不知道它在跑。</span>
+        </p>
+
+        <h2>
+          <span class="i18n-en">Three core processes of FearOS</span>
+          <span class="i18n-zh">FearOS 的三个核心进程</span>
+        </h2>
+
+        <div class="process-block">
+          <h3>
+            <span class="i18n-en">Process 1: Perfectionism Guard</span>
+            <span class="i18n-zh">进程 1：完美主义守护</span>
+          </h3>
+          <p>
+            <span class="i18n-en">You go to a concert. Instead of enjoying it, your brain auto-switches to analysis mode — counting heads, estimating ticket revenue.</span>
+            <span class="i18n-zh">去听演唱会，全程在数人头、算票价、估收入。</span>
+          </p>
+          <p class="dim">
+            <span class="i18n-en">It's not that you don't want to enjoy it. FearOS treats "pure enjoyment" as a loss of control.</span>
+            <span class="i18n-zh">不是不想享受，是大脑自动切成了分析模式——因为"纯粹享受"在 FearOS 看来是一种失控。</span>
+          </p>
+        </div>
+
+        <div class="process-block">
+          <h3>
+            <span class="i18n-en">Process 2: Boundary Blur Engine</span>
+            <span class="i18n-zh">进程 2：边界模糊引擎</span>
+          </h3>
+          <p>
+            <span class="i18n-en">You can do everything at work. So everything becomes your job.</span>
+            <span class="i18n-zh">工作里什么都会做，结果什么都是你的活。</span>
+          </p>
+          <p class="dim">
+            <span class="i18n-en">Full-stack ability becomes full-stack exploitation. "Can do" ≠ "should do", but FearOS whispers: "If you don't, who will?"</span>
+            <span class="i18n-zh">全栈能力变成全栈压榨。会做≠该做，但 FearOS 会说："你不做谁做？"</span>
+          </p>
+        </div>
+
+        <div class="process-block">
+          <h3>
+            <span class="i18n-en">Process 3: Social Risk Assessor</span>
+            <span class="i18n-zh">进程 3：社交风险评估</span>
+          </h3>
+          <p>
+            <span class="i18n-en">You want to share something you made. Your finger hovers over the send button for three seconds. Then you close the app.</span>
+            <span class="i18n-zh">想分享自己做的东西，手指悬在发送键上三秒，退出。</span>
+          </p>
+          <p class="dim">
+            <span class="i18n-en">FearOS ran a full risk model in the background: probability of being mocked, cost of exposing weaknesses, "what if nobody cares?"</span>
+            <span class="i18n-zh">FearOS 在后台运行了一整套风险模型：被嘲笑的概率、暴露不足的代价、"万一没人看呢"。</span>
+          </p>
+        </div>
+
+        <h2>
+          <span class="i18n-en">The key: Upgrade to CourageOS</span>
+          <span class="i18n-zh">重点来了：升级到 CourageOS</span>
+        </h2>
+
+        <p>
+          <span class="i18n-en"><strong>CourageOS</strong> doesn't delete fear. It demotes fear from "decision-maker" to "advisor".</span>
+          <span class="i18n-zh"><strong>CourageOS</strong> 不是删掉恐惧。是把恐惧从"决策者"降级为"顾问"。</span>
+        </p>
+
+        <div class="step-block">
+          <h3>
+            <span class="i18n-en">① Name the fear</span>
+            <span class="i18n-zh">① 给恐惧命名</span>
+          </h3>
+          <p>
+            <span class="i18n-en">"Which process am I running right now?"</span>
+            <span class="i18n-zh">"我现在在跑哪个进程？"</span>
+          </p>
+          <p>
+            <span class="i18n-en">Once you can say "that's the Perfectionism Guard running", it moves from background to foreground. Fear that's been seen automatically loses its privileges.</span>
+            <span class="i18n-zh">一旦你能说出"这是完美主义守护在跑"，它就从后台弹到了前台。被看见的恐惧会自动降权。</span>
+          </p>
+        </div>
+
+        <div class="step-block">
+          <h3>
+            <span class="i18n-en">② Collect counter-evidence</span>
+            <span class="i18n-zh">② 收集反向证据</span>
+          </h3>
+          <p>
+            <span class="i18n-en">At a Karate belt exam, a senior black belt came over and said "well done." In that moment, my body told me: confidence isn't something you think your way into — it's something you practice into.</span>
+            <span class="i18n-zh">空手道升级考试，考完一个高段位的人主动来说"做得很好"。那一刻身体告诉我：自信不是想通的，是练出来的。</span>
+          </p>
+          <p>
+            <span class="i18n-en">Every time you "did the scary thing and didn't die" is a version update for CourageOS.</span>
+            <span class="i18n-zh">每一次"做了怕做的事但没死"，都是 CourageOS 的一次版本更新。</span>
+          </p>
+        </div>
+
+        <div class="step-block">
+          <h3>
+            <span class="i18n-en">③ Set the minimum action</span>
+            <span class="i18n-zh">③ 设置最小行动</span>
+          </h3>
+          <p>
+            <span class="i18n-en">Not "overcome fear." Just "manually start a 10-minute task while fear is still running."</span>
+            <span class="i18n-zh">不是"克服恐惧"。是"在恐惧还在运行的时候，手动启动一个 10 分钟的小任务"。</span>
+          </p>
+          <p>
+            <span class="i18n-en">Sign up for an open mic. Post on social media. Talk to a stranger for five more minutes.</span>
+            <span class="i18n-zh">报名一个脱口秀 open mic。发一条朋友圈。跟新认识的人多聊五分钟。</span>
+          </p>
+          <p>
+            <span class="i18n-en">FearOS says "don't go." CourageOS says "go first, think later."</span>
+            <span class="i18n-zh">FearOS 说"别去"。CourageOS 说"去了再说"。</span>
+          </p>
+        </div>
+
+        <h2>
+          <span class="i18n-en">One test</span>
+          <span class="i18n-zh">一个判断标准</span>
+        </h2>
+
+        <p>
+          <span class="i18n-en">If you often feel like you "think too much and do too little" —</span>
+          <span class="i18n-zh">如果你经常觉得自己"想太多做太少"——</span>
+        </p>
+        <p>
+          <span class="i18n-en">Congratulations. Your FearOS has excellent performance. Very stable.</span>
+          <span class="i18n-zh">恭喜，你的 FearOS 性能很好，运行非常稳定。</span>
+        </p>
+        <p>
+          <span class="i18n-en">The first step to upgrading isn't "stop thinking." It's:</span>
+          <span class="i18n-zh">升级的第一步不是"别想了"，而是：</span>
+        </p>
+        <p>
+          <span class="i18n-en"><strong>See that it's running. Then choose to open a different program.</strong></span>
+          <span class="i18n-zh"><strong>看见它在跑，然后选择打开另一个程序。</strong></span>
+        </p>
+
+        <blockquote>
+          <span class="i18n-en">I kept a trigger journal for six months and found that 80% of my overthinking came from these three processes. The scary part isn't fear itself — it's not knowing it's been running in the background all along.</span>
+          <span class="i18n-zh">我记了半年的 trigger journal，发现自己 80% 的内耗都来自这三个进程。可怕的不是恐惧本身，是你不知道它一直在后台运行。</span>
+        </blockquote>
+
+      </div>
+
+      <div class="article-footer">
+        <a href="/">← <span class="i18n-en">Back to daac</span><span class="i18n-zh">回到 daac</span></a>
+        <a href="https://daaclab.substack.com/" target="_blank" rel="noopener"><span class="i18n-en">Subscribe</span><span class="i18n-zh">订阅</span> →</a>
+      </div>
+
+    </article>
+  </div>
+
+  <script>
+    (function() {
+      var stored = localStorage.getItem('daac-lang');
+      var lang = stored || (navigator.language.startsWith('zh') ? 'zh' : 'en');
+      document.body.classList.add('lang-' + lang);
+      var toggle = document.getElementById('langToggle');
+      toggle.addEventListener('click', function() {
+        var isEn = document.body.classList.contains('lang-en');
+        document.body.classList.remove('lang-en', 'lang-zh');
+        document.body.classList.add(isEn ? 'lang-zh' : 'lang-en');
+        localStorage.setItem('daac-lang', isEn ? 'zh' : 'en');
+      });
+    })();
+  </script>
+
+</body>
+</html>
