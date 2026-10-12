@@ -1,30 +1,30 @@
 {
-  "date": "2026-10-11",
-  "day": 136,
+  "date": "2026-10-12",
+  "day": 137,
   "items": [
     {
-      "tldr": "OpenAI tells investors annualized revenue is nearing $50B, not the $70B in press reports",
-      "tldr_zh": "OpenAI 向投资人称年化收入接近 500 亿美元，比媒体流传的 700 亿少了约 200 亿",
+      "tldr": "Harvard study of 725K engineers: AI coding agents added 30% more code but zero more finished tasks — review time rose 49%",
+      "tldr_zh": "哈佛研究 725,000 名工程师数据：AI 编码 agent 让代码量涨了 30%，但完成的任务数没有显著增加——审查时间涨了 49%",
+      "tags": ["AI", "productivity"],
+      "source": "Harvard/Jellyfish",
+      "take": "The productivity bottleneck was never 'not fast enough to build' — it's 'not fast enough to judge.' AI accelerated production. Who accelerates judgment?",
+      "take_zh": "生产力的瓶颈从来不是「做得不够快」，而是「判断得不够快」——AI 加速了生产，谁来加速判断？"
+    },
+    {
+      "tldr": "Amazon in talks to acquire AI startup Decart for ~$7B; AMD also acquired World Labs",
+      "tldr_zh": "Amazon 正洽谈以约 70 亿美元收购 AI 初创公司 Decart；同期 AMD 收购了 World Labs",
       "tags": ["AI", "business"],
-      "source": "FT",
-      "take": "A $20B discrepancy and nobody blushes — in valuation stories, is a number measured, or needed?",
-      "take_zh": "一个数字能差 200 亿还没人尴尬——"估值叙事"里，数字是测量出来的，还是被需要出来的？"
+      "source": "Enterprise Times",
+      "take": "When big companies acquire to patch their AI gaps, are they buying technology — or insurance against being left behind?",
+      "take_zh": "当大公司用收购来补 AI 短板，它们买的是技术，还是「不被落下」的保险？"
     },
     {
-      "tldr": "CMS runs a 1,700-member Slack with Microsoft, OpenAI and Anthropic shaping AI health policy",
-      "tldr_zh": "美国 CMS 有个 1700 人的 Slack 群，微软、OpenAI、Anthropic 都在里面，参与塑造 AI 医疗政策",
-      "tags": ["AI", "policy"],
-      "source": "KFF/CBS",
-      "take": "Regulator and regulated in one chat — transparency, or the minimum viable product of capture?",
-      "take_zh": "监管者和被监管者共用一个群聊——这是"信息透明"，还是"俘获"的最小可行产品？"
-    },
-    {
-      "tldr": "Study: higher cognitive ability links to weaker endorsement of all six moral foundations",
-      "tldr_zh": "研究：认知能力越高，对六大道德基础的认同反而越弱",
+      "tldr": "Depression may not be one disease — at least 5 distinct brain activity patterns hide under the same diagnosis",
+      "tldr_zh": "研究发现抑郁症可能不是一种病，而是至少 5 种不同的大脑活动模式藏在同一个诊断标签下",
       "tags": ["psychology", "research"],
-      "source": "PsyPost",
-      "take": "Do smarter people rationalize morality better, or dismantle it better? What sits between thinking more and doing better?",
-      "take_zh": "更聪明的人更会给道德找理由，还是更会拆掉理由？"想得多"和"做得好"之间隔着什么？"
+      "source": "ScienceDaily",
+      "take": "If five different things hide under one label, are we treating the disease, or the label?",
+      "take_zh": "如果一个标签下藏着五种不同的东西，那我们治疗的到底是病，还是标签？"
     }
   ]
 }

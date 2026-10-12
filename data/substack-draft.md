@@ -1,26 +1,23 @@
-# 🧪 Distill · Day 136
+# 🧪 Distill · Day 137
 
 100+ headlines. I keep 3. Not the biggest — the ones worth thinking about.
 
 ---
 
-### 1️⃣ OpenAI tells investors annualized revenue is nearing $50B, not the $70B in press reports
+### 1️⃣ Harvard study of 725K engineers: AI coding agents added 30% more code but zero more finished tasks
+The bottleneck shifted to code review, which took 49% longer. 14% more workers got pulled into reviewing AI-generated PRs.
 
-A ~$20B gap between the number investors heard and the one the media ran with.
+🐔 daac's take: The productivity bottleneck was never "not fast enough to build" — it's "not fast enough to judge." AI accelerated production. Who accelerates judgment?
 
-🐔 daac's take: A $20B discrepancy and nobody blushes — in valuation stories, is a number measured, or needed?
+### 2️⃣ Amazon in talks to acquire AI startup Decart for ~$7B; AMD also acquired World Labs
+Two major acquisitions in the same week — big tech is buying its way into AI capabilities it can't build fast enough.
 
-### 2️⃣ CMS runs a 1,700-member Slack with Microsoft, OpenAI and Anthropic shaping AI health policy
+🐔 daac's take: When big companies acquire to patch their AI gaps, are they buying technology — or insurance against being left behind?
 
-Regulators and the regulated share one group chat.
+### 3️⃣ Depression may not be one disease — at least 5 distinct brain activity patterns hide under the same diagnosis
+Researchers identified five brain profiles showing different patterns, suggesting the single label masks fundamentally different conditions.
 
-🐔 daac's take: Regulator and regulated in one chat — transparency, or the minimum viable product of capture?
-
-### 3️⃣ Study: higher cognitive ability links to weaker endorsement of all six moral foundations
-
-Two UK samples (802 and 857 adults); modest but significant effects.
-
-🐔 daac's take: Do smarter people rationalize morality better, or dismantle it better? What sits between thinking more and doing better?
+🐔 daac's take: If five different things hide under one label, are we treating the disease, or the label?
 
 ---
 
