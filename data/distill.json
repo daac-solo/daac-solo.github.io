@@ -1,30 +1,30 @@
 {
-  "date": "2026-10-08",
-  "day": 133,
+  "date": "2026-10-11",
+  "day": 136,
   "items": [
     {
-      "tldr": "Anthropic releases Claude Haiku 5.5 — API price drops 90%, competing with GPT-6 Luna",
-      "tldr_zh": "Anthropic 发布 Claude Haiku 5.5，API 价格降 90%，对标 GPT-6 Luna",
-      "tags": ["AI", "cost"],
-      "source": "VentureBeat",
-      "take": "When intelligence is nearly free, what becomes truly scarce?",
-      "take_zh": "当智能便宜到接近免费，真正稀缺的变成了什么？"
+      "tldr": "OpenAI tells investors annualized revenue is nearing $50B, not the $70B in press reports",
+      "tldr_zh": "OpenAI 向投资人称年化收入接近 500 亿美元，比媒体流传的 700 亿少了约 200 亿",
+      "tags": ["AI", "business"],
+      "source": "FT",
+      "take": "A $20B discrepancy and nobody blushes — in valuation stories, is a number measured, or needed?",
+      "take_zh": "一个数字能差 200 亿还没人尴尬——"估值叙事"里，数字是测量出来的，还是被需要出来的？"
     },
     {
-      "tldr": "AI labs ship new models at breakneck pace — 'model fatigue' sets in",
-      "tldr_zh": "AI 实验室以极快节奏发布新模型，「模型疲劳」开始出现",
-      "tags": ["AI", "trend"],
-      "source": "CNBC",
-      "take": "Are users tired of the models, or of the anxiety of having to keep up?",
-      "take_zh": "用户疲劳的是模型，还是「必须跟上」的焦虑？"
+      "tldr": "CMS runs a 1,700-member Slack with Microsoft, OpenAI and Anthropic shaping AI health policy",
+      "tldr_zh": "美国 CMS 有个 1700 人的 Slack 群，微软、OpenAI、Anthropic 都在里面，参与塑造 AI 医疗政策",
+      "tags": ["AI", "policy"],
+      "source": "KFF/CBS",
+      "take": "Regulator and regulated in one chat — transparency, or the minimum viable product of capture?",
+      "take_zh": "监管者和被监管者共用一个群聊——这是"信息透明"，还是"俘获"的最小可行产品？"
     },
     {
-      "tldr": "OpenAI publishes new math proof; same day, a super PAC targets 'AI-backed' candidates",
-      "tldr_zh": "OpenAI 发布新数学证明，同日超级 PAC 针对「受 AI 支持」的候选人",
-      "tags": ["AI", "politics"],
-      "source": "Fox",
-      "take": "AI proves truths while humans prove positions — which is harder to automate?",
-      "take_zh": "AI 在证明真理的同时，人类在忙着证明立场——哪边更难自动化？"
+      "tldr": "Study: higher cognitive ability links to weaker endorsement of all six moral foundations",
+      "tldr_zh": "研究：认知能力越高，对六大道德基础的认同反而越弱",
+      "tags": ["psychology", "research"],
+      "source": "PsyPost",
+      "take": "Do smarter people rationalize morality better, or dismantle it better? What sits between thinking more and doing better?",
+      "take_zh": "更聪明的人更会给道德找理由，还是更会拆掉理由？"想得多"和"做得好"之间隔着什么？"
     }
   ]
 }
