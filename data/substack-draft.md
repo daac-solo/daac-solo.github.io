@@ -1,23 +1,23 @@
-# 🧪 Distill · Day 137
+# 🧪 Distill · Day 138
 
 100+ headlines. I keep 3. Not the biggest — the ones worth thinking about.
 
 ---
 
-### 1️⃣ Harvard study of 725K engineers: AI coding agents added 30% more code but zero more finished tasks
-The bottleneck shifted to code review, which took 49% longer. 14% more workers got pulled into reviewing AI-generated PRs.
+### 1️⃣ Character.AI files for bankruptcy, sells assets to Disney for just $20M
+Once one of the hottest generative AI startups, Character.AI went from a billion-dollar valuation to a $20M fire sale in two years.
 
-🐔 daac's take: The productivity bottleneck was never "not fast enough to build" — it's "not fast enough to judge." AI accelerated production. Who accelerates judgment?
+🐔 daac's take: From "most promising" to bankrupt in two years — did the product fail, or was "AI companionship" never worth the valuation?
 
-### 2️⃣ Amazon in talks to acquire AI startup Decart for ~$7B; AMD also acquired World Labs
-Two major acquisitions in the same week — big tech is buying its way into AI capabilities it can't build fast enough.
+### 2️⃣ IMF warns a sharp AI stock correction could threaten global financial stability
+Chip stocks slid the same day as the IMF flagged systemic risk from AI market concentration.
 
-🐔 daac's take: When big companies acquire to patch their AI gaps, are they buying technology — or insurance against being left behind?
+🐔 daac's take: When an industry's narrative is so big that "if it crashes, it takes the world down" — is it still selling technology, or has it become a faith?
 
-### 3️⃣ Depression may not be one disease — at least 5 distinct brain activity patterns hide under the same diagnosis
-Researchers identified five brain profiles showing different patterns, suggesting the single label masks fundamentally different conditions.
+### 3️⃣ Study finds reaction time fluctuates with breathing: exhaling sharpens visual response by 41 milliseconds
+A new study shows attention isn't purely cognitive — your respiratory cycle modulates how fast you perceive and respond.
 
-🐔 daac's take: If five different things hide under one label, are we treating the disease, or the label?
+🐔 daac's take: You thought attention was about willpower, but your body votes before your brain — the simplest productivity tool might just be one breath.
 
 ---
 

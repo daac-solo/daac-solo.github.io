@@ -1,30 +1,30 @@
 {
-  "date": "2026-10-12",
-  "day": 137,
+  "date": "2026-10-13",
+  "day": 138,
   "items": [
     {
-      "tldr": "Harvard study of 725K engineers: AI coding agents added 30% more code but zero more finished tasks — review time rose 49%",
-      "tldr_zh": "哈佛研究 725,000 名工程师数据：AI 编码 agent 让代码量涨了 30%，但完成的任务数没有显著增加——审查时间涨了 49%",
-      "tags": ["AI", "productivity"],
-      "source": "Harvard/Jellyfish",
-      "take": "The productivity bottleneck was never 'not fast enough to build' — it's 'not fast enough to judge.' AI accelerated production. Who accelerates judgment?",
-      "take_zh": "生产力的瓶颈从来不是「做得不够快」，而是「判断得不够快」——AI 加速了生产，谁来加速判断？"
-    },
-    {
-      "tldr": "Amazon in talks to acquire AI startup Decart for ~$7B; AMD also acquired World Labs",
-      "tldr_zh": "Amazon 正洽谈以约 70 亿美元收购 AI 初创公司 Decart；同期 AMD 收购了 World Labs",
+      "tldr": "Character.AI files for bankruptcy, sells assets to Disney for just $20M — once one of the hottest generative AI startups",
+      "tldr_zh": "Character.AI 申请破产，部分资产以 2000 万美元卖给迪士尼——这家公司曾是生成式 AI 最火的初创之一",
       "tags": ["AI", "business"],
-      "source": "Enterprise Times",
-      "take": "When big companies acquire to patch their AI gaps, are they buying technology — or insurance against being left behind?",
-      "take_zh": "当大公司用收购来补 AI 短板，它们买的是技术，还是「不被落下」的保险？"
+      "source": "TechStartups",
+      "take": "From 'most promising' to bankrupt in two years — did the product fail, or was 'AI companionship' never worth the valuation?",
+      "take_zh": "从「最有前途」到破产只用了两年——是产品失败了，还是「陪聊」这个需求从来就不值那个估值？"
     },
     {
-      "tldr": "Depression may not be one disease — at least 5 distinct brain activity patterns hide under the same diagnosis",
-      "tldr_zh": "研究发现抑郁症可能不是一种病，而是至少 5 种不同的大脑活动模式藏在同一个诊断标签下",
+      "tldr": "IMF warns a sharp AI stock correction could threaten global financial stability; chip stocks slide the same day",
+      "tldr_zh": "IMF 警告：AI 股票一旦大幅回调，可能威胁全球金融稳定；同日芯片股集体下跌",
+      "tags": ["AI", "finance"],
+      "source": "Fortune",
+      "take": "When an industry's narrative is so big that 'if it crashes, it takes the world down' — is it still selling technology, or has it become a faith?",
+      "take_zh": "当一个行业的故事大到「崩了会拖累全球」，它卖的还是技术，还是已经变成了一种信仰？"
+    },
+    {
+      "tldr": "Study finds reaction time fluctuates with breathing: exhaling sharpens visual response by 41 milliseconds",
+      "tldr_zh": "研究发现人的反应速度随呼吸周期波动：呼气时视觉反应快了 41 毫秒",
       "tags": ["psychology", "research"],
-      "source": "ScienceDaily",
-      "take": "If five different things hide under one label, are we treating the disease, or the label?",
-      "take_zh": "如果一个标签下藏着五种不同的东西，那我们治疗的到底是病，还是标签？"
+      "source": "PsyPost",
+      "take": "You thought attention was about willpower, but your body votes before your brain — the simplest productivity tool might just be one breath.",
+      "take_zh": "你以为注意力是意志力的事，其实身体比大脑先投票——最简单的「提效工具」可能就是一口气。"
     }
   ]
 }
