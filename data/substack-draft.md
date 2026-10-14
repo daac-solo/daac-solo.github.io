@@ -1,26 +1,22 @@
-# 🧪 Distill · Day 138
+# 🧪 Distill · Day 139
 
 100+ headlines. I keep 3. Not the biggest — the ones worth thinking about.
 
----
+### 1️⃣ AI startups have reportedly raised ~$74.1B across 77 rounds this year; the biggest is Mistral's $3.5B Series D led by Samsung and EQT
+AI startups reportedly raised about $74.1B across 77 rounds, led by Mistral's $3.5B Series D.
 
-### 1️⃣ Character.AI files for bankruptcy, sells assets to Disney for just $20M
-Once one of the hottest generative AI startups, Character.AI went from a billion-dollar valuation to a $20M fire sale in two years.
+🐔 daac's take: Money is flowing to infrastructure, not apps — is that a bet on an industry, or paying tolls on someone else's story?
 
-🐔 daac's take: From "most promising" to bankrupt in two years — did the product fail, or was "AI companionship" never worth the valuation?
+### 2️⃣ Study: to make people more open to diversity, happiness may work better than awe
+Researchers compared emotional levers for openness to diversity and found happiness may beat awe.
 
-### 2️⃣ IMF warns a sharp AI stock correction could threaten global financial stability
-Chip stocks slid the same day as the IMF flagged systemic risk from AI market concentration.
+🐔 daac's take: We assume awe changes people, but a good mood is what makes them yield — when did you last change your mind: persuaded, or soothed?
 
-🐔 daac's take: When an industry's narrative is so big that "if it crashes, it takes the world down" — is it still selling technology, or has it become a faith?
+### 3️⃣ Study: partisan hatred shapes how Americans view the BLM protests and January 6
+Animosity toward the other party appears to color how people judge two polarizing events.
 
-### 3️⃣ Study finds reaction time fluctuates with breathing: exhaling sharpens visual response by 41 milliseconds
-A new study shows attention isn't purely cognitive — your respiratory cycle modulates how fast you perceive and respond.
-
-🐔 daac's take: You thought attention was about willpower, but your body votes before your brain — the simplest productivity tool might just be one breath.
+🐔 daac's take: Same event, two sets of facts — do people see first and pick a side, or pick a side and then see?
 
 ---
-
-*Distill — extracting signal from noise.*
-
+*Distill — extracting signal from noise. A dumb chicken's smart filter.*
 *Full project → [daac-solo.github.io](https://daac-solo.github.io)*

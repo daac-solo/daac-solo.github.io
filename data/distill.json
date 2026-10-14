@@ -1,30 +1,39 @@
 {
-  "date": "2026-10-13",
-  "day": 138,
+  "date": "2026-10-14",
+  "day": 139,
   "items": [
     {
-      "tldr": "Character.AI files for bankruptcy, sells assets to Disney for just $20M — once one of the hottest generative AI startups",
-      "tldr_zh": "Character.AI 申请破产，部分资产以 2000 万美元卖给迪士尼——这家公司曾是生成式 AI 最火的初创之一",
-      "tags": ["AI", "business"],
-      "source": "TechStartups",
-      "take": "From 'most promising' to bankrupt in two years — did the product fail, or was 'AI companionship' never worth the valuation?",
-      "take_zh": "从「最有前途」到破产只用了两年——是产品失败了，还是「陪聊」这个需求从来就不值那个估值？"
+      "tldr": "AI startups have reportedly raised ~$74.1B across 77 rounds this year; the biggest is Mistral's $3.5B Series D led by Samsung and EQT",
+      "tldr_zh": "AI 创业公司今年已融资约 741 亿美元、77 轮；最大一笔是 Mistral 35 亿美元 D 轮，由三星和 EQT 领投",
+      "tags": [
+        "AI",
+        "capital"
+      ],
+      "source": "af.net 转引",
+      "take": "Money is flowing to infrastructure, not apps — is that a bet on an industry, or paying tolls on someone else's story?",
+      "take_zh": "钱砸向「基础设施」而不是「应用」——这是在押注一个行业，还是在给别人的故事交过路费？"
     },
     {
-      "tldr": "IMF warns a sharp AI stock correction could threaten global financial stability; chip stocks slide the same day",
-      "tldr_zh": "IMF 警告：AI 股票一旦大幅回调，可能威胁全球金融稳定；同日芯片股集体下跌",
-      "tags": ["AI", "finance"],
-      "source": "Fortune",
-      "take": "When an industry's narrative is so big that 'if it crashes, it takes the world down' — is it still selling technology, or has it become a faith?",
-      "take_zh": "当一个行业的故事大到「崩了会拖累全球」，它卖的还是技术，还是已经变成了一种信仰？"
-    },
-    {
-      "tldr": "Study finds reaction time fluctuates with breathing: exhaling sharpens visual response by 41 milliseconds",
-      "tldr_zh": "研究发现人的反应速度随呼吸周期波动：呼气时视觉反应快了 41 毫秒",
-      "tags": ["psychology", "research"],
+      "tldr": "Study: to make people more open to diversity, happiness may work better than awe",
+      "tldr_zh": "心理学研究：想让人对多元文化更开放，「快乐」可能比「敬畏」更管用",
+      "tags": [
+        "psychology",
+        "persuasion"
+      ],
       "source": "PsyPost",
-      "take": "You thought attention was about willpower, but your body votes before your brain — the simplest productivity tool might just be one breath.",
-      "take_zh": "你以为注意力是意志力的事，其实身体比大脑先投票——最简单的「提效工具」可能就是一口气。"
+      "take": "We assume awe changes people, but a good mood is what makes them yield — when did you last change your mind: persuaded, or soothed?",
+      "take_zh": "我们总以为震撼能改变人，结果是心情好才肯让步——你上一次改变看法，是被说服的，还是被哄好的？"
+    },
+    {
+      "tldr": "Study: partisan hatred shapes how Americans view the BLM protests and January 6",
+      "tldr_zh": "研究：党派仇恨会决定美国人怎么看 BLM 抗议和 1·6 事件",
+      "tags": [
+        "bias",
+        "society"
+      ],
+      "source": "PsyPost",
+      "take": "Same event, two sets of facts — do people see first and pick a side, or pick a side and then see?",
+      "take_zh": "同一件事，两种「事实」——人到底是先看到再站队，还是先站队再看到？"
     }
   ]
 }
