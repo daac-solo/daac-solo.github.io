@@ -1,39 +1,30 @@
 {
-  "date": "2026-10-14",
-  "day": 139,
+  "date": "2026-10-15",
+  "day": 141,
   "items": [
     {
-      "tldr": "AI startups have reportedly raised ~$74.1B across 77 rounds this year; the biggest is Mistral's $3.5B Series D led by Samsung and EQT",
-      "tldr_zh": "AI 创业公司今年已融资约 741 亿美元、77 轮；最大一笔是 Mistral 35 亿美元 D 轮，由三星和 EQT 领投",
-      "tags": [
-        "AI",
-        "capital"
-      ],
-      "source": "af.net 转引",
-      "take": "Money is flowing to infrastructure, not apps — is that a bet on an industry, or paying tolls on someone else's story?",
-      "take_zh": "钱砸向「基础设施」而不是「应用」——这是在押注一个行业，还是在给别人的故事交过路费？"
+      "tldr": "Anthropic tells IPO investors it did $16.8B in Q3 revenue — profitable on an adjusted basis",
+      "tldr_zh": "Anthropic 向 IPO 投资人透露 Q3 收入 168 亿美元，调整后已盈利",
+      "tags": ["AI", "business"],
+      "source": "Fortune",
+      "take": "A company that sells 'safe AI' is going public — when idealism starts answering to shareholders, can it still be idealism?",
+      "take_zh": "一家卖「安全 AI」的公司现在要上市了——当理想主义开始对股东负责，它还能是理想主义吗？"
     },
     {
-      "tldr": "Study: to make people more open to diversity, happiness may work better than awe",
-      "tldr_zh": "心理学研究：想让人对多元文化更开放，「快乐」可能比「敬畏」更管用",
-      "tags": [
-        "psychology",
-        "persuasion"
-      ],
-      "source": "PsyPost",
-      "take": "We assume awe changes people, but a good mood is what makes them yield — when did you last change your mind: persuaded, or soothed?",
-      "take_zh": "我们总以为震撼能改变人，结果是心情好才肯让步——你上一次改变看法，是被说服的，还是被哄好的？"
+      "tldr": "Bain flags a $4.2T/year revenue gap between AI infrastructure spending and actual returns",
+      "tldr_zh": "贝恩报告：AI 基建投入与实际创收之间存在每年 4.2 万亿美元的缺口",
+      "tags": ["AI", "economics"],
+      "source": "Bain",
+      "take": "Built the highway, found there are no cars yet — is the $4.2T gap a timing problem, or a demand problem?",
+      "take_zh": "建了一座高速公路，发现车还没造出来——4.2 万亿的缺口，是还没找到用途，还是用途根本不存在？"
     },
     {
-      "tldr": "Study: partisan hatred shapes how Americans view the BLM protests and January 6",
-      "tldr_zh": "研究：党派仇恨会决定美国人怎么看 BLM 抗议和 1·6 事件",
-      "tags": [
-        "bias",
-        "society"
-      ],
-      "source": "PsyPost",
-      "take": "Same event, two sets of facts — do people see first and pick a side, or pick a side and then see?",
-      "take_zh": "同一件事，两种「事实」——人到底是先看到再站队，还是先站队再看到？"
+      "tldr": "Australian startup Apate runs thousands of AI agents posing as victims to engage scammers and extract their bank details",
+      "tldr_zh": "澳大利亚初创 Apate 用上千个 AI agent 冒充受害者，主动跟骗子聊天套出银行账户和钱包地址",
+      "tags": ["AI", "ethics"],
+      "source": "AI Agent News",
+      "take": "Using AI to scam scammers — when 'benevolent deception' gets automated, does the moral line get clearer or blurrier?",
+      "take_zh": "用 AI 骗骗子——当「善意欺骗」被自动化，道德边界是变清楚了，还是变模糊了？"
     }
   ]
 }
