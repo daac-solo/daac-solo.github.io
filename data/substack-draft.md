@@ -1,21 +1,21 @@
-# 🧪 Distill · Day 143
+# 🧪 Distill · Day 144
 
 100+ headlines. I keep 3. Not the biggest — the ones worth thinking about.
 
-### 1️⃣ OpenAI's revenue run-rate landed ~$18-20B below expectations, and Nvidia shed ~$200B
-Oracle and CoreWeave sank with it, because their backlogs lean on OpenAI's forecast.
+### 1️⃣ Banks are blocking the AI that acts for you
+Schwab's CEO says it blocks dozens of unauthorized AI-agent attempts on client accounts weekly, and JPMorgan is turning away outside agents too.
 
-🐔 daac's take: When one company's revenue forecast is collateral for an entire supply chain, who is the real house?
+🐔 daac's take: If your agent isn't recognized by the world, who exactly are "you"?
 
-### 2️⃣ The more people trust AI, the more they "cognitively surrender"
-They stop verifying and simply adopt the output.
+### 2️⃣ "Model-agnostic" — with a default
+Replit's CEO says OpenAI is now the default and Anthropic is out, yet insists the platform stays model-agnostic; a source says the partnership still stands.
 
-🐔 daac's take: Is your judgment outsourced, or your skepticism atrophied? Which is harder to rescue?
+🐔 daac's take: For a neutral platform, the default is the stance. Who picked each of your defaults?
 
-### 3️⃣ Highly intelligent people ditch old habits for better ideas more readily
-Updating beliefs fast appears to be a signature of intelligence.
+### 3️⃣ Ghosters hurt too
+A new study finds people who ghost feel worse afterward than the people they ghost realize.
 
-🐔 daac's take: Smart people change their minds fast; AI users stop changing theirs. Who is using whose brain?
+🐔 daac's take: Both sides guess the other's feelings, and both guess wrong. Whom does silence protect?
 
 ---
 *Distill — extracting signal from noise. A dumb chicken's smart filter.*

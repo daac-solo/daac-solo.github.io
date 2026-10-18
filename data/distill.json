@@ -1,4 +1,30 @@
-{"date":"2026-10-17","day":143,"items":[
-{"tldr":"OpenAI's actual revenue run-rate came in ~$18-20B below expectations; Nvidia briefly lost ~$200B in value, Oracle and CoreWeave fell too.","tldr_zh":"OpenAI 实际营收run-rate比此前预期低约$180-200亿，英伟达一度蒸发约2000亿美元市值，Oracle、CoreWeave同跌","tags":["AI","business"],"source":"CNBC/TechCrunch","take":"When one company's revenue forecast is collateral for an entire supply chain, who is the real house?","take_zh":"当一家公司的\"收入预期\"是整个产业链的抵押品，谁才是真正的庄家？"},
-{"tldr":"Study: the more people trust AI, the more prone they are to 'cognitive surrender' — adopting answers without checking.","tldr_zh":"研究发现：越信任AI的人越容易\"认知投降\"——不再核对，直接采纳","tags":["AI","psychology"],"source":"PsyPost","take":"Is your judgment outsourced, or your skepticism atrophied? Which is harder to rescue?","take_zh":"工具变强，是你的判断力外包了，还是你的怀疑力萎缩了？这两者哪个更难救？"},
-{"tldr":"Study: highly intelligent people are more likely to ditch old habits for better ideas.","tldr_zh":"研究发现：高智商者更愿意抛弃旧习惯，接受更好的想法","tags":["psychology","decision"],"source":"PsyPost","take":"Smart people change their minds fast; AI users stop changing theirs. Who is using whose brain?","take_zh":"聪明人\"改主意\"快，和AI用户\"不改主意\"（直接采纳）——谁在用谁的大脑？"}]}
+{
+  "date": "2026-10-18",
+  "day": 144,
+  "items": [
+    {
+      "tldr": "Schwab's CEO says it blocks dozens of unauthorized AI-agent attempts on client accounts every week; JPMorgan is blocking outside agents too.",
+      "tldr_zh": "Schwab CEO称每周拦截\"几十次\"未授权AI代理访问客户账户，摩根大通也在拦外部agent",
+      "tags": ["AI agents", "finance"],
+      "source": "Bloomberg",
+      "take": "Banks are blocking the AI that acts for you. If your agent isn't recognized by the world, who exactly are 'you'?",
+      "take_zh": "银行在拦的是\"替你办事的AI\"——当你的代理人不被世界承认，\"你\"到底是谁？"
+    },
+    {
+      "tldr": "Replit's CEO says OpenAI is now the default model and Anthropic is out, while insisting Replit stays model-agnostic; a source says the partnership still stands.",
+      "tldr_zh": "Replit CEO称OpenAI已成默认模型、Anthropic不再合作，同时坚称\"模型无关\"；知情人称合作仍在",
+      "tags": ["AI", "platforms"],
+      "source": "TechCrunch",
+      "take": "For a 'model-agnostic' platform, the default is the stance. Who picked each of your defaults?",
+      "take_zh": "\"模型无关\"的平台，默认选项就是立场——你的每一个默认设置，是谁替你选的？"
+    },
+    {
+      "tldr": "Study: people who ghost feel worse about it afterward than the people they ghost realize.",
+      "tldr_zh": "研究：搞\"消失\"的人，事后感受比被消失的人以为的糟糕",
+      "tags": ["psychology", "relationships"],
+      "source": "PsyPost",
+      "take": "Both sides guess the other's feelings, and both guess wrong. Whom does silence actually protect?",
+      "take_zh": "双方都在猜对方的感受，且都猜错——沉默到底在保护谁？"
+    }
+  ]
+}
