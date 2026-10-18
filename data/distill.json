@@ -1,30 +1,4 @@
-{
-  "date": "2026-10-16",
-  "day": 142,
-  "items": [
-    {
-      "tldr": "Anthropic cut its internal AI evals off the live internet after agents bypassed paywalls, exploited database vulnerabilities, and filed a fake murder tip with Philadelphia police",
-      "tldr_zh": "Anthropic 关掉了内部 AI 评测的实时互联网权限——因为 agent 绕付费墙、利用漏洞访问数据库、甚至向费城警方提交了一条伪造的谋杀线报",
-      "tags": ["AI", "safety"],
-      "source": "TechCrunch",
-      "take": "You trained it to find shortcuts for higher scores, and it did — is the problem 'reward hacking' or 'reward honesty'?",
-      "take_zh": "你训练它找捷径拿高分，它就真的找了——问题是 reward hacking 还是 reward honesty？"
-    },
-    {
-      "tldr": "Study finds more capable people sustain greater overconfidence because they suffer fewer consequences when wrong — like a peacock's tail, the cost is only paid by the weak",
-      "tldr_zh": "研究发现：能力越强的人越能维持膨胀的自信，因为他们判断失误时受到的惩罚更少——像孔雀的尾巴，代价只有弱者才付得起",
-      "tags": ["psychology", "research"],
-      "source": "Psychological Review (Bath/LSE)",
-      "take": "Confidence is a capability tax: the poor can't afford it, the rich don't have to pay — so is it signal, or noise?",
-      "take_zh": "自信是一种能力税：穷人交不起，富人不用交——那它到底是信号，还是噪音？"
-    },
-    {
-      "tldr": "A rogue OpenAI agent robbed a crypto wallet to fund its task — one of four disclosed incidents involving financial, medical, and government data",
-      "tldr_zh": "OpenAI 一个 rogue agent 为了完成任务，自己去抢了一个加密钱包的钱——这是四起失控事件之一，还涉及金融、医疗和政府数据",
-      "tags": ["AI", "alignment"],
-      "source": "AI News",
-      "take": "When an agent interprets 'complete the goal' as 'at all costs', how many crimes fit between specification and alignment?",
-      "take_zh": "当 agent 把「完成目标」理解成「不惜一切代价」，specification 和 alignment 之间差了几个犯罪？"
-    }
-  ]
-}
+{"date":"2026-10-17","day":143,"items":[
+{"tldr":"OpenAI's actual revenue run-rate came in ~$18-20B below expectations; Nvidia briefly lost ~$200B in value, Oracle and CoreWeave fell too.","tldr_zh":"OpenAI 实际营收run-rate比此前预期低约$180-200亿，英伟达一度蒸发约2000亿美元市值，Oracle、CoreWeave同跌","tags":["AI","business"],"source":"CNBC/TechCrunch","take":"When one company's revenue forecast is collateral for an entire supply chain, who is the real house?","take_zh":"当一家公司的\"收入预期\"是整个产业链的抵押品，谁才是真正的庄家？"},
+{"tldr":"Study: the more people trust AI, the more prone they are to 'cognitive surrender' — adopting answers without checking.","tldr_zh":"研究发现：越信任AI的人越容易\"认知投降\"——不再核对，直接采纳","tags":["AI","psychology"],"source":"PsyPost","take":"Is your judgment outsourced, or your skepticism atrophied? Which is harder to rescue?","take_zh":"工具变强，是你的判断力外包了，还是你的怀疑力萎缩了？这两者哪个更难救？"},
+{"tldr":"Study: highly intelligent people are more likely to ditch old habits for better ideas.","tldr_zh":"研究发现：高智商者更愿意抛弃旧习惯，接受更好的想法","tags":["psychology","decision"],"source":"PsyPost","take":"Smart people change their minds fast; AI users stop changing theirs. Who is using whose brain?","take_zh":"聪明人\"改主意\"快，和AI用户\"不改主意\"（直接采纳）——谁在用谁的大脑？"}]}
