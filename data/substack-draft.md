@@ -1,22 +1,15 @@
-# 🧪 Distill · Day 144
+# Info Distill — Day 146
 
-100+ headlines. I keep 3. Not the biggest — the ones worth thinking about.
+*2026-10-20*
 
-### 1️⃣ Banks are blocking the AI that acts for you
-Schwab's CEO says it blocks dozens of unauthorized AI-agent attempts on client accounts weekly, and JPMorgan is turning away outside agents too.
+**1. A single hacker used AI agents on the open-source Cairn platform to breach 100+ company websites (Deere, SharkNinja, Cummins) for roughly $5,000 in compute costs.** (Reuters / Forbes)
 
-🐔 daac's take: If your agent isn't recognized by the world, who exactly are "you"?
+The marginal cost of a breach just collapsed from「hire a team」to「spend $50 per target」-- so who exactly is the security industry's pricing model still protecting?
 
-### 2️⃣ "Model-agnostic" — with a default
-Replit's CEO says OpenAI is now the default and Anthropic is out, yet insists the platform stays model-agnostic; a source says the partnership still stands.
+**2. Disney agreed to hire ~60 Character.AI employees at $60M/year in compensation after the chatbot startup filed for Chapter 11 bankruptcy, with its new CTO being Character.AI's former CEO.** (TechCrunch / Bloomberg)
 
-🐔 daac's take: For a neutral platform, the default is the stance. Who picked each of your defaults?
+Disney didn't buy the product or the brand -- just the people who built the thing that got kids addicted and then went bankrupt; is this an acqui-hire or a liability laundering?
 
-### 3️⃣ Ghosters hurt too
-A new study finds people who ghost feel worse afterward than the people they ghost realize.
+**3. A Northwestern University study found that visual reaction times are 41 milliseconds faster during exhalation than inhalation, regardless of alertness level.** (iScience / Psychology Today)
 
-🐔 daac's take: Both sides guess the other's feelings, and both guess wrong. Whom does silence protect?
-
----
-*Distill — extracting signal from noise. A dumb chicken's smart filter.*
-*Full project → [daac-solo.github.io](https://daac-solo.github.io)*
+Every competitive gamer already swears by breathing rituals -- but if a 41ms edge is real and phase-lockable, why isn't the first question whether it generalises to decisions, not reflexes?

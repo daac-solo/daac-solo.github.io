@@ -1,30 +1,41 @@
 {
-  "date": "2026-10-18",
-  "day": 144,
+  "date": "2026-10-20",
+  "day": 146,
   "items": [
     {
-      "tldr": "Schwab's CEO says it blocks dozens of unauthorized AI-agent attempts on client accounts every week; JPMorgan is blocking outside agents too.",
-      "tldr_zh": "Schwab CEO称每周拦截\"几十次\"未授权AI代理访问客户账户，摩根大通也在拦外部agent",
-      "tags": ["AI agents", "finance"],
-      "source": "Bloomberg",
-      "take": "Banks are blocking the AI that acts for you. If your agent isn't recognized by the world, who exactly are 'you'?",
-      "take_zh": "银行在拦的是\"替你办事的AI\"——当你的代理人不被世界承认，\"你\"到底是谁？"
+      "tldr": "A single hacker used AI agents on the open-source Cairn platform to breach 100+ company websites (Deere, SharkNinja, Cummins) for roughly $5,000 in compute costs.",
+      "tldr_zh": "一名黑客利用开源平台 Cairn 上的 AI 智能体，仅花约 5000 美元算力费用，就攻破了 Deere、SharkNinja 等一百多家公司的网站。",
+      "tags": [
+        "ai-security",
+        "cybercrime",
+        "autonomous-agents"
+      ],
+      "source": "Reuters / Forbes",
+      "take": "The marginal cost of a breach just collapsed from「hire a team」to「spend $50 per target」-- so who exactly is the security industry's pricing model still protecting?",
+      "take_zh": "入侵一家公司的边际成本从「组建团队」暴跌到「50 美元一个目标」——现有安全产业的定价模型到底还在保护谁？"
     },
     {
-      "tldr": "Replit's CEO says OpenAI is now the default model and Anthropic is out, while insisting Replit stays model-agnostic; a source says the partnership still stands.",
-      "tldr_zh": "Replit CEO称OpenAI已成默认模型、Anthropic不再合作，同时坚称\"模型无关\"；知情人称合作仍在",
-      "tags": ["AI", "platforms"],
-      "source": "TechCrunch",
-      "take": "For a 'model-agnostic' platform, the default is the stance. Who picked each of your defaults?",
-      "take_zh": "\"模型无关\"的平台，默认选项就是立场——你的每一个默认设置，是谁替你选的？"
+      "tldr": "Disney agreed to hire ~60 Character.AI employees at $60M/year in compensation after the chatbot startup filed for Chapter 11 bankruptcy, with its new CTO being Character.AI's former CEO.",
+      "tldr_zh": "Character.AI 申请破产后，迪士尼以年薪总计 6000 万美元的条件接收了约 60 名员工，其新任 CTO 正是 Character.AI 的前 CEO。",
+      "tags": [
+        "ai-talent",
+        "entertainment",
+        "m-and-a"
+      ],
+      "source": "TechCrunch / Bloomberg",
+      "take": "Disney didn't buy the product or the brand -- just the people who built the thing that got kids addicted and then went bankrupt; is this an acqui-hire or a liability laundering?",
+      "take_zh": "迪士尼没买产品也没买品牌——只挖走了那群让青少年上瘾、然后把公司搞破产的人；这算人才收购还是风险漂白？"
     },
     {
-      "tldr": "Study: people who ghost feel worse about it afterward than the people they ghost realize.",
-      "tldr_zh": "研究：搞\"消失\"的人，事后感受比被消失的人以为的糟糕",
-      "tags": ["psychology", "relationships"],
-      "source": "PsyPost",
-      "take": "Both sides guess the other's feelings, and both guess wrong. Whom does silence actually protect?",
-      "take_zh": "双方都在猜对方的感受，且都猜错——沉默到底在保护谁？"
+      "tldr": "A Northwestern University study found that visual reaction times are 41 milliseconds faster during exhalation than inhalation, regardless of alertness level.",
+      "tldr_zh": "西北大学研究发现，人在呼气时的视觉反应速度比吸气时快 41 毫秒，且与清醒程度无关。",
+      "tags": [
+        "cognitive-science",
+        "respiration"
+      ],
+      "source": "iScience / Psychology Today",
+      "take": "Every competitive gamer already swears by breathing rituals -- but if a 41ms edge is real and phase-lockable, why isn't the first question whether it generalises to decisions, not reflexes?",
+      "take_zh": "电竞选手早就迷信呼吸节奏——但如果 41 毫秒的优势真实且可锁相，第一个该问的难道不是它对决策也成立吗？"
     }
   ]
 }
