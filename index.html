@@ -204,7 +204,25 @@
       z-index: 2;
     }
 
-    .hero-chicken:hover { filter: drop-shadow(0 0 12px rgba(245,215,110,0.4)); }
+    .hero-chicken:hover {
+      filter: drop-shadow(0 0 12px rgba(245,215,110,0.4));
+      animation-play-state: paused;
+    }
+    /* Hover perks it up instead of only lighting it: a mascot that reacts to
+       attention reads as alive, a glow reads as a button. */
+    .hero-chicken:hover svg { animation: chicken-perk 0.5s ease forwards; }
+    @keyframes chicken-perk {
+      40% { transform: translateY(-6px) rotate(-8deg) scale(1.06); }
+      100% { transform: translateY(-3px) rotate(0) scale(1.03); }
+    }
+    /* Eyes track the pointer, which is the cheapest convincing bit of life
+       a web mascot can have. */
+    .hc-eye { transition: transform 0.14s ease-out; }
+    .hero-chicken.blinking .hc-eye { transform: scaleY(0.08) !important; }
+    .hc-eye { transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-chicken, .hero-chicken svg, .hc-eye { animation: none !important; transition: none !important; }
+    }
 
     .hero-chicken.pecking svg {
       animation: chicken-peck-big 0.8s ease;
@@ -1850,10 +1868,10 @@
           <circle cx="50" cy="30" r="20" fill="#f5d76e"/>
           <ellipse cx="36" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
           <ellipse cx="64" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity="0.5"/>
-          <circle cx="42" cy="28" r="3.5" fill="#2d2520"/>
-          <circle cx="43" cy="27" r="1.2" fill="white"/>
-          <circle cx="58" cy="28" r="3.5" fill="#2d2520"/>
-          <circle cx="59" cy="27" r="1.2" fill="white"/>
+          <g class="hc-eye"><circle cx="42" cy="28" r="3.5" fill="#2d2520"/>
+          <circle cx="43" cy="27" r="1.2" fill="white"/></g>
+          <g class="hc-eye"><circle cx="58" cy="28" r="3.5" fill="#2d2520"/>
+          <circle cx="59" cy="27" r="1.2" fill="white"/></g>
           <path d="M46 34 L50 40 L54 34 Z" fill="#e8874a"/>
           <path d="M43 12 Q45 8 48 12 Q50 7 52 12 Q54 8 57 12 Q55 14 50 14 Q45 14 43 12Z" fill="#e85a4a"/>
           <path d="M38 84 L34 92 M38 84 L38 93 M38 84 L42 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
@@ -2106,9 +2124,9 @@
           </div>
           <div class="build-info">
             <h4>瞭望鸡 · Lookout Chicken</h4>
-            <p><span class="i18n-en">A chicken that lives in the notch and tells me what I still haven't published. Built it after finding my oldest finished draft had sat for 136 days.</span><span class="i18n-zh">住在刘海里的一只鸡，提醒我哪篇写完了还没发。做它是因为发现最老的那篇稿子，写完躺了 136 天。</span></p>
+            <p><span class="i18n-en">Every notes app is built to capture; none of them tell you what is rotting. A chicken that lives in the notch and counts what you finished and never published. Point it at any folder of markdown &mdash; Obsidian, Logseq, or plain files. Open source.</span><span class="i18n-zh">所有笔记工具都为「存」设计，没有一个告诉你什么在腐烂。住在刘海里的一只鸡，数你写完却一直没发的东西。指向任何一个 markdown 文件夹即可 &mdash; Obsidian、Logseq 或普通文件。已开源。</span></p>
           </div>
-          <span class="build-lang">macOS · 10/21</span>
+          <span class="build-lang">macOS &middot; Python &middot; 10/21</span>
         </a>
         <a class="build-item tilt-card" href="https://github.com/daac-solo/daac-solo.github.io">
           <div class="build-icon">&#128038;</div>
@@ -2650,8 +2668,37 @@
     const introDelay = sessionStorage.getItem('daac-intro-seen') ? 400 : 4200;
     setTimeout(typeChar, introDelay);
 
-    // Hero chicken — click to peck with sparks
+    // Hero chicken — it watches, blinks, and reacts to being bothered.
     const heroChicken = document.getElementById('heroChicken');
+    const hcEyes = heroChicken.querySelectorAll('.hc-eye');
+
+    // Eyes follow the pointer, clamped so they stay inside the head.
+    let hcRaf = null;
+    document.addEventListener('mousemove', (e) => {
+      if (hcRaf) return;
+      hcRaf = requestAnimationFrame(() => {
+        hcRaf = null;
+        const r = heroChicken.getBoundingClientRect();
+        if (!r.width) return;
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height * 0.32;
+        const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / 260));
+        const dy = Math.max(-1, Math.min(1, (e.clientY - cy) / 260));
+        hcEyes.forEach((eye) => {
+          eye.style.transform = `translate(${dx * 1.6}px, ${dy * 1.3}px)`;
+        });
+      });
+    }, { passive: true });
+
+    // Blink on an irregular beat — a fixed interval reads as a machine.
+    (function blink() {
+      const wait = 2600 + Math.random() * 4200;
+      setTimeout(() => {
+        heroChicken.classList.add('blinking');
+        setTimeout(() => heroChicken.classList.remove('blinking'), 110);
+        blink();
+      }, wait);
+    })();
     heroChicken.addEventListener('click', () => {
       heroChicken.classList.remove('pecking');
       void heroChicken.offsetWidth;
