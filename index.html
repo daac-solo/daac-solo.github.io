@@ -180,6 +180,18 @@
       100% { transform: rotate(0) translateY(0); }
     }
 
+    /* Lookout Chicken build card — the only entry with a real mascot, and
+       it breathes on the same cadence as the desktop app so they read as
+       one creature rather than two drawings. */
+    .lookout-chick {
+      width: 28px; height: 28px;
+      animation: lookout-breathe 1.6s ease-in-out infinite;
+      transform-origin: 50% 70%;
+    }
+    @keyframes lookout-breathe { 50% { transform: scale(1.06); } }
+    .lookout-item:hover .lookout-chick { animation: chicken-peck 0.6s ease; }
+    @media (prefers-reduced-motion: reduce) { .lookout-chick { animation: none; } }
+
     /* Hero floating chicken mascot */
     .hero-chicken {
       position: absolute;
@@ -2071,16 +2083,40 @@
     <section id="builds" class="reveal">
       <div class="section-head">
         <p class="section-label"><span class="i18n-en">Things I've built</span><span class="i18n-zh">我做的东西</span></p>
-        <a class="section-more" href="https://github.com/daac-solo"><span class="i18n-en">all projects</span><span class="i18n-zh">所有项目</span> &rarr;</a>
+        <a class="section-more" href="https://github.com/daac-solo?tab=repositories&sort=pushed"><span class="i18n-en">all projects</span><span class="i18n-zh">所有项目</span> &rarr;</a>
       </div>
       <div class="build-list">
+        <a class="build-item tilt-card lookout-item" href="https://github.com/daac-solo/lookout-chicken" target="_blank" rel="noopener">
+          <div class="build-icon">
+            <svg class="lookout-chick" viewBox="0 0 100 100" aria-hidden="true">
+              <ellipse cx="50" cy="58" rx="30" ry="28" fill="#f5d76e"/>
+              <ellipse cx="50" cy="64" rx="20" ry="18" fill="#fae9a0"/>
+              <ellipse cx="24" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(-15 24 56)"/>
+              <ellipse cx="76" cy="56" rx="10" ry="14" fill="#e8c84a" transform="rotate(15 76 56)"/>
+              <circle cx="50" cy="30" r="20" fill="#f5d76e"/>
+              <ellipse cx="36" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity=".5"/>
+              <ellipse cx="64" cy="36" rx="5" ry="3" fill="#f5b0a0" opacity=".5"/>
+              <circle cx="42" cy="28" r="3.5" fill="#2d2520"/><circle cx="43.2" cy="26.8" r="1.3" fill="#fff"/>
+              <circle cx="58" cy="28" r="3.5" fill="#2d2520"/><circle cx="59.2" cy="26.8" r="1.3" fill="#fff"/>
+              <path d="M46 34 L50 40 L54 34 Z" fill="#e8874a"/>
+              <path d="M43 12 Q45 8 48 12 Q50 7 52 12 Q54 8 57 12 Q55 14 50 14 Q45 14 43 12Z" fill="#e85a4a"/>
+              <path d="M38 84 L34 92 M38 84 L38 93 M38 84 L42 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M62 84 L58 92 M62 84 L62 93 M62 84 L66 92" stroke="#e8874a" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="build-info">
+            <h4>瞭望鸡 · Lookout Chicken</h4>
+            <p><span class="i18n-en">A chicken that lives in the notch and tells me what I still haven't published. Built it after finding my oldest finished draft had sat for 136 days.</span><span class="i18n-zh">住在刘海里的一只鸡，提醒我哪篇写完了还没发。做它是因为发现最老的那篇稿子，写完躺了 136 天。</span></p>
+          </div>
+          <span class="build-lang">macOS · 10/21</span>
+        </a>
         <a class="build-item tilt-card" href="https://github.com/daac-solo/daac-solo.github.io">
           <div class="build-icon">&#128038;</div>
           <div class="build-info">
             <h4>daac-solo.github.io</h4>
             <p><span class="i18n-en">The site you're looking at. Built in public with Claude Code.</span><span class="i18n-zh">你正在看的这个网站。用 Claude Code 公开建造。</span></p>
           </div>
-          <span class="build-lang">HTML</span>
+          <span class="build-lang">HTML · 10/20</span>
         </a>
         <a class="build-item tilt-card" href="https://claude.ai/public/artifacts/b59e1bad-f2d6-42ec-b5a2-be8f620c3a60" target="_blank" rel="noopener">
           <div class="build-icon">&#128200;</div>
@@ -2096,7 +2132,7 @@
             <h4>Deep Reading Coach</h4>
             <p><span class="i18n-en">Claude Code skill: diagnose book type first, then pick the most efficient reading flow. 6 modes.</span><span class="i18n-zh">Claude Code skill：先诊断书的类型，再选最高效的学习流程。6 种模式。</span></p>
           </div>
-          <span class="build-lang">Skill</span>
+          <span class="build-lang">Skill · 10/07</span>
         </a>
         <a class="build-item tilt-card" href="https://github.com/daac-solo/social-observer" target="_blank" rel="noopener">
           <div class="build-icon">&#128065;</div>
