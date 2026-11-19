@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +7,34 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brand/tokens.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body.lang-en .i18n-zh { display: none !important; }
     body.lang-zh .i18n-en { display: none !important; }
 
     :root {
-      --bg: #0c0c0e;
-      --surface: #141416;
-      --surface-2: #1a1a1e;
-      --border: #242428;
-      --text: #e8e6e3;
-      --text-dim: #9a9890;
-      --text-muted: #6b6960;
-      --accent: #c4a882;
-      --accent-light: #d4bc9a;
-      --accent-dim: rgba(196, 168, 130, 0.12);
-      --green: #7ec9a0;
-      --green-dim: rgba(126, 201, 160, 0.12);
-      --blue: #8badc9;
-      --blue-dim: rgba(139, 173, 201, 0.12);
+      /* 核心色值与字阶来自 brand/tokens.css —— Signal Flow、瞭望鸡、桌面清单
+         和这个站共用的同一份。<html data-theme="dark"> 把它锁在夜山：这个站
+         是刻意的单主题（胶片颗粒、自定义光标、深色电影感），不是忘了做浅色。
+         --bg --paper --fg --muted --surface --faint --border --accent
+         --accent-soft --green --green-soft --alarm --pane --r --ease
+         --t1..--t5 都从那里来，这里不重复定义。 */
+
+      /* 这个站自己的：品牌里没有的语义色和字体栈 */
+      --surface-2: color-mix(in srgb, var(--bg) 86%, var(--fg));
+      --text: var(--fg);
+      --text-dim: var(--muted);
+      /* 原来是 muted 的 72%，在 11px 标签上量出来 3.63:1 —— 文字门槛 4.5。
+         次要不等于看不清。 */
+      --text-muted: var(--muted);
+      --accent-light: color-mix(in srgb, var(--accent) 78%, #fff);
+      --accent-dim: var(--accent-soft);
+      --green-dim: var(--green-soft);
       --rose: #c98b9e;
       --rose-dim: rgba(201, 139, 158, 0.12);
+      --blue: var(--accent);
+      --blue-dim: var(--accent-soft);
       --serif: 'Lora', Georgia, serif;
       --sans: 'Inter', -apple-system, sans-serif;
       --mono: 'JetBrains Mono', monospace;
@@ -72,7 +78,7 @@
     .cursor-ring {
       position: fixed;
       width: 36px; height: 36px;
-      border: 1px solid rgba(196,168,130,0.35);
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
       border-radius: 50%;
       pointer-events: none;
       z-index: 10000;
@@ -103,7 +109,7 @@
       position: fixed;
       width: 400px; height: 400px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(196,168,130,0.06) 0%, transparent 70%);
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent) 6%, transparent) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
       transform: translate(-50%, -50%);
@@ -117,7 +123,7 @@
       position: fixed;
       top: -300px; left: 30%;
       width: 600px; height: 600px;
-      background: radial-gradient(ellipse, rgba(196,168,130,0.04) 0%, transparent 70%);
+      background: radial-gradient(ellipse, color-mix(in srgb, var(--accent) 4%, transparent) 0%, transparent 70%);
       pointer-events: none; z-index: 0;
     }
 
@@ -151,7 +157,7 @@
 
     .nav-logo {
       font-family: var(--serif);
-      font-size: 20px;
+      font-size: var(--t3);
       color: var(--text);
       text-decoration: none;
       letter-spacing: -0.02em;
@@ -284,12 +290,12 @@
     .egg-dot {
       width: 5px; height: 5px;
       border-radius: 50%;
-      background: rgba(196,168,130,0.15);
+      background: color-mix(in srgb, var(--accent) 15%, transparent);
       transition: background 0.3s, box-shadow 0.3s;
     }
     .egg-dot.lit {
       background: var(--accent);
-      box-shadow: 0 0 6px rgba(196,168,130,0.4);
+      box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 40%, transparent);
     }
 
     /* Egg clue: hint that floats up */
@@ -298,7 +304,7 @@
       top: -20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 11px;
+      font-size: var(--t1);
       font-family: var(--mono);
       color: var(--accent);
       opacity: 0;
@@ -317,8 +323,8 @@
 
     /* Hidden clue text in distill section */
     .egg-clue-text {
-      color: rgba(196,168,130,0.06);
-      font-size: 10px;
+      color: color-mix(in srgb, var(--accent) 6%, transparent);
+      font-size: var(--t1);
       font-family: var(--mono);
       text-align: center;
       margin-top: 8px;
@@ -327,20 +333,20 @@
       cursor: default;
     }
     .egg-clue-text:hover {
-      color: rgba(196,168,130,0.2);
+      color: color-mix(in srgb, var(--accent) 20%, transparent);
     }
 
     /* Footer dots clue */
     .footer-dots {
-      color: rgba(196,168,130,0.08);
+      color: color-mix(in srgb, var(--accent) 8%, transparent);
       letter-spacing: 3px;
-      font-size: 14px;
+      font-size: var(--t2);
       margin-left: 8px;
       user-select: none;
       transition: color 0.5s;
     }
     .footer-dots:hover {
-      color: rgba(196,168,130,0.25);
+      color: color-mix(in srgb, var(--accent) 25%, transparent);
     }
 
     @media (max-width: 800px) {
@@ -355,7 +361,7 @@
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 13px;
+      font-size: var(--t2);
       letter-spacing: 0.02em;
       transition: color 0.3s;
       position: relative;
@@ -392,7 +398,7 @@
     }
 
     .hero-greeting {
-      font-size: 14px;
+      font-size: var(--t2);
       color: var(--text-muted);
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -417,6 +423,8 @@
 
     .hero h1 {
       font-family: var(--serif);
+      /* 流体区间，不是刻度步进：hero 在 40 和 64 之间随视口走。
+         字阶管的是台阶，这里管的是范围 —— 刻意的例外，不是漏网。 */
       font-size: clamp(40px, 7vw, 64px);
       font-weight: 400;
       line-height: 1.1;
@@ -437,7 +445,7 @@
     }
 
     .hero-bio {
-      font-size: 16px;
+      font-size: var(--t3);
       color: var(--text-dim);
       max-width: 520px;
       line-height: 1.8;
@@ -453,7 +461,7 @@
 
     .hero-footnote {
       margin-top: 20px;
-      font-size: 13px;
+      font-size: var(--t2);
       color: var(--text-muted);
       font-style: italic;
       opacity: 0;
@@ -473,7 +481,7 @@
       padding: 8px 16px;
       border: 1px solid var(--border);
       border-radius: 100px;
-      font-size: 13px;
+      font-size: var(--t2);
       color: var(--text-dim);
       text-decoration: none;
       transition: all 0.3s;
@@ -508,7 +516,7 @@
     section { padding: 56px 0; }
 
     .section-label {
-      font-size: 12px;
+      font-size: var(--t2);
       color: var(--text-muted);
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -521,7 +529,7 @@
     }
 
     .section-more {
-      font-size: 13px; color: var(--text-muted);
+      font-size: var(--t2); color: var(--text-muted);
       text-decoration: none; transition: color 0.3s;
     }
 
@@ -572,8 +580,8 @@
       50% { box-shadow: 0 0 12px rgba(126,201,160,0.6); }
     }
     @keyframes pulse-gold {
-      0%, 100% { box-shadow: 0 0 4px rgba(196,168,130,0.3); }
-      50% { box-shadow: 0 0 12px rgba(196,168,130,0.6); }
+      0%, 100% { box-shadow: 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent); }
+      50% { box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 60%, transparent); }
     }
     @keyframes pulse-blue {
       0%, 100% { box-shadow: 0 0 4px rgba(139,173,201,0.3); }
@@ -582,12 +590,12 @@
 
     .now-text strong {
       display: block;
-      font-size: 14px; font-weight: 500;
+      font-size: var(--t2); font-weight: 500;
       margin-bottom: 2px;
     }
 
     .now-text span {
-      font-size: 13px;
+      font-size: var(--t2);
       color: var(--text-muted);
       line-height: 1.6;
     }
@@ -595,7 +603,7 @@
     .now-date {
       margin-top: 20px; padding-top: 16px;
       border-top: 1px solid var(--border);
-      font-size: 12px; color: var(--text-muted);
+      font-size: var(--t2); color: var(--text-muted);
       font-family: var(--mono);
     }
 
@@ -635,7 +643,7 @@
     .de-noise.active { opacity: 1; }
 
     .de-headline {
-      font-size: 11px;
+      font-size: var(--t1);
       font-family: var(--mono);
       padding: 4px 10px;
       border-radius: 4px;
@@ -670,9 +678,9 @@
     .de-funnel.active { opacity: 1; }
 
     .de-funnel-icon {
-      font-size: 48px;
+      font-size: var(--t5);
       margin-bottom: 12px;
-      filter: drop-shadow(0 0 20px rgba(196,168,130,0.4));
+      filter: drop-shadow(0 0 20px color-mix(in srgb, var(--accent) 40%, transparent));
       animation: de-pulse 1.5s ease-in-out infinite;
     }
 
@@ -683,13 +691,13 @@
 
     .de-funnel-label {
       font-family: var(--serif);
-      font-size: 16px;
+      font-size: var(--t3);
       color: var(--accent);
       letter-spacing: 0.05em;
     }
 
     .de-funnel-sub {
-      font-size: 12px;
+      font-size: var(--t2);
       color: var(--text-muted);
       margin-top: 6px;
     }
@@ -746,7 +754,7 @@
       border-radius: 8px;
       opacity: 0;
       transform: translateY(15px);
-      box-shadow: 0 0 20px rgba(196,168,130,0.08);
+      box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 8%, transparent);
     }
     .de-result-card.pop {
       animation: de-pop 0.5s ease-out forwards;
@@ -766,14 +774,14 @@
     }
 
     .de-result-text {
-      font-size: 13px;
+      font-size: var(--t2);
       color: var(--text);
       font-family: var(--sans);
     }
 
     .de-result-label {
       font-family: var(--serif);
-      font-size: 14px;
+      font-size: var(--t2);
       color: var(--accent);
       margin-top: 8px;
       opacity: 0;
@@ -798,7 +806,7 @@
     }
     .distill-day {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: var(--t2);
       color: var(--accent);
       background: var(--accent-dim);
       padding: 3px 10px;
@@ -827,7 +835,7 @@
       transform: translateY(-2px);
     }
     .distill-tldr {
-      font-size: 15px;
+      font-size: var(--t2);
       line-height: 1.7;
       color: var(--text);
       margin-bottom: 10px;
@@ -839,7 +847,7 @@
       flex-wrap: wrap;
     }
     .distill-tag {
-      font-size: 11px;
+      font-size: var(--t1);
       font-family: var(--mono);
       color: var(--text-muted);
       background: var(--surface-2);
@@ -849,14 +857,14 @@
       letter-spacing: 0.05em;
     }
     .distill-source {
-      font-size: 11px;
+      font-size: var(--t1);
       color: var(--text-muted);
       font-family: var(--mono);
       margin-left: auto;
     }
     .distill-take-btn {
       display: inline-flex; align-items: center; gap: 4px;
-      font-size: 12px; color: var(--text-muted); cursor: pointer;
+      font-size: var(--t2); color: var(--text-muted); cursor: pointer;
       background: none; border: 1px solid var(--border); border-radius: 4px;
       padding: 3px 10px; margin-top: 10px;
       font-family: var(--mono); transition: color .2s, border-color .2s;
@@ -866,7 +874,7 @@
     .distill-take-btn.open .take-arrow { transform: rotate(90deg); }
     .distill-take-text {
       max-height: 0; overflow: hidden; transition: max-height .3s ease, opacity .3s;
-      opacity: 0; font-size: 13px; font-style: italic; color: var(--accent-light);
+      opacity: 0; font-size: var(--t2); font-style: italic; color: var(--accent-light);
       line-height: 1.6; padding-left: 2px;
     }
     .distill-take-text.open { max-height: 80px; opacity: 1; margin-top: 8px; }
@@ -875,11 +883,11 @@
       text-align: center;
     }
     .distill-cta a {
-      font-size: 13px;
+      font-size: var(--t2);
       color: var(--accent);
       text-decoration: none;
       font-family: var(--sans);
-      border-bottom: 1px solid rgba(196,168,130,0.3);
+      border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
       padding-bottom: 2px;
       transition: border-color 0.3s;
     }
@@ -889,7 +897,7 @@
     .distill-empty {
       text-align: center;
       color: var(--text-muted);
-      font-size: 14px;
+      font-size: var(--t2);
       padding: 40px 0;
     }
 
@@ -927,7 +935,7 @@
     .writing-info { display: flex; flex-direction: column; gap: 3px; position: relative; }
 
     .writing-title {
-      font-size: 15px; font-weight: 400;
+      font-size: var(--t2); font-weight: 400;
       transition: color 0.3s;
     }
 
@@ -939,7 +947,7 @@
     }
 
     .writing-hook {
-      font-size: 13px;
+      font-size: var(--t2);
       color: var(--text-muted);
       font-style: italic;
       line-height: 1.5;
@@ -957,7 +965,7 @@
     }
 
     .writing-tags {
-      font-size: 12px; color: var(--text-muted);
+      font-size: var(--t2); color: var(--text-muted);
     }
 
     .writing-meta-row {
@@ -968,17 +976,17 @@
     }
 
     .writing-ep {
-      font-size: 10px;
+      font-size: var(--t1);
       font-family: var(--mono);
       color: var(--accent);
       padding: 2px 6px;
-      border: 1px solid rgba(196,168,130,0.2);
+      border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
       border-radius: 3px;
       letter-spacing: 0.05em;
     }
 
     .writing-date {
-      font-size: 12px;
+      font-size: var(--t2);
       color: var(--text-muted);
       font-family: var(--mono);
       white-space: nowrap;
@@ -1014,12 +1022,12 @@
     }
 
     .build-item:hover {
-      border-color: rgba(196,168,130,0.3);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(196,168,130,0.1);
+      border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
     }
 
     .build-icon {
-      font-size: 22px;
+      font-size: var(--t3);
       flex-shrink: 0;
       width: 36px; height: 36px;
       display: flex; align-items: center; justify-content: center;
@@ -1033,16 +1041,16 @@
     .build-info { flex: 1; }
 
     .build-info h4 {
-      font-size: 14px; font-weight: 500;
+      font-size: var(--t2); font-weight: 500;
       margin-bottom: 3px;
     }
 
     .build-info p {
-      font-size: 13px; color: var(--text-muted);
+      font-size: var(--t2); color: var(--text-muted);
     }
 
     .build-lang {
-      font-size: 11px;
+      font-size: var(--t1);
       font-family: var(--mono);
       color: var(--text-muted);
       padding: 2px 6px;
@@ -1070,12 +1078,12 @@
     }
 
     .collection-card:hover {
-      border-color: rgba(196,168,130,0.25);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(196,168,130,0.08);
+      border-color: color-mix(in srgb, var(--accent) 25%, transparent);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
     }
 
     .c-emoji {
-      font-size: 24px;
+      font-size: var(--t4);
       margin-bottom: 12px;
       display: inline-block;
       transition: transform 0.3s ease;
@@ -1084,20 +1092,27 @@
     .collection-card:hover .c-emoji { transform: scale(1.2); }
 
     .collection-card h3 {
-      font-size: 15px; font-weight: 500;
+      font-size: var(--t2); font-weight: 500;
       margin-bottom: 6px;
     }
 
     .collection-card p {
-      font-size: 13px;
+      font-size: var(--t2);
       color: var(--text-muted);
       line-height: 1.6;
     }
 
+    /* 「·」不做分隔符。facts 之间用间距，不是另一个字符。 */
+    .writing-tags, .build-lang { display: inline-flex; flex-wrap: wrap; gap: 2px 14px; }
+    .writing-tags > span, .build-lang > span { display: inline-flex; flex-wrap: wrap; gap: 2px 14px; }
+
     /* ===== DISCOVERIES — IMMERSIVE PORTAL ===== */
     .drawer-wrapper { position: relative; }
 
-    /* The closed drawer face */
+    /* The closed drawer face.
+       These browns are an illustration, like the chicken: a drawn wooden
+       drawer, not a UI surface. Illustrations carry their own colours —
+       that is why they are not tokens, and not an oversight. */
     .drawer-face {
       background: linear-gradient(145deg, #1e1c18 0%, #16140f 50%, #1a1814 100%);
       border: 1px solid #2a2720;
@@ -1113,7 +1128,7 @@
       content: '';
       position: absolute;
       inset: 6px;
-      border: 1px solid rgba(196,168,130,0.08);
+      border: 1px solid color-mix(in srgb, var(--accent) 8%, transparent);
       border-radius: 10px;
       pointer-events: none;
     }
@@ -1124,37 +1139,37 @@
       inset: 0;
       background: repeating-linear-gradient(90deg,
         transparent 0px, transparent 40px,
-        rgba(196,168,130,0.02) 40px, rgba(196,168,130,0.02) 41px);
+        color-mix(in srgb, var(--accent) 2%, transparent) 40px, color-mix(in srgb, var(--accent) 2%, transparent) 41px);
       pointer-events: none;
       border-radius: 14px;
     }
 
     .drawer-face:hover {
-      border-color: rgba(196,168,130,0.25);
-      box-shadow: 0 4px 30px rgba(0,0,0,0.4), 0 0 60px rgba(196,168,130,0.06);
+      border-color: color-mix(in srgb, var(--accent) 25%, transparent);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.4), 0 0 60px color-mix(in srgb, var(--accent) 6%, transparent);
       transform: scale(1.01);
     }
 
     .drawer-label { text-align: center; position: relative; }
-    .drawer-label-icon { font-size: 28px; display: block; margin-bottom: 12px; }
-    .drawer-label h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--accent); margin-bottom: 6px; }
-    .drawer-label p { font-size: 13px; color: var(--text-muted); }
+    .drawer-label-icon { font-size: var(--t4); display: block; margin-bottom: 12px; }
+    .drawer-label h3 { font-family: var(--serif); font-size: var(--t3); font-weight: 400; color: var(--accent); margin-bottom: 6px; }
+    .drawer-label p { font-size: var(--t2); color: var(--text-muted); }
 
     .drawer-handle {
       width: 48px; height: 6px;
       background: linear-gradient(180deg, #3a3530, #2a2520);
       border-radius: 3px; margin: 20px auto 0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 rgba(196,168,130,0.1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
       transition: all 0.3s;
     }
     .drawer-face:hover .drawer-handle {
       transform: scaleX(1.2);
-      box-shadow: 0 1px 8px rgba(196,168,130,0.3), inset 0 1px 0 rgba(196,168,130,0.2);
+      box-shadow: 0 1px 8px color-mix(in srgb, var(--accent) 30%, transparent), inset 0 1px 0 color-mix(in srgb, var(--accent) 20%, transparent);
     }
 
     .drawer-hint {
       text-align: center; margin-top: 8px;
-      font-size: 11px; color: var(--text-muted);
+      font-size: var(--t1); color: var(--text-muted);
       opacity: 0; transition: opacity 0.3s;
     }
     .drawer-face:hover ~ .drawer-hint { opacity: 0.6; }
@@ -1214,7 +1229,7 @@
     .portal-ambient-1 {
       width: 400px; height: 400px;
       top: -100px; left: 20%;
-      background: rgba(196,168,130,0.07);
+      background: color-mix(in srgb, var(--accent) 7%, transparent);
       animation: amb-drift-1 8s ease-in-out infinite;
     }
 
@@ -1267,14 +1282,14 @@
 
     .portal-header h2 {
       font-family: var(--serif);
-      font-size: 32px;
+      font-size: var(--t4);
       font-weight: 400;
       color: var(--accent);
       margin-bottom: 8px;
     }
 
     .portal-header p {
-      font-size: 14px;
+      font-size: var(--t2);
       color: var(--text-muted);
     }
 
@@ -1286,7 +1301,7 @@
       background: rgba(20,20,22,0.8);
       border: 1px solid var(--border);
       color: var(--text-dim);
-      font-size: 13px; font-family: var(--sans);
+      font-size: var(--t2); font-family: var(--sans);
       padding: 8px 18px;
       border-radius: 100px;
       cursor: pointer;
@@ -1305,7 +1320,7 @@
 
     /* Section dividers inside portal */
     .portal-section-label {
-      font-size: 11px;
+      font-size: var(--t1);
       color: var(--text-muted);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -1355,20 +1370,20 @@
     }
 
     .pg-item:hover {
-      border-color: rgba(196,168,130,0.35);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(196,168,130,0.06);
+      border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px color-mix(in srgb, var(--accent) 6%, transparent);
       transform: translateY(-6px) scale(1.04);
       z-index: 2;
       background: rgba(26, 26, 30, 0.95);
     }
 
-    .pg-item-icon { font-size: 28px; margin-bottom: 10px; display: block; }
-    .pg-item h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
-    .pg-item p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .pg-item-icon { font-size: var(--t4); margin-bottom: 10px; display: block; }
+    .pg-item h4 { font-size: var(--t2); font-weight: 500; margin-bottom: 4px; }
+    .pg-item p { font-size: var(--t2); color: var(--text-muted); line-height: 1.5; }
 
     .pg-badge {
       position: absolute; top: 10px; right: 10px;
-      font-size: 9px; font-family: var(--mono);
+      font-size: var(--t1); font-family: var(--mono);
       padding: 2px 7px; border-radius: 3px;
       letter-spacing: 0.03em;
     }
@@ -1381,8 +1396,8 @@
       .portal-room-inner { padding: 70px 16px 40px; }
       .portal-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .pg-item { padding: 14px; }
-      .portal-header h2 { font-size: 24px; }
-      .portal-close { top: 14px; right: 14px; padding: 6px 14px; font-size: 12px; }
+      .portal-header h2 { font-size: var(--t4); }
+      .portal-close { top: 14px; right: 14px; padding: 6px 14px; font-size: var(--t2); }
     }
 
     /* ===== SUBSCRIBE CTA ===== */
@@ -1405,20 +1420,20 @@
       position: absolute;
       top: -50%; left: -50%;
       width: 200%; height: 200%;
-      background: radial-gradient(circle at 30% 40%, rgba(196,168,130,0.05) 0%, transparent 50%);
+      background: radial-gradient(circle at 30% 40%, color-mix(in srgb, var(--accent) 5%, transparent) 0%, transparent 50%);
       pointer-events: none;
     }
 
     .subscribe-card h3 {
       font-family: var(--serif);
-      font-size: 24px;
+      font-size: var(--t4);
       font-weight: 400;
       margin-bottom: 12px;
       position: relative;
     }
 
     .subscribe-card p {
-      font-size: 14px;
+      font-size: var(--t2);
       color: var(--text-muted);
       max-width: 400px;
       margin: 0 auto 28px;
@@ -1434,7 +1449,7 @@
       background: var(--accent);
       color: var(--bg);
       font-family: var(--sans);
-      font-size: 13px;
+      font-size: var(--t2);
       font-weight: 500;
       border: none;
       border-radius: 100px;
@@ -1447,12 +1462,12 @@
     .subscribe-btn:hover {
       background: var(--accent-light);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(196,168,130,0.25);
+      box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 25%, transparent);
     }
 
     .subscribe-hint {
       margin-top: 16px;
-      font-size: 12px;
+      font-size: var(--t2);
       color: var(--text-muted);
       position: relative;
     }
@@ -1471,12 +1486,12 @@
 
     .footer-left {
       font-family: var(--serif);
-      font-size: 16px;
+      font-size: var(--t3);
       color: var(--text-dim);
     }
 
     .footer-right {
-      font-size: 12px;
+      font-size: var(--t2);
       color: var(--text-muted);
       font-style: italic;
     }
@@ -1542,7 +1557,7 @@
       background: var(--accent);
       transform-origin: center center;
       opacity: 0;
-      box-shadow: 0 0 8px rgba(196,168,130,0.6), 0 0 20px rgba(196,168,130,0.3);
+      box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent), 0 0 20px color-mix(in srgb, var(--accent) 30%, transparent);
     }
 
     .crack-line.show {
@@ -1567,7 +1582,7 @@
     }
     .egg-glow.lit {
       background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%),
-        rgba(245,215,110,0.15) 0%, rgba(196,168,130,0.05) 30%, transparent 60%);
+        rgba(245,215,110,0.15) 0%, color-mix(in srgb, var(--accent) 5%, transparent) 30%, transparent 60%);
     }
 
     /* Shell fragments falling */
@@ -1589,7 +1604,8 @@
       position: fixed;
       inset: 0;
       z-index: 10001;
-      background: #060608;
+      /* 比 --bg 再暗一档：这是盖住整页的幕布，不是页面本身 */
+      background: color-mix(in srgb, var(--bg) 70%, #000);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1604,7 +1620,7 @@
     .story-line {
       font-family: var(--serif);
       font-size: clamp(16px, 3.5vw, 24px);
-      color: rgba(196,168,130,0);
+      color: color-mix(in srgb, var(--accent) 0%, transparent);
       text-align: center;
       line-height: 1.8;
       max-width: 600px;
@@ -1635,7 +1651,7 @@
     .story-skip {
       position: fixed;
       bottom: 30px; right: 30px;
-      font-size: 12px;
+      font-size: var(--t2);
       color: var(--text-muted);
       background: none;
       border: 1px solid var(--border);
@@ -1655,7 +1671,8 @@
       position: fixed;
       inset: 0;
       z-index: 10010;
-      background: #060608;
+      /* 比 --bg 再暗一档：这是盖住整页的幕布，不是页面本身 */
+      background: color-mix(in srgb, var(--bg) 70%, #000);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1729,7 +1746,7 @@
       background: var(--accent);
       transform-origin: 0 50%;
       opacity: 0;
-      box-shadow: 0 0 12px rgba(196,168,130,0.7), 0 0 30px rgba(196,168,130,0.3);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent), 0 0 30px color-mix(in srgb, var(--accent) 30%, transparent);
     }
 
     @keyframes intro-crack-grow {
@@ -1743,8 +1760,9 @@
 
     .intro-shard {
       position: fixed;
-      background: #060608;
-      border: 1px solid rgba(196,168,130,0.3);
+      /* 比 --bg 再暗一档：这是盖住整页的幕布，不是页面本身 */
+      background: color-mix(in srgb, var(--bg) 70%, #000);
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
       z-index: 10012;
       pointer-events: none;
     }
@@ -1763,13 +1781,13 @@
       transition: background 0.6s ease;
     }
     .intro-glow.lit {
-      background: radial-gradient(circle at 50% 50%, rgba(245,215,110,0.2) 0%, rgba(196,168,130,0.08) 30%, transparent 60%);
+      background: radial-gradient(circle at 50% 50%, rgba(245,215,110,0.2) 0%, color-mix(in srgb, var(--accent) 8%, transparent) 30%, transparent 60%);
     }
 
     .intro-skip {
       position: fixed;
       bottom: 30px; right: 30px;
-      font-size: 12px;
+      font-size: var(--t2);
       color: var(--text-muted);
       background: none;
       border: 1px solid rgba(255,255,255,0.1);
@@ -1794,7 +1812,7 @@
 
     @media (max-width: 600px) {
       .hero { padding: 120px 0 60px; }
-      .hero h1 { font-size: 36px; }
+      .hero h1 { font-size: var(--t4); }
       .collection-grid { grid-template-columns: 1fr; }
       .writing-item { flex-direction: column; align-items: flex-start; gap: 6px; }
       .writing-meta-row { align-self: flex-start; }
@@ -2042,7 +2060,7 @@
         <a class="writing-item stagger" href="writing/fearos.html">
           <div class="writing-info">
             <span class="writing-title"><span class="i18n-en">FearOS: Your anxiety is an operating system</span><span class="i18n-zh">FearOS：你的焦虑是一个操作系统</span></span>
-            <span class="writing-tags"><span class="i18n-en">self-awareness &middot; mental models</span><span class="i18n-zh">自我认知 &middot; 思维模型</span></span>
+            <span class="writing-tags"><span class="i18n-en"><span>self-awareness</span><span>mental models</span></span><span class="i18n-zh"><span>自我认知</span><span>思维模型</span></span></span>
             <span class="writing-hook"><span class="i18n-en">You think you're anxious. Actually, there's an OS running in your head on autopilot.</span><span class="i18n-zh">你以为你在焦虑。其实是脑子里有个操作系统在自动运行。</span></span>
           </div>
           <div class="writing-meta-row">
@@ -2053,7 +2071,7 @@
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title"><span class="i18n-en">I went from chatting with AI to running 6 autonomous agents</span><span class="i18n-zh">从跟 AI 聊天到管理 6 个自主 agent</span></span>
-            <span class="writing-tags"><span class="i18n-en">AI &middot; workflows &middot; origin story</span><span class="i18n-zh">AI &middot; 工作流 &middot; 起源故事</span></span>
+            <span class="writing-tags"><span class="i18n-en"><span>AI</span><span>workflows</span><span>origin story</span></span><span class="i18n-zh"><span>AI</span><span>工作流</span><span>起源故事</span></span></span>
             <span class="writing-hook"><span class="i18n-en">It started with "hey can you summarize this." Six months later, I had a team that never sleeps.</span><span class="i18n-zh">一开始只是"帮我总结一下"。半年后，我有了一支不睡觉的团队。</span></span>
           </div>
           <div class="writing-meta-row">
@@ -2064,7 +2082,7 @@
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title"><span class="i18n-en">Step by step: what Karate and dancing taught me</span><span class="i18n-zh">一步步来：空手道和舞蹈教会我的</span></span>
-            <span class="writing-tags"><span class="i18n-en">philosophy &middot; learning &middot; life</span><span class="i18n-zh">哲学 &middot; 学习 &middot; 人生</span></span>
+            <span class="writing-tags"><span class="i18n-en"><span>philosophy</span><span>learning</span><span>life</span></span><span class="i18n-zh"><span>哲学</span><span>学习</span><span>人生</span></span></span>
             <span class="writing-hook"><span class="i18n-en">At the YMCA doing Karate and BollyX, it clicked: everything complex is just basic techniques + permutations.</span><span class="i18n-zh">在 YMCA 练空手道和 BollyX 时顿悟：一切复杂的东西都是基本功 + 排列组合。</span></span>
           </div>
           <div class="writing-meta-row">
@@ -2075,7 +2093,7 @@
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title"><span class="i18n-en">AI is not a tool, it's a relationship</span><span class="i18n-zh">AI 不是工具，是一段关系</span></span>
-            <span class="writing-tags"><span class="i18n-en">AI &middot; philosophy</span><span class="i18n-zh">AI &middot; 哲学</span></span>
+            <span class="writing-tags"><span class="i18n-en"><span>AI</span><span>philosophy</span></span><span class="i18n-zh"><span>AI</span><span>哲学</span></span></span>
             <span class="writing-hook"><span class="i18n-en">First a tool, then an assistant, then a colleague. Then you catch yourself saying thank you.</span><span class="i18n-zh">先是工具，再是助手，然后是同事。然后你发现自己开始说谢谢。</span></span>
           </div>
           <div class="writing-meta-row">
@@ -2086,7 +2104,7 @@
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title"><span class="i18n-en">Understanding is level 1. Doing is level 10.</span><span class="i18n-zh">看得懂是第 1 层，做得到是第 10 层</span></span>
-            <span class="writing-tags"><span class="i18n-en">life &middot; self-awareness</span><span class="i18n-zh">人生 &middot; 自我认知</span></span>
+            <span class="writing-tags"><span class="i18n-en"><span>life</span><span>self-awareness</span></span><span class="i18n-zh"><span>人生</span><span>自我认知</span></span></span>
             <span class="writing-hook"><span class="i18n-en">You always thought the problem was not knowing. You've known all along.</span><span class="i18n-zh">你一直以为问题出在不知道。其实你早就知道了。</span></span>
           </div>
           <div class="writing-meta-row">
@@ -2097,7 +2115,7 @@
         <a class="writing-item stagger" href="#">
           <div class="writing-info">
             <span class="writing-title"><span class="i18n-en">A pop star taught me logical thinking</span><span class="i18n-zh">一个歌星教会我逻辑思维</span></span>
-            <span class="writing-tags"><span class="i18n-en">philosophy &middot; logical thinking &middot; origin story</span><span class="i18n-zh">哲学 &middot; 逻辑思维 &middot; 起源故事</span></span>
+            <span class="writing-tags"><span class="i18n-en"><span>philosophy</span><span>logical thinking</span><span>origin story</span></span><span class="i18n-zh"><span>哲学</span><span>逻辑思维</span><span>起源故事</span></span></span>
             <span class="writing-hook"><span class="i18n-en">A reporter asked Dave Wang to predict album sales. A singer broke it down cleaner than anything I later learned in business school.</span><span class="i18n-zh">记者问王杰预计唱片销量。一个歌手的拆解，比我后来在商学院学的都清晰。</span></span>
           </div>
           <div class="writing-meta-row">
@@ -2139,13 +2157,13 @@
             <h4>瞭望鸡 · Lookout Chicken</h4>
             <p><span class="i18n-en">Every notes app is built to capture; none of them tell you what is rotting. A chicken that lives in the notch and counts what you finished and never published. Point it at any folder of markdown &mdash; Obsidian, Logseq, or plain files. Open source.</span><span class="i18n-zh">所有笔记工具都为「存」设计，没有一个告诉你什么在腐烂。住在刘海里的一只鸡，数你写完却一直没发的东西。指向任何一个 markdown 文件夹即可 &mdash; Obsidian、Logseq 或普通文件。已开源。</span></p>
           </div>
-          <span class="build-lang">macOS &middot; Python &middot; 10/21</span>
+          <span class="build-lang"><span>macOS</span><span>Python</span><span>10/21</span></span>
         </a>
         <a class="build-item tilt-card desk-item" href="https://github.com/daac-solo/desk-list" target="_blank" rel="noopener">
           <div class="build-icon">
             <svg class="desk-card" viewBox="0 0 100 100" aria-hidden="true">
               <rect x="16" y="12" width="68" height="76" rx="10" fill="#e8e6e3"/>
-              <rect x="16" y="12" width="68" height="76" rx="10" fill="none" stroke="#c4a882" stroke-width="2"/>
+              <rect x="16" y="12" width="68" height="76" rx="10" fill="none" stroke="var(--accent)" stroke-width="2"/>
               <rect x="26" y="24" width="38" height="4" rx="2" fill="#9a9890"/>
               <circle cx="74" cy="26" r="6" fill="none" stroke="#9a9890" stroke-width="2"/>
               <rect x="26" y="44" width="38" height="4" rx="2" fill="#9a9890"/>
@@ -2161,7 +2179,7 @@
             <h4>桌面清单 · Desk List</h4>
             <p><span class="i18n-en">A list that treats done as kept, not gone. Finishing a task draws a line through it and leaves it there &mdash; a crossed-out line is the only record that the day went anywhere. Lives on the desktop in glass, remembers where you dragged it. Open source.</span><span class="i18n-zh">一个把「完成」当作留下、而不是消失的清单。勾掉一条，它被一道线横穿过去，留在原地 &mdash; 划掉的那行是这一天去过哪里的唯一证据。玻璃质感常驻桌面，记得你把它拖到哪。已开源。</span></p>
           </div>
-          <span class="build-lang">macOS &middot; Python &middot; 11/18</span>
+          <span class="build-lang"><span>macOS</span><span>Python</span><span>11/18</span></span>
         </a>
         <a class="build-item tilt-card" href="https://github.com/daac-solo/daac-solo.github.io">
           <div class="build-icon">&#128038;</div>
@@ -2169,7 +2187,7 @@
             <h4>daac-solo.github.io</h4>
             <p><span class="i18n-en">The site you're looking at. Built in public with Claude Code.</span><span class="i18n-zh">你正在看的这个网站。用 Claude Code 公开建造。</span></p>
           </div>
-          <span class="build-lang">HTML · 10/20</span>
+          <span class="build-lang"><span>HTML</span><span>10/20</span></span>
         </a>
         <a class="build-item tilt-card" href="https://claude.ai/public/artifacts/b59e1bad-f2d6-42ec-b5a2-be8f620c3a60" target="_blank" rel="noopener">
           <div class="build-icon">&#128200;</div>
@@ -2185,7 +2203,7 @@
             <h4>Deep Reading Coach</h4>
             <p><span class="i18n-en">Claude Code skill: diagnose book type first, then pick the most efficient reading flow. 6 modes.</span><span class="i18n-zh">Claude Code skill：先诊断书的类型，再选最高效的学习流程。6 种模式。</span></p>
           </div>
-          <span class="build-lang">Skill · 10/07</span>
+          <span class="build-lang"><span>Skill</span><span>10/07</span></span>
         </a>
         <a class="build-item tilt-card" href="https://github.com/daac-solo/social-observer" target="_blank" rel="noopener">
           <div class="build-icon">&#128065;</div>
@@ -2273,7 +2291,7 @@
 
   <!-- ===== PORTAL OVERLAY ===== -->
   <div class="portal-overlay" id="portalOverlay"></div>
-  <button class="portal-close" id="portalClose"><span class="i18n-en">esc &middot; close</span><span class="i18n-zh">esc &middot; 关闭</span></button>
+  <button class="portal-close" id="portalClose"><span class="i18n-en"><span>esc</span><span>close</span></span><span class="i18n-zh"><span>esc</span><span>关闭</span></span></button>
   <div class="portal-room" id="portalRoom">
     <div class="portal-ambient portal-ambient-1"></div>
     <div class="portal-ambient portal-ambient-2"></div>
@@ -2616,7 +2634,7 @@
       fetch('/data/distill.json?' + Date.now())
         .then(r => r.json())
         .then(data => {
-          distillDay.innerHTML = '<span class="i18n-en">Day ' + data.day + ' · ' + data.date + '</span><span class="i18n-zh">第 ' + data.day + ' 天 · ' + data.date + '</span>';
+          distillDay.innerHTML = '<span class="i18n-en"><span>Day ' + data.day + '</span><span>' + data.date + '</span></span><span class="i18n-zh"><span>第 ' + data.day + ' 天</span><span>' + data.date + '</span></span>';
           if (!data.items || !data.items.length) {
             distillList.innerHTML = '<div class="distill-empty"><span class="i18n-en">Today\'s distill is brewing...</span><span class="i18n-zh">今日蒸馏酿造中...</span></div>';
             return;
@@ -2807,7 +2825,7 @@
 
     // Floating particles
     function spawnParticles() {
-      const colors = ['rgba(196,168,130,0.4)', 'rgba(126,201,160,0.3)', 'rgba(139,173,201,0.3)', 'rgba(201,139,158,0.3)'];
+      const colors = ['color-mix(in srgb, var(--accent) 40%, transparent)', 'rgba(126,201,160,0.3)', 'rgba(139,173,201,0.3)', 'rgba(201,139,158,0.3)'];
       for (let i = 0; i < 20; i++) {
         const el = document.createElement('div');
         el.className = 'portal-particle';
