@@ -1,0 +1,85 @@
+/* ============================================================
+   南山 / 夜山 — the one place these values are decided.
+   Canonical source. Signal Flow, 瞭望鸡 and the personal site
+   all read from here; nothing redefines a value of its own.
+   Reasoning lives in BRAND.md next to this file.
+   ============================================================ */
+
+:root {
+  /* --- 南山 · the light ground -----------------------------
+     Rice paper, not printer white. A warm ground is what makes
+     thin ink read as ink rather than as grey. Radix sand 2:
+     chosen over pure white, sand 1 and brown 2 by seamless
+     comparison — these differ by ΔOKLab 0.002–0.005 and only
+     an unbroken seam makes the difference visible at all. */
+  --bg:        #f9f9f8;   /* sand 2  */
+  --paper:     #fdfdfc;   /* sand 1 — the sheet, not the room */
+  --fg:        #1d3e56;
+  --muted:     #63635e;   /* sand 11 */
+
+  /* Radix alpha steps, derived: each composites over step 1 to
+     the opaque step it is named for. Opaque would have sealed
+     the ink wash under every card. */
+  --surface:   rgba(0,0,0,0.016);
+  --faint:     rgba(0,0,0,0.052);
+  --border:    rgba(0,0,0,0.151);
+
+  /* Paper underfoot, sky on it: the blue is the thing you look
+     at, not the thing you stand on. sky 11, not 9 — 9 is a
+     surface colour, white on it is 3.26:1. */
+  --accent:      #00749e;
+  --accent-soft: rgba(0,171,234,0.096);
+  --green:       #2a7e3b;
+  --green-soft:  rgba(0,142,0,0.072);
+  --alarm:       #c0481f;   /* terracotta, not a siren */
+
+  /* A translucent panel laid over something else — a wallpaper, an ink
+     wash, a page. Derived from --bg, never from --paper: --paper is the
+     colour of a sheet, and in 夜山 that is a light tan. A panel built from
+     it renders a pale slab in a dark room. */
+  --pane:  rgba(255,253,249,0.72);
+
+  --font:  -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --mono:  ui-monospace, SFMono-Regular, Menlo, monospace;
+  --r:     11px;
+  --ease:  cubic-bezier(.2,0,0,1);
+
+  /* Three sizes on a page. Not a guideline — a count. */
+  --t1: 11px;   /* meta, labels   */
+  --t2: 13px;   /* body           */
+  --t3: 17px;   /* the one title  */
+}
+
+/* --- 夜山 · the dark ground --------------------------------
+   Not an inversion. The ink wash needs several times the
+   opacity it needs on paper, the accent moves from sky 11 to
+   sky 10, and --paper becomes the colour of a real sheet lying
+   in a dark room (#b9b6af) rather than a dark rectangle —
+   a crumpled page is not black just because the room is. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #111113;
+    --paper:     #b9b6af;
+    --fg:        #eeeeec;
+    --muted:     #b0b4ba;
+    --surface:   rgba(255,255,255,0.034);
+    --faint:     rgba(255,255,255,0.076);
+    --border:    rgba(255,255,255,0.186);
+    --accent:      #75c7f0;
+    --accent-soft: rgba(0,166,255,0.099);
+    --green:       #71d083;
+    --green-soft:  rgba(0,166,80,0.14);
+    --alarm:       #ff9478;   /* #c0481f is 2.48:1 here — unusable */
+    --pane:        rgba(24,29,33,0.55);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#111113; --paper:#b9b6af; --fg:#eeeeec; --muted:#b0b4ba;
+  --surface:rgba(255,255,255,0.034);
+  --faint:rgba(255,255,255,0.076);
+  --border:rgba(255,255,255,0.186);
+  --accent:#75c7f0; --accent-soft:rgba(0,166,255,0.099);
+  --green:#71d083;  --green-soft:rgba(0,166,80,0.14);
+  --alarm:#ff9478;
+  --pane:rgba(24,29,33,0.55);
+}

@@ -190,6 +190,19 @@
     }
     @keyframes lookout-breathe { 50% { transform: scale(1.06); } }
     .lookout-item:hover .lookout-chick { animation: chicken-peck 0.6s ease; }
+
+    /* The icon does the thing the app does: hovering finishes the task. */
+    .desk-card { width: 42px; height: 42px; }
+    .desk-card .desk-tick, .desk-card .desk-strike {
+      stroke-dasharray: 60; stroke-dashoffset: 60;
+      transition: stroke-dashoffset .34s cubic-bezier(.2,0,0,1);
+    }
+    .desk-item:hover .desk-tick, .desk-item:hover .desk-strike { stroke-dashoffset: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      .desk-card .desk-tick, .desk-card .desk-strike {
+        transition: none; stroke-dashoffset: 0;
+      }
+    }
     @media (prefers-reduced-motion: reduce) { .lookout-chick { animation: none; } }
 
     /* Hero floating chicken mascot */
@@ -2127,6 +2140,28 @@
             <p><span class="i18n-en">Every notes app is built to capture; none of them tell you what is rotting. A chicken that lives in the notch and counts what you finished and never published. Point it at any folder of markdown &mdash; Obsidian, Logseq, or plain files. Open source.</span><span class="i18n-zh">所有笔记工具都为「存」设计，没有一个告诉你什么在腐烂。住在刘海里的一只鸡，数你写完却一直没发的东西。指向任何一个 markdown 文件夹即可 &mdash; Obsidian、Logseq 或普通文件。已开源。</span></p>
           </div>
           <span class="build-lang">macOS &middot; Python &middot; 10/21</span>
+        </a>
+        <a class="build-item tilt-card desk-item" href="https://github.com/daac-solo/desk-list" target="_blank" rel="noopener">
+          <div class="build-icon">
+            <svg class="desk-card" viewBox="0 0 100 100" aria-hidden="true">
+              <rect x="16" y="12" width="68" height="76" rx="10" fill="#e8e6e3"/>
+              <rect x="16" y="12" width="68" height="76" rx="10" fill="none" stroke="#c4a882" stroke-width="2"/>
+              <rect x="26" y="24" width="38" height="4" rx="2" fill="#9a9890"/>
+              <circle cx="74" cy="26" r="6" fill="none" stroke="#9a9890" stroke-width="2"/>
+              <rect x="26" y="44" width="38" height="4" rx="2" fill="#9a9890"/>
+              <circle cx="74" cy="46" r="6" fill="#7ec9a0" opacity=".25"/>
+              <circle cx="74" cy="46" r="6" fill="none" stroke="#7ec9a0" stroke-width="2"/>
+              <path class="desk-tick" d="M71 46 L73.4 48.6 L77.4 43.4" fill="none" stroke="#7ec9a0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="desk-strike" d="M26 46 L64 46" stroke="#9a9890" stroke-width="1.6" stroke-linecap="round"/>
+              <rect x="26" y="64" width="38" height="4" rx="2" fill="#9a9890"/>
+              <circle cx="74" cy="66" r="6" fill="none" stroke="#9a9890" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="build-info">
+            <h4>桌面清单 · Desk List</h4>
+            <p><span class="i18n-en">A list that treats done as kept, not gone. Finishing a task draws a line through it and leaves it there &mdash; a crossed-out line is the only record that the day went anywhere. Lives on the desktop in glass, remembers where you dragged it. Open source.</span><span class="i18n-zh">一个把「完成」当作留下、而不是消失的清单。勾掉一条，它被一道线横穿过去，留在原地 &mdash; 划掉的那行是这一天去过哪里的唯一证据。玻璃质感常驻桌面，记得你把它拖到哪。已开源。</span></p>
+          </div>
+          <span class="build-lang">macOS &middot; Python &middot; 11/18</span>
         </a>
         <a class="build-item tilt-card" href="https://github.com/daac-solo/daac-solo.github.io">
           <div class="build-icon">&#128038;</div>
